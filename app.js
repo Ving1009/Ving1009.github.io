@@ -217,7 +217,6 @@
       showToast("Đã xóa lịch sử xem.");
     });
 
-    // Lắng nghe sự thay đổi Fullscreen để xoay ngang màn hình tự động
     document.addEventListener("fullscreenchange", handleFullscreenChange);
     document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
     document.addEventListener("mozfullscreenchange", handleFullscreenChange);
@@ -641,21 +640,19 @@
     }
   }
 
-  // Tự động xoay ngang màn hình bằng Screen Orientation API khi bật/tắt chế độ toàn màn hình
   function handleFullscreenChange() {
-    var isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+  const isFullscreen =
+    document.fullscreenElement ||
+    document.webkitFullscreenElement;
+
+  if (screen.orientation && screen.orientation.lock) {
     if (isFullscreen) {
-      if (screen.orientation && typeof screen.orientation.lock === "function") {
-        screen.orientation.lock("landscape").catch(function () {
-          // Bỏ qua lỗi trên các thiết bị không hỗ trợ khóa hướng màn hình
-        });
-      }
+      screen.orientation.lock("landscape").catch(() => {});
     } else {
-      if (screen.orientation && typeof screen.orientation.unlock === "function") {
-        screen.orientation.unlock();
-      }
+      screen.orientation.unlock?.();
     }
   }
+}
 
   function teardownHls() {
     if (state.hls) {
