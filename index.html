@@ -2,7 +2,10 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#08090d">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <title>TV Movie Hub</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="styles.css">
@@ -79,7 +82,7 @@
   <div class="player-view" id="playerView" hidden>
     <div class="player-topbar">
       <button class="icon-button" id="closePlayerButton" type="button" aria-label="Quay lại" data-focusable>←</button>
-      <div class="player-title-block">
+      <div class="player-title-block" aria-live="polite">
         <p id="playerMovieTitle"></p>
         <h2 id="playerEpisodeTitle"></h2>
       </div>
