@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TV Movie Hub</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Danh mục chính">
+      <div class="brand" tabindex="0" data-focusable>
+        <span class="brand-mark">TV</span>
+        <span class="brand-text">Movie Hub</span>
+      </div>
+
+      <nav class="nav-list" id="categoryNav"></nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Kho phim cá nhân</p>
+          <h1 id="pageTitle">Phim mới</h1>
+        </div>
+
+        <div class="search-panel">
+          <label class="sr-only" for="searchInput">Tìm kiếm phim</label>
+          <input id="searchInput" type="search" placeholder="Tìm phim, tập, thể loại..." autocomplete="off" data-focusable>
+
+          <label class="sr-only" for="genreFilter">Lọc thể loại</label>
+          <select id="genreFilter" data-focusable>
+            <option value="all">Tất cả thể loại</option>
+          </select>
+        </div>
+      </header>
+
+      <section class="continue-section" id="continueSection" hidden>
+        <div class="section-heading">
+          <h2>Tiếp tục xem</h2>
+          <button class="ghost-button" id="clearHistoryButton" type="button" data-focusable>Xóa lịch sử</button>
+        </div>
+        <div class="movie-row" id="continueRow"></div>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <h2 id="gridTitle">Phim mới</h2>
+          <span class="result-count" id="resultCount"></span>
+        </div>
+        <div class="movie-grid" id="movieGrid"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="detail-view" id="detailView" hidden>
+    <div class="detail-backdrop" id="detailBackdrop"></div>
+    <div class="detail-content">
+      <button class="icon-button close-button" id="closeDetailButton" type="button" aria-label="Đóng chi tiết" data-focusable>×</button>
+      <div class="detail-poster-wrap">
+        <img id="detailPoster" class="detail-poster" alt="">
+      </div>
+      <div class="detail-info">
+        <p class="eyebrow" id="detailCategory"></p>
+        <h2 id="detailTitle"></h2>
+        <p id="detailDescription"></p>
+        <div class="detail-meta" id="detailMeta"></div>
+        <div class="detail-actions">
+          <button class="primary-button" id="playButton" type="button" data-focusable>Phát</button>
+          <button class="secondary-button" id="favoriteButton" type="button" data-focusable>Yêu thích</button>
+        </div>
+        <div class="season-tabs" id="seasonTabs"></div>
+        <div class="episode-grid" id="episodeGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="player-view" id="playerView" hidden>
+    <div class="player-topbar">
+      <button class="icon-button" id="closePlayerButton" type="button" aria-label="Quay lại" data-focusable>←</button>
+      <div class="player-title-block">
+        <p id="playerMovieTitle"></p>
+        <h2 id="playerEpisodeTitle"></h2>
+      </div>
+      <label class="toggle-control">
+        <input id="autoplayToggle" type="checkbox" checked data-focusable>
+        <span>Tự phát tập tiếp</span>
+      </label>
+    </div>
+
+    <div class="player-frame" id="playerFrame">
+      <video id="videoPlayer" controls playsinline></video>
+      <iframe id="iframePlayer" title="Trình phát nhúng" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen hidden></iframe>
+    </div>
+
+    <div class="player-controls">
+      <button class="secondary-button" id="prevEpisodeButton" type="button" data-focusable>Tập trước</button>
+      <button class="primary-button" id="fullscreenButton" type="button" data-focusable>Toàn màn hình</button>
+      <button class="secondary-button" id="nextEpisodeButton" type="button" data-focusable>Tập tiếp theo</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js"></script>
+  <script src="movies.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
