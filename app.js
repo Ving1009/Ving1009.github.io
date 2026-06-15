@@ -460,6 +460,7 @@
     els.playerMovieTitle.textContent = movie.title;
     els.playerEpisodeTitle.textContent = episode.title;
     els.playerView.hidden = false;
+    document.body.classList.add("player-open");
     document.body.style.overflow = "hidden";
     loadEpisodeSource(episode.videoUrl);
     restorePlaybackTime(movie.id);
@@ -619,6 +620,7 @@
     els.videoPlayer.load();
     els.iframePlayer.src = "about:blank";
     els.playerView.hidden = true;
+    document.body.classList.remove("player-open");
     renderDetailEpisodes();
     renderNavigation();
     renderHome();
