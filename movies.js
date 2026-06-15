@@ -83,7 +83,7 @@ window.MOVIE_DATA = [
           {
             id: "movie",
             title: "Dư Ảnh Của Độc Nhãn",
-            videoUrl: "https://drive.google.com/file/d/1SvCfMW32Nvk2iNkUnyK7peSdlFb26jkR/preview"
+            videoUrl: "https://mega.nz/embed/KX4jgTTa#FWRTRs_3ynV7hhhfeNuO95EDKTQbQS4RGfbAWm0uB6k"
           }
         ]
       }
