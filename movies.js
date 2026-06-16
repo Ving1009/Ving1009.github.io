@@ -2,7 +2,7 @@ window.MOVIE_DATA = [
  {
     id: "pokemonxyz",
     title: "POKEMON XYZ",
-    thumbnail: "https://static.wikia.nocookie.net/pokemon/images/9/9d/Pok%C3%A9mon_XY_%26_Z_poster.png/revision/latest?cb=20150915185031",
+    thumbnail: "https://static.wikia.nocookie.net/pokemon/images/f/f2/Re1Ic5gVhsE.jpg/revision/latest?cb=20170605063445&path-prefix=ru",
     description: "Satoshi đã có bảy huy hiệu trong tay, chỉ còn một huy hiệu nữa là có thể tham gia giải đấu Liên đoàn Kalos. Vì vậy, cậu ấy cùng những người bạn tiếp tục hành trình giành huy hiệu nhà thi đấu thứ tám. Nhóm bạn không hay biết rằng, họ sẽ bị cuốn vào một cuộc khủng hoảng chưa từng có, một ngọn lửa xanh lá khủng khiếp sẽ nhấn chìm toàn bộ Pokémon và con người đang sinh sống ở vùng Kalos.",
     category: ["Phim bộ", "Hoạt hình"],
     genres: ["Hoạt hình", "Phiêu lưu", "Hành động"],
