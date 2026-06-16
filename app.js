@@ -8,13 +8,15 @@
   };
 
   var CATEGORY_ITEMS = [
+    { id: "all", label: "Tất cả" },
     { id: "new", label: "Phim mới" },
     { id: "movie", label: "Phim lẻ" },
     { id: "series", label: "Phim bộ" },
     { id: "animation", label: "Hoạt hình" },
     { id: "show", label: "TV Show" },
     { id: "favorites", label: "Yêu thích" },
-    { id: "continue", label: "Tiếp tục xem" }
+    { id: "continue", label: "Tiếp tục xem" },
+    { id: "watched", label: "Đã xem" }
   ];
 
   var CATEGORY_TO_NAME = {
@@ -44,6 +46,7 @@
     resultCount: document.getElementById("resultCount"),
     searchInput: document.getElementById("searchInput"),
     genreFilter: document.getElementById("genreFilter"),
+    sortFilter: document.getElementById("sortFilter"),
     movieGrid: document.getElementById("movieGrid"),
     continueSection: document.getElementById("continueSection"),
     continueRow: document.getElementById("continueRow"),
@@ -59,6 +62,8 @@
     closeDetailButton: document.getElementById("closeDetailButton"),
     playButton: document.getElementById("playButton"),
     favoriteButton: document.getElementById("favoriteButton"),
+    markWatchedButton: document.getElementById("markWatchedButton"),
+    clearMovieProgressButton: document.getElementById("clearMovieProgressButton"),
     seasonTabs: document.getElementById("seasonTabs"),
     episodeGrid: document.getElementById("episodeGrid"),
     playerView: document.getElementById("playerView"),
@@ -187,6 +192,7 @@
 
     els.searchInput.addEventListener("input", renderHome);
     els.genreFilter.addEventListener("change", renderHome);
+    els.sortFilter.addEventListener("change", renderHome);
 
     els.movieGrid.addEventListener("click", function (event) {
       var card = event.target.closest("[data-movie-id]");
@@ -199,12 +205,15 @@
       var card = event.target.closest("[data-movie-id]");
       if (card) {
         openDetail(card.dataset.movieId);
+        playCurrentSelection();
       }
     });
 
     els.closeDetailButton.addEventListener("click", closeDetail);
     els.playButton.addEventListener("click", playCurrentSelection);
     els.favoriteButton.addEventListener("click", toggleFavorite);
+    els.markWatchedButton.addEventListener("click", toggleCurrentEpisodeWatched);
+    els.clearMovieProgressButton.addEventListener("click", clearMovieProgress);
 
     els.seasonTabs.addEventListener("click", function (event) {
       var button = event.target.closest("[data-season-index]");
@@ -240,6 +249,7 @@
     });
 
     els.videoPlayer.addEventListener("timeupdate", saveCurrentPlaybackTime);
+    els.videoPlayer.addEventListener("loadedmetadata", saveCurrentPlaybackTime);
     els.videoPlayer.addEventListener("pause", saveCurrentPlaybackTime);
     els.videoPlayer.addEventListener("ended", handleVideoEnded);
 
@@ -257,6 +267,7 @@
     document.addEventListener("msfullscreenchange", handleFullscreenChange);
 
     document.addEventListener("keydown", handleGlobalKeys);
+    document.addEventListener("error", handleImageError, true);
   }
 
   function renderHome() {
@@ -280,10 +291,11 @@
     var query = normalizeText(els.searchInput.value);
     var genre = els.genreFilter.value;
 
-    return getCategoryMovies(state.activeCategory).filter(function (movie) {
+    var movies = getCategoryMovies(state.activeCategory).filter(function (movie) {
       var text = normalizeText([
         movie.title,
         movie.description,
+        movie.year,
         getMovieCategories(movie).join(" "),
         movie.genres.join(" "),
         flattenEpisodes(movie).map(function (item) {
@@ -295,9 +307,15 @@
       var matchesGenre = genre === "all" || movie.genres.indexOf(genre) !== -1;
       return matchesQuery && matchesGenre;
     });
+
+    return sortMovies(movies);
   }
 
   function getCategoryMovies(categoryId) {
+    if (categoryId === "all") {
+      return state.movies.slice();
+    }
+
     if (categoryId === "new") {
       return state.movies.filter(function (movie) {
         return movie.isNew;
@@ -314,9 +332,34 @@
       return getContinueMovies();
     }
 
+    if (categoryId === "watched") {
+      return state.movies.filter(isMovieFullyWatched);
+    }
+
     return state.movies.filter(function (movie) {
       return hasMovieCategory(movie, CATEGORY_TO_NAME[categoryId]);
     });
+  }
+
+  function sortMovies(movies) {
+    var sortMode = els.sortFilter.value;
+    var sorted = movies.slice();
+
+    if (sortMode === "year-desc") {
+      sorted.sort(function (a, b) {
+        return (b.year || 0) - (a.year || 0) || a.title.localeCompare(b.title, "vi");
+      });
+    } else if (sortMode === "title-asc") {
+      sorted.sort(function (a, b) {
+        return a.title.localeCompare(b.title, "vi");
+      });
+    } else if (sortMode === "episodes-desc") {
+      sorted.sort(function (a, b) {
+        return flattenEpisodes(b).length - flattenEpisodes(a).length || a.title.localeCompare(b.title, "vi");
+      });
+    }
+
+    return sorted;
   }
 
   function getContinueMovies() {
@@ -327,13 +370,32 @@
     });
   }
 
+  function isMovieFullyWatched(movie) {
+    var episodes = flattenEpisodes(movie);
+    var watchedCount = getWatchedEpisodeCount(movie);
+    return episodes.length > 0 && watchedCount === episodes.length;
+  }
+
+  function getWatchedEpisodeCount(movie) {
+    var progress = state.progress[movie.id];
+    var watched = progress && progress.watched ? progress.watched : {};
+    return flattenEpisodes(movie).filter(function (item) {
+      return Boolean(watched[getEpisodeKey(item.seasonIndex, item.episodeIndex)]);
+    }).length;
+  }
+
   function renderMovieCard(movie) {
     var progress = state.progress[movie.id];
     var episodeCount = flattenEpisodes(movie).length;
+    var watchedCount = getWatchedEpisodeCount(movie);
     var badges = getMovieCategories(movie).map(function (category) {
       return '<span class="badge">' + escapeHtml(category) + "</span>";
     });
     badges.push('<span class="badge">' + episodeCount + " tập</span>");
+
+    if (watchedCount > 0) {
+      badges.push('<span class="badge watched">' + watchedCount + "/" + episodeCount + " đã xem</span>");
+    }
 
     if (progress) {
       badges.push('<span class="badge progress">' + escapeHtml(getEpisodeLabel(movie, progress.seasonIndex, progress.episodeIndex)) + "</span>");
@@ -358,8 +420,8 @@
   function renderContinueCard(movie) {
     var progress = state.progress[movie.id];
     var episodeLabel = progress ? getEpisodeLabel(movie, progress.seasonIndex, progress.episodeIndex) : "";
-    var watched = progress && progress.watched && progress.watched[getEpisodeKey(progress.seasonIndex, progress.episodeIndex)];
-    var progressWidth = watched ? 100 : progress && progress.currentTime > 0 ? 42 : 12;
+    var progressWidth = getProgressWidth(progress);
+    var progressText = getProgressText(progress);
 
     return [
       '<button class="history-card" type="button" data-movie-id="' + escapeAttr(movie.id) + '" data-focusable>',
@@ -369,10 +431,43 @@
       "</span>",
       '<span class="history-info">',
       '<span class="history-title">' + escapeHtml(movie.title) + "</span>",
-      '<span class="history-episode">' + escapeHtml(episodeLabel) + "</span>",
+      '<span class="history-episode">' + escapeHtml([episodeLabel, progressText].filter(Boolean).join(" • ")) + "</span>",
       "</span>",
       "</button>"
     ].join("");
+  }
+
+  function getProgressWidth(progress) {
+    if (!progress) {
+      return 0;
+    }
+
+    if (progress.watched && progress.watched[getEpisodeKey(progress.seasonIndex, progress.episodeIndex)]) {
+      return 100;
+    }
+
+    if (progress.duration > 0 && progress.currentTime > 0) {
+      return Math.max(6, Math.min(99, Math.round(progress.currentTime / progress.duration * 100)));
+    }
+
+    return progress.currentTime > 0 ? 18 : 8;
+  }
+
+  function getProgressText(progress) {
+    if (!progress) {
+      return "";
+    }
+
+    var width = getProgressWidth(progress);
+    if (width === 100) {
+      return "Đã xem";
+    }
+
+    if (progress.duration > 0 && progress.currentTime > 0) {
+      return width + "%";
+    }
+
+    return "Đang xem";
   }
 
   function openDetail(movieId) {
@@ -385,8 +480,9 @@
     state.activeMovieId = movie.id;
 
     var saved = state.progress[movie.id];
-    state.activeSeasonIndex = saved ? saved.seasonIndex : 0;
-    state.activeEpisodeIndex = saved ? saved.episodeIndex : 0;
+    var selection = getSavedSelection(movie, saved);
+    state.activeSeasonIndex = selection.seasonIndex;
+    state.activeEpisodeIndex = selection.episodeIndex;
 
     els.detailBackdrop.style.backgroundImage = "url('" + movie.thumbnail.replace(/'/g, "%27") + "')";
     els.detailPoster.src = movie.thumbnail;
@@ -396,12 +492,14 @@
     els.detailDescription.textContent = movie.description;
     els.detailMeta.innerHTML = [
       movie.year ? '<span class="badge">' + movie.year + "</span>" : "",
+      movie.seasons.length > 1 ? '<span class="badge">' + movie.seasons.length + " mùa</span>" : "",
+      flattenEpisodes(movie).length ? '<span class="badge">' + flattenEpisodes(movie).length + " tập</span>" : "",
       movie.genres.map(function (genre) {
         return '<span class="badge">' + escapeHtml(genre) + "</span>";
       }).join("")
     ].join("");
 
-    renderFavoriteButton();
+    renderDetailControls();
     renderDetailEpisodes();
     els.detailView.hidden = false;
     document.body.style.overflow = "hidden";
@@ -416,12 +514,49 @@
 
   function renderFavoriteButton() {
     var movie = getActiveMovie();
+    if (!movie) {
+      return;
+    }
     var isFavorite = state.favorites.indexOf(movie.id) !== -1;
     els.favoriteButton.textContent = isFavorite ? "Bỏ yêu thích" : "Yêu thích";
+    els.favoriteButton.setAttribute("aria-pressed", String(isFavorite));
+  }
+
+  function renderPlayButton() {
+    var movie = getActiveMovie();
+    var episode = getActiveEpisode();
+    var progress = movie && state.progress[movie.id];
+    els.playButton.disabled = !episode;
+    els.playButton.textContent = progress ? "Tiếp tục xem" : "Phát";
+  }
+
+  function renderWatchedButton() {
+    var movie = getActiveMovie();
+    var episode = getActiveEpisode();
+    var isWatched = movie && episode && getEpisodeStatus(movie.id, state.activeSeasonIndex, state.activeEpisodeIndex) === "Đã xem";
+    els.markWatchedButton.disabled = !episode;
+    els.markWatchedButton.textContent = isWatched ? "Bỏ đánh dấu đã xem" : "Đánh dấu đã xem";
+    els.markWatchedButton.setAttribute("aria-pressed", String(Boolean(isWatched)));
+  }
+
+  function renderProgressButton() {
+    var movie = getActiveMovie();
+    els.clearMovieProgressButton.disabled = !movie || !state.progress[movie.id];
+  }
+
+  function renderDetailControls() {
+    renderFavoriteButton();
+    renderPlayButton();
+    renderWatchedButton();
+    renderProgressButton();
   }
 
   function renderDetailEpisodes() {
     var movie = getActiveMovie();
+    if (!movie) {
+      return;
+    }
+
     var progress = state.progress[movie.id];
 
     els.seasonTabs.innerHTML = movie.seasons.map(function (season, index) {
@@ -433,7 +568,14 @@
       ].join("");
     }).join("");
 
-    var activeSeason = movie.seasons[state.activeSeasonIndex] || movie.seasons[0];
+    var activeSeason = movie.seasons[state.activeSeasonIndex] || movie.seasons[0] || { episodes: [] };
+    if (!activeSeason.episodes.length) {
+      els.episodeGrid.innerHTML = '<div class="empty-state">Phim này chưa có tập để phát.</div>';
+      renderDetailControls();
+      updatePlayerButtons();
+      return;
+    }
+
     els.episodeGrid.innerHTML = activeSeason.episodes.map(function (episode, index) {
       var status = getEpisodeStatus(movie.id, state.activeSeasonIndex, index);
       var classes = ["episode-button"];
@@ -453,6 +595,7 @@
       ].join("");
     }).join("");
 
+    renderDetailControls();
     updatePlayerButtons();
   }
 
@@ -475,6 +618,10 @@
 
   function toggleFavorite() {
     var movie = getActiveMovie();
+    if (!movie) {
+      return;
+    }
+
     var index = state.favorites.indexOf(movie.id);
     if (index === -1) {
       state.favorites.push(movie.id);
@@ -484,9 +631,64 @@
       showToast("Đã bỏ khỏi yêu thích.");
     }
     saveJson(STORAGE_KEYS.favorites, state.favorites);
-    renderFavoriteButton();
+    renderDetailControls();
     renderNavigation();
     renderHome();
+  }
+
+  function toggleCurrentEpisodeWatched() {
+    var movie = getActiveMovie();
+    var episode = getActiveEpisode();
+    if (!movie || !episode) {
+      return;
+    }
+
+    var existing = state.progress[movie.id] || {};
+    var watched = Object.assign({}, existing.watched || {});
+    var key = getEpisodeKey(state.activeSeasonIndex, state.activeEpisodeIndex);
+    var isWatched = Boolean(watched[key]);
+
+    if (isWatched) {
+      delete watched[key];
+      showToast("Đã bỏ đánh dấu tập này.");
+    } else {
+      watched[key] = true;
+      showToast("Đã đánh dấu tập này là đã xem.");
+    }
+
+    if (Object.keys(watched).length === 0 && !existing.currentTime) {
+      delete state.progress[movie.id];
+    } else {
+      state.progress[movie.id] = {
+        seasonIndex: state.activeSeasonIndex,
+        episodeIndex: state.activeEpisodeIndex,
+        currentTime: existing.currentTime || 0,
+        duration: existing.duration || 0,
+        updatedAt: Date.now(),
+        watched: watched
+      };
+    }
+
+    saveJson(STORAGE_KEYS.progress, state.progress);
+    renderNavigation();
+    renderHome();
+    renderDetailEpisodes();
+  }
+
+  function clearMovieProgress() {
+    var movie = getActiveMovie();
+    if (!movie || !state.progress[movie.id]) {
+      return;
+    }
+
+    delete state.progress[movie.id];
+    state.activeSeasonIndex = 0;
+    state.activeEpisodeIndex = 0;
+    saveJson(STORAGE_KEYS.progress, state.progress);
+    renderNavigation();
+    renderHome();
+    renderDetailEpisodes();
+    showToast("Đã xóa tiến trình của phim này.");
   }
 
   function playCurrentSelection() {
@@ -582,7 +784,7 @@
     }
 
     var currentTime = els.videoPlayer.currentTime || 0;
-    var duration = els.videoPlayer.duration || 0;
+    var duration = getFiniteVideoDuration();
     markCurrentEpisodeProgress(duration > 0 && currentTime / duration > 0.92);
   }
 
@@ -594,18 +796,29 @@
 
     var existing = state.progress[movie.id] || {};
     var watched = Object.assign({}, existing.watched || {});
+    var currentTime = els.videoPlayer.hidden ? (existing.currentTime || 0) : Math.floor(els.videoPlayer.currentTime || 0);
+    var duration = els.videoPlayer.hidden ? (existing.duration || 0) : Math.floor(getFiniteVideoDuration());
+
     if (isWatched) {
       watched[getEpisodeKey(state.activeSeasonIndex, state.activeEpisodeIndex)] = true;
+      if (duration > 0) {
+        currentTime = duration;
+      }
     }
 
     state.progress[movie.id] = {
       seasonIndex: state.activeSeasonIndex,
       episodeIndex: state.activeEpisodeIndex,
-      currentTime: els.videoPlayer.hidden ? 0 : Math.floor(els.videoPlayer.currentTime || 0),
+      currentTime: currentTime,
+      duration: duration,
       updatedAt: Date.now(),
       watched: watched
     };
     saveJson(STORAGE_KEYS.progress, state.progress);
+  }
+
+  function getFiniteVideoDuration() {
+    return Number.isFinite(els.videoPlayer.duration) ? els.videoPlayer.duration : 0;
   }
 
   function handleVideoEnded() {
@@ -647,6 +860,11 @@
     var currentIndex = flat.findIndex(function (item) {
       return item.seasonIndex === state.activeSeasonIndex && item.episodeIndex === state.activeEpisodeIndex;
     });
+
+    if (currentIndex === -1) {
+      return null;
+    }
+
     return flat[currentIndex + offset] || null;
   }
 
@@ -757,6 +975,26 @@
   }
 
   function handleGlobalKeys(event) {
+    var active = document.activeElement;
+
+    if (isTypingTarget(active)) {
+      return;
+    }
+
+    if (!els.playerView.hidden && !isShortcutControl(active)) {
+      if (event.key === " " || event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        toggleVideoPlayback();
+        return;
+      }
+
+      if (event.key.toLowerCase() === "f") {
+        event.preventDefault();
+        requestFullscreen();
+        return;
+      }
+    }
+
     if (event.key === "Escape" || event.key === "Backspace") {
       if (!els.playerView.hidden) {
         event.preventDefault();
@@ -770,12 +1008,45 @@
     }
 
     if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(event.key) !== -1) {
+      if (isArrowEditingControl(active)) {
+        return;
+      }
       moveFocus(event);
     }
 
-    if (event.key === "Enter" && document.activeElement && document.activeElement.matches("button, [data-focusable]")) {
-      document.activeElement.click();
+    if (event.key === "Enter" && active && active.matches("button, [data-focusable]")) {
+      event.preventDefault();
+      active.click();
     }
+  }
+
+  function toggleVideoPlayback() {
+    if (els.videoPlayer.hidden || !els.videoPlayer.src) {
+      return;
+    }
+
+    if (els.videoPlayer.paused) {
+      var playPromise = els.videoPlayer.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(function () {
+          showToast("Không thể tự phát video trên trình duyệt này.");
+        });
+      }
+    } else {
+      els.videoPlayer.pause();
+    }
+  }
+
+  function isTypingTarget(element) {
+    return element && element.matches("input[type='search'], input[type='text'], textarea");
+  }
+
+  function isShortcutControl(element) {
+    return element && element.matches("button, input, select, textarea, video");
+  }
+
+  function isArrowEditingControl(element) {
+    return element && element.matches("input, select, textarea, video");
   }
 
   function setupSpatialNavigation() {
@@ -916,10 +1187,23 @@
 
   function getLastEpisodeIndex(movie, seasonIndex) {
     var progress = state.progress[movie.id];
-    if (progress && progress.seasonIndex === seasonIndex) {
+    var season = movie.seasons[seasonIndex];
+    if (progress && progress.seasonIndex === seasonIndex && season && season.episodes[progress.episodeIndex]) {
       return progress.episodeIndex;
     }
     return 0;
+  }
+
+  function getSavedSelection(movie, progress) {
+    var seasonIndex = progress ? Number(progress.seasonIndex) : 0;
+    var episodeIndex = progress ? Number(progress.episodeIndex) : 0;
+    var season = movie.seasons[seasonIndex];
+
+    if (!season || !season.episodes[episodeIndex]) {
+      return { seasonIndex: 0, episodeIndex: 0 };
+    }
+
+    return { seasonIndex: seasonIndex, episodeIndex: episodeIndex };
   }
 
   function getEpisodeLabel(movie, seasonIndex, episodeIndex) {
@@ -954,6 +1238,11 @@
       return "";
     }
 
+    var youtubeId = getYoutubeId(value);
+    if (youtubeId && value.indexOf("/embed/") === -1) {
+      return "https://www.youtube.com/embed/" + youtubeId + "?autoplay=1";
+    }
+
     if (/drive\.google\.com/i.test(value)) {
       var fileMatch = value.match(/\/file\/d\/([^/?#]+)/i);
       if (fileMatch) {
@@ -967,6 +1256,15 @@
     }
 
     return value;
+  }
+
+  function getYoutubeId(url) {
+    var watchMatch = url.match(/[?&]v=([^&#]+)/i);
+    var shortMatch = url.match(/youtu\.be\/([^?&#]+)/i);
+    var embedMatch = url.match(/youtube\.com\/embed\/([^?&#]+)/i);
+    var id = watchMatch && watchMatch[1] || shortMatch && shortMatch[1] || embedMatch && embedMatch[1];
+
+    return id ? id.replace(/[^a-zA-Z0-9_-]/g, "") : "";
   }
 
   function normalizeText(value) {
@@ -994,6 +1292,32 @@
 
   function escapeAttr(value) {
     return escapeHtml(value).replace(/`/g, "&#96;");
+  }
+
+  function handleImageError(event) {
+    var image = event.target;
+    if (!image || image.tagName !== "IMG" || image.dataset.fallbackApplied) {
+      return;
+    }
+
+    image.dataset.fallbackApplied = "true";
+    image.src = createPosterPlaceholder(image.alt || "Movie Hub", image.classList.contains("history-thumb"));
+  }
+
+  function createPosterPlaceholder(title, isWide) {
+    var width = isWide ? 640 : 420;
+    var height = isWide ? 360 : 630;
+    var safeTitle = escapeHtml(title).slice(0, 72);
+    var svg = [
+      '<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + " " + height + '">',
+      '<rect width="100%" height="100%" fill="#171d27"/>',
+      '<rect x="24" y="24" width="' + (width - 48) + '" height="' + (height - 48) + '" rx="18" fill="#202838" stroke="#2b3341" stroke-width="3"/>',
+      '<text x="50%" y="46%" fill="#f7f8fb" font-family="Arial, Helvetica, sans-serif" font-size="' + (isWide ? 38 : 34) + '" font-weight="800" text-anchor="middle">Movie Hub</text>',
+      '<text x="50%" y="56%" fill="#a8b0bf" font-family="Arial, Helvetica, sans-serif" font-size="' + (isWide ? 24 : 22) + '" text-anchor="middle">' + safeTitle + "</text>",
+      "</svg>"
+    ].join("");
+
+    return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
   }
 
   function loadJson(key, fallback) {
