@@ -83,7 +83,7 @@ window.MOVIE_DATA = [
           {
             id: "movie",
             title: "Dư Ảnh Của Độc Nhãn",
-            videoUrl: "https://mega.nz/embed/KX4jgTTa#FWRTRs_3ynV7hhhfeNuO95EDKTQbQS4RGfbAWm0uB6k"
+            videoUrl: "https://ok.ru/videoembed/15355203357273"
           }
         ]
       }
@@ -105,7 +105,7 @@ window.MOVIE_DATA = [
           {
             id: "movie1",
             title: "Doraemon: Nobita Và Cuộc Phiêu Lưu Vào Thế Giới Trong Tranh",
-            videoUrl: "https://mega.nz/embed/aOAhjYqC#MVOo9yNwd_er4W1ptxgqhTynKoauA7-el7xVstHqL10"
+            videoUrl: "https://ok.ru/videoembed/15355206961753"
           }
         ]
       }
