@@ -83,7 +83,7 @@ window.MOVIE_DATA = [
           {
             id: "movie",
             title: "Dư Ảnh Của Độc Nhãn",
-            videoUrl: "https://ok.ru/videoembed/15355203357273"
+            videoUrl: "https://drive.google.com/file/d/1-Ai4L_Lnkbhezi-1F1Rl1pVjj5U1JbFi/preview"
           }
         ]
       }
