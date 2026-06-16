@@ -105,7 +105,7 @@ window.MOVIE_DATA = [
           {
             id: "movie1",
             title: "Doraemon: Nobita Và Cuộc Phiêu Lưu Vào Thế Giới Trong Tranh",
-            videoUrl: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
+            videoUrl: "https://mega.nz/embed/aOAhjYqC#MVOo9yNwd_er4W1ptxgqhTynKoauA7-el7xVstHqL10"
           }
         ]
       }
@@ -127,7 +127,7 @@ window.MOVIE_DATA = [
           {
             id: "s1e1",
             title: "Tập 1 - Đêm mở màn",
-            videoUrl: "https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+            videoUrl: ""
           }
         ]
       }
