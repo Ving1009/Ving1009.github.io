@@ -637,16 +637,6 @@ input::placeholder { color: #737d8f; }
   flex: 1; /* Tự động lấp đầy khoảng trống thừa */
 }
 
-/* Khung Video Flex tự động vừa màn hình */
-.player-frame {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #000000;
-  flex: 1; /* Tự động lấp đầy khoảng trống thừa */
-}
-
 /* Đưa video và iframe về dạng tuyệt đối để đè khít lên cùng một vị trí */
 .player-frame video,
 .player-frame iframe {
@@ -669,10 +659,22 @@ input::placeholder { color: #737d8f; }
 }
 
 /* Đảm bảo toàn màn hình Iframe không bị cắt/kéo giãn */
-.player-frame:fullscreen {
+.player-frame:fullscreen,
+.player-frame video:fullscreen,
+.player-frame iframe:fullscreen {
   width: 100vw;
   height: 100vh;
   background: #000000;
+}
+
+.player-frame video:fullscreen,
+.player-frame iframe:fullscreen {
+  position: fixed;
+  inset: 0;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  border: 0;
 }
 
 .player-controls {
