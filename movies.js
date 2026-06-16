@@ -92,7 +92,7 @@ window.MOVIE_DATA = [
   {
     id: "doraemon-movie-44",
     title: "Doraemon: Nobita Và Cuộc Phiêu Lưu Vào Thế Giới Trong Tranh",
-    thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH3VEqr0K5IuH975TcBjfQFZXhcRPNslXBVw&s",
+    thumbnail: "https://drive.google.com/file/d/19D1o_hXZ2m0qac15UJPy664hYSok71fH/preview",
     description: "Thông qua món bảo bối mới của Doraemon, cả nhóm bạn bước thế giới trong một bức tranh nổi tiếng và bắt gặp cô bạn bí ẩn tên Claire. Với lời mời của Claire, cả nhóm cùng đến thăm vương quốc Artoria, nơi ẩn giấu một viên ngọc quý mang tên Artoria Blue đang ngủ yên. Trên hành trình tìm kiếm viên ngọc, nhóm bạn Doraemon phát hiện một truyền thuyết về sự hủy diệt của thế giới, mà truyền thuyết đó dường như đang sống dậy! Liệu cả nhóm có thể phá hủy lời nguyền này và bảo vệ cả thế giới?",
     category: ["Phim lẻ", "Hoạt hình"],
     genres: ["Khoa học viễn tưởng giả tưởng", "Phiêu lưu", "Hài hước"],
