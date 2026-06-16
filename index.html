@@ -36,6 +36,14 @@
           <select id="genreFilter" data-focusable>
             <option value="all">Tất cả thể loại</option>
           </select>
+
+          <label class="sr-only" for="sortFilter">Sắp xếp phim</label>
+          <select id="sortFilter" data-focusable>
+            <option value="default">Sắp xếp mặc định</option>
+            <option value="year-desc">Năm mới nhất</option>
+            <option value="title-asc">Tên A-Z</option>
+            <option value="episodes-desc">Nhiều tập nhất</option>
+          </select>
         </div>
       </header>
 
@@ -72,6 +80,8 @@
         <div class="detail-actions">
           <button class="primary-button" id="playButton" type="button" data-focusable>Phát</button>
           <button class="secondary-button" id="favoriteButton" type="button" data-focusable>Yêu thích</button>
+          <button class="secondary-button" id="markWatchedButton" type="button" data-focusable>Đánh dấu đã xem</button>
+          <button class="ghost-button" id="clearMovieProgressButton" type="button" data-focusable>Xóa tiến trình</button>
         </div>
         <div class="season-tabs" id="seasonTabs"></div>
         <div class="episode-grid" id="episodeGrid"></div>
