@@ -134,7 +134,7 @@ img { display: block; max-width: 100%; }
 
 .topbar {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) minmax(360px, 0.95fr);
+  grid-template-columns: minmax(220px, 0.85fr) minmax(460px, 1fr);
   gap: 24px;
   align-items: end;
   margin-bottom: clamp(24px, 4vw, 64px);
@@ -165,7 +165,7 @@ h2 {
 
 .search-panel {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(190px, 0.42fr);
+  grid-template-columns: minmax(220px, 1fr) minmax(170px, 0.55fr) minmax(180px, 0.58fr);
   gap: 12px;
 }
 
@@ -388,6 +388,11 @@ input::placeholder { color: #737d8f; }
 .badge.favorite {
   background: rgba(255, 184, 77, 0.15);
   color: #ffd89f;
+}
+
+.badge.watched {
+  background: rgba(74, 163, 255, 0.16);
+  color: #b8dcff;
 }
 
 .empty-state {
@@ -723,6 +728,13 @@ button:disabled {
 }
 
 /* --- MEDIA QUERIES GENERAL --- */
+@media (max-width: 1180px) and (min-width: 921px) {
+  .topbar {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}
+
 @media (max-width: 920px) {
   .app-shell { grid-template-columns: 1fr; }
   .sidebar {
@@ -787,7 +799,9 @@ button:disabled {
   .detail-poster { width: min(48vw, 190px); }
   .detail-info > p:not(.eyebrow) { font-size: 17px; }
   .detail-actions { gap: 10px; }
-  .detail-actions .primary-button, .detail-actions .secondary-button {
+  .detail-actions .primary-button,
+  .detail-actions .secondary-button,
+  .detail-actions .ghost-button {
     flex: 1 1 140px;
     min-height: 50px;
     padding: 0 12px;
