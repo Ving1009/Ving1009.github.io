@@ -89,6 +89,7 @@
   function normalizeMovies(movies) {
     return movies.map(function (movie, movieIndex) {
       var movieId = movie.id || slugify(movie.title || "movie-" + movieIndex);
+      var categories = normalizeCategories(movie.categories && movie.categories.length ? movie.categories : movie.category);
       var seasons = (movie.seasons || []).map(function (season, seasonIndex) {
         var episodes = (season.episodes || []).map(function (episode, episodeIndex) {
           return Object.assign({}, episode, {
@@ -106,9 +107,42 @@
       return Object.assign({}, movie, {
         id: movieId,
         seasons: seasons,
+        category: categories,
+        categories: categories,
         genres: movie.genres || []
       });
     });
+  }
+
+  function normalizeCategories(value) {
+    if (Array.isArray(value)) {
+      return value.filter(Boolean).map(function (category) {
+        return String(category).trim();
+      }).filter(Boolean);
+    }
+
+    if (value) {
+      return [String(value).trim()].filter(Boolean);
+    }
+
+    return [];
+  }
+
+  function getMovieCategories(movie) {
+    if (!movie) {
+      return [];
+    }
+
+    return normalizeCategories(movie.categories && movie.categories.length ? movie.categories : movie.category);
+  }
+
+  function getMovieCategoryText(movie) {
+    var categories = getMovieCategories(movie);
+    return categories.length ? categories.join(" • ") : "Phim";
+  }
+
+  function hasMovieCategory(movie, categoryName) {
+    return getMovieCategories(movie).indexOf(categoryName) !== -1;
   }
 
   function renderNavigation() {
@@ -250,7 +284,7 @@
       var text = normalizeText([
         movie.title,
         movie.description,
-        movie.category,
+        getMovieCategories(movie).join(" "),
         movie.genres.join(" "),
         flattenEpisodes(movie).map(function (item) {
           return item.episode.title;
@@ -281,7 +315,7 @@
     }
 
     return state.movies.filter(function (movie) {
-      return movie.category === CATEGORY_TO_NAME[categoryId];
+      return hasMovieCategory(movie, CATEGORY_TO_NAME[categoryId]);
     });
   }
 
@@ -296,10 +330,10 @@
   function renderMovieCard(movie) {
     var progress = state.progress[movie.id];
     var episodeCount = flattenEpisodes(movie).length;
-    var badges = [
-      '<span class="badge">' + escapeHtml(movie.category) + "</span>",
-      '<span class="badge">' + episodeCount + " tập</span>"
-    ];
+    var badges = getMovieCategories(movie).map(function (category) {
+      return '<span class="badge">' + escapeHtml(category) + "</span>";
+    });
+    badges.push('<span class="badge">' + episodeCount + " tập</span>");
 
     if (progress) {
       badges.push('<span class="badge progress">' + escapeHtml(getEpisodeLabel(movie, progress.seasonIndex, progress.episodeIndex)) + "</span>");
@@ -357,7 +391,7 @@
     els.detailBackdrop.style.backgroundImage = "url('" + movie.thumbnail.replace(/'/g, "%27") + "')";
     els.detailPoster.src = movie.thumbnail;
     els.detailPoster.alt = movie.title;
-    els.detailCategory.textContent = movie.category;
+    els.detailCategory.textContent = getMovieCategoryText(movie);
     els.detailTitle.textContent = movie.title;
     els.detailDescription.textContent = movie.description;
     els.detailMeta.innerHTML = [
@@ -475,6 +509,8 @@
   }
 
   function loadEpisodeSource(url) {
+    var sourceUrl = normalizeSourceUrl(url);
+
     teardownHls();
     els.videoPlayer.pause();
     els.videoPlayer.removeAttribute("src");
@@ -482,27 +518,33 @@
     els.iframePlayer.hidden = true;
     els.videoPlayer.hidden = false;
 
-    if (isEmbedUrl(url)) {
+    if (!sourceUrl) {
+      els.iframePlayer.src = "about:blank";
+      showToast("Chưa có link video cho tập này.");
+      return;
+    }
+
+    if (isEmbedUrl(sourceUrl)) {
       els.videoPlayer.hidden = true;
       els.iframePlayer.hidden = false;
-      els.iframePlayer.src = url;
+      els.iframePlayer.src = sourceUrl;
       return;
     }
 
     els.iframePlayer.src = "about:blank";
-    if (isHlsUrl(url)) {
+    if (isHlsUrl(sourceUrl)) {
       if (els.videoPlayer.canPlayType("application/vnd.apple.mpegurl")) {
-        els.videoPlayer.src = url;
+        els.videoPlayer.src = sourceUrl;
       } else if (window.Hls && window.Hls.isSupported()) {
         state.hls = new window.Hls();
-        state.hls.loadSource(url);
+        state.hls.loadSource(sourceUrl);
         state.hls.attachMedia(els.videoPlayer);
       } else {
         showToast("Trình duyệt này chưa hỗ trợ HLS.");
         return;
       }
     } else {
-      els.videoPlayer.src = url;
+      els.videoPlayer.src = sourceUrl;
     }
 
     var playPromise = els.videoPlayer.play();
@@ -619,6 +661,7 @@
 
   function closePlayer() {
     saveCurrentPlaybackTime();
+    exitFullscreenIfNeeded();
     teardownHls();
     els.videoPlayer.pause();
     els.videoPlayer.removeAttribute("src");
@@ -633,26 +676,78 @@
   }
 
   function requestFullscreen() {
-    var target = els.playerFrame;
+    var isEmbeddedPlayer = !els.iframePlayer.hidden;
+    var target = isEmbeddedPlayer ? els.iframePlayer : els.playerFrame;
     var fn = target.requestFullscreen || target.webkitRequestFullscreen || target.msRequestFullscreen;
+
     if (fn) {
-      fn.call(target);
+      try {
+        var result = fn.call(target);
+        if (result && typeof result.catch === "function") {
+          result.catch(function () {
+            showFullscreenFallback(isEmbeddedPlayer);
+          });
+        }
+      } catch (error) {
+        showFullscreenFallback(isEmbeddedPlayer);
+      }
+      return;
+    }
+
+    showFullscreenFallback(isEmbeddedPlayer);
+  }
+
+  function showFullscreenFallback(isEmbeddedPlayer) {
+    if (isEmbeddedPlayer) {
+      showToast("Với link Drive/Mega, hãy bấm biểu tượng toàn màn hình trong khung phát.");
+      return;
+    }
+
+    showToast("Trình duyệt này chưa hỗ trợ toàn màn hình.");
+  }
+
+  function exitFullscreenIfNeeded() {
+    var fullscreenElement = document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement;
+
+    if (!fullscreenElement) {
+      return;
+    }
+
+    var fn = document.exitFullscreen ||
+      document.webkitExitFullscreen ||
+      document.mozCancelFullScreen ||
+      document.msExitFullscreen;
+
+    if (fn) {
+      try {
+        var result = fn.call(document);
+        if (result && typeof result.catch === "function") {
+          result.catch(function () {});
+        }
+      } catch (error) {}
     }
   }
 
   function handleFullscreenChange() {
-  const isFullscreen =
-    document.fullscreenElement ||
-    document.webkitFullscreenElement;
+    var isFullscreen = document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement;
+    var shouldLockLandscape = Boolean(isFullscreen && !els.videoPlayer.hidden);
 
-  if (screen.orientation && screen.orientation.lock) {
-    if (isFullscreen) {
-      screen.orientation.lock("landscape").catch(() => {});
-    } else {
-      screen.orientation.unlock?.();
+    if (screen.orientation && screen.orientation.lock) {
+      if (shouldLockLandscape) {
+        screen.orientation.lock("landscape").catch(function () {});
+      } else if (screen.orientation.unlock) {
+        try {
+          screen.orientation.unlock();
+        } catch (error) {}
+      }
     }
   }
-}
 
   function teardownHls() {
     if (state.hls) {
@@ -849,7 +944,29 @@
   }
 
   function isEmbedUrl(url) {
-    return /youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com|ok\.ru|drive\.google\.com|\/embed\//i.test(url);
+    return /youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com|ok\.ru|drive\.google\.com|mega\.nz|\/embed\//i.test(url);
+  }
+
+  function normalizeSourceUrl(url) {
+    var value = String(url || "").trim();
+
+    if (!value) {
+      return "";
+    }
+
+    if (/drive\.google\.com/i.test(value)) {
+      var fileMatch = value.match(/\/file\/d\/([^/?#]+)/i);
+      if (fileMatch) {
+        return "https://drive.google.com/file/d/" + fileMatch[1] + "/preview";
+      }
+
+      var idMatch = value.match(/[?&]id=([^&#]+)/i);
+      if (idMatch) {
+        return "https://drive.google.com/file/d/" + idMatch[1] + "/preview";
+      }
+    }
+
+    return value;
   }
 
   function normalizeText(value) {
