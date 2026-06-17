@@ -155,6 +155,28 @@ window.MOVIE_DATA = [
       }
     ]
   },
+{
+    id: "conan-movie-6",
+    title: "Thám tử lừng danh Conan: Bóng ma đường Baker",
+    thumbnail: "https://www.detectiveconanworld.com/wiki/images/a/a4/Movie_6.jpg",
+    description: "Conan và các bạn bước vào một trò chơi thực tế ảo nơi ranh giới giữa thế giới thật và ảo dần biến mất. Để giải cứu những người mắc kẹt, Conan phải lần theo dấu vết của Jack the Ripper giữa lòng London thế kỷ 19, đồng thời khám phá bí ẩn liên quan đến trí tuệ nhân tạo và di sản của Sherlock Holmes.",
+    category: ["Phim lẻ", "Hoạt hình"],
+    genres: ["Trinh thám", "Hành động", "Giật gân"],
+    year: 2002,
+    isNew: true,
+    seasons: [
+      {
+        name: "Movie 6",
+        episodes: [
+          {
+            id: "movie-6",
+            title: "Thám tử lừng danh Conan: Bóng ma đường Baker",
+            videoUrl: "https://drive.google.com/file/d/15RE0zWotwJRmgMSEBDBdpiSMK8Lg2FSm/preview"
+          }
+        ]
+      }
+    ]
+  },
   {
     id: "doraemon-movie-41",
     title: "Nobita Và Cuộc Chiến Vũ Trụ Tí Hon",
