@@ -114,7 +114,7 @@ window.MOVIE_DATA = [
 {
     id: "conan-movie-22",
     title: "Thám Tử Lừng Danh Conan Movie 22 Kẻ Hành Pháp Zero",
-    thumbnail: "https://upload.wikimedia.org/wikipedia/vi/0/00/%C3%81p_ph%C3%ADch_phim_Th%C3%A1m_t%E1%BB%AD_l%E1%BB%ABng_danh_Conan_th%E1%BB%A9_20.jpg?_=20220416231551",
+    thumbnail: "https://pbs.twimg.com/media/FVviGQcUUAEFOuO?format=jpg&name=small",
     description: "Conan Movie 22 xoay quanh nhân vật Tooru 'Zero' Amuro và nghi vấn cảnh sát trưởng Kuroda là một trong những thành phần của tổ chức áo đen. 'Edge of Ocean', một cơ sở mới của Vịnh Tokyo sẽ là nơi tổ chức Hội nghị Thượng đỉnh Tokyo. Hội nghị sẽ được tổ chức vào ngày 1/5 và có tới 22.000 cảnh sát được huy động, nhưng một vụ nổ bom cực lớn đột ngột xảy ra tại cơ sở siêu hoành tráng này! Tại nơi đó, vào lúc xảy ra vụ việc, lại nhìn thấy bóng dáng của Amuro Tooru thuộc tổ chức bí mật của Cảnh sát Quốc gia với bí danh là 'Zero' đang điều khiển các cảnh sát an ninh trên toàn quốc. Tại hiện trường, cảnh sát đã phát hiện dấu vân tay của Mori Kogoro và ông bị bắt. Để chứng minh ông Mori vô tội, Conan đã bắt tay vào điều tra nhưng liên tục bị 'kẻ 3 mặt' Amuro cản đường.",
     category: ["Phim lẻ", "Hoạt hình"],
     genres: ["Trinh thám", "Hành động", "Giật gân"],
@@ -159,7 +159,7 @@ window.MOVIE_DATA = [
     id: "doraemon-movie-41",
     title: "Nobita Và Cuộc Chiến Vũ Trụ Tí Hon",
     thumbnail: "https://upload.wikimedia.org/wikipedia/vi/0/0e/Little_Star_Wars_2021.jpg",
-    description: "Tung Tung Tung Sahur",
+    description: "Trong chuyến phiêu lưu này, Nobita và nhóm bạn tình cờ gặp gỡ Papi – vị tổng thống tí hon của hành tinh Pirika xa xôi đang lánh nạn tại Trái Đất. Khi lực lượng phản loạn truy đuổi Papi đến tận đây và bắt cóc Shizuka, nhóm bạn đã sử dụng Đèn Thu Nhỏ của Doraemon để biến thành kích thước tí hon, cùng Papi dấn thân vào một cuộc chiến vũ trụ đầy cam go nhưng vĩ đại nhằm giải phóng quê hương Pirika khỏi ách thống trị của tên độc tài tàn bạo.",
     category: ["Phim lẻ", "Hoạt hình"],
     genres: ["Khoa học viễn tưởng giả tưởng", "Phiêu lưu", "Hài hước"],
     year: 2021,
