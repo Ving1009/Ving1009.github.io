@@ -1,52 +1,55 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#141414">
+  <meta name="theme-color" content="#08090d">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>V Hub</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="app-shell">
-    <header class="topbar">
-      <div class="topbar-brand-nav">
-        <div class="brand" tabindex="0" data-focusable aria-label="Về trang chủ">
-          <span class="brand-mark">V</span>
-          <span class="brand-text">Hub</span>
-        </div>
-        
-        <div class="category-panel">
-          <label class="sr-only" for="categorySelect">Danh mục phim</label>
-          <select id="categorySelect" data-focusable></select>
-        </div>
+    <aside class="sidebar" aria-label="Danh mục chính">
+      <div class="brand" tabindex="0" data-focusable>
+        <span class="brand-mark">TV</span>
+        <span class="brand-text">Movie Hub</span>
       </div>
 
-      <div class="search-panel">
-        <label class="sr-only" for="searchInput">Tìm kiếm phim</label>
-        <input id="searchInput" type="search" placeholder="Tìm phim, tập..." autocomplete="off" data-focusable>
-
-        <label class="sr-only" for="genreFilter">Lọc thể loại</label>
-        <select id="genreFilter" data-focusable>
-          <option value="all">Thể loại</option>
-        </select>
-
-        <label class="sr-only" for="sortFilter">Sắp xếp</label>
-        <select id="sortFilter" data-focusable>
-          <option value="default">Sắp xếp</option>
-          <option value="year-desc">Năm mới nhất</option>
-          <option value="title-asc">Tên A-Z</option>
-          <option value="episodes-desc">Nhiều tập nhất</option>
-        </select>
-      </div>
-    </header>
+      <nav class="nav-list" id="categoryNav"></nav>
+    </aside>
 
     <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Kho phim của tao</p>
+          <h1 id="pageTitle">Phim mới</h1>
+        </div>
+
+        <div class="search-panel">
+          <label class="sr-only" for="searchInput">Tìm kiếm phim</label>
+          <input id="searchInput" type="search" placeholder="Tìm phim, tập, thể loại..." autocomplete="off" data-focusable>
+
+          <label class="sr-only" for="genreFilter">Lọc thể loại</label>
+          <select id="genreFilter" data-focusable>
+            <option value="all">Tất cả thể loại</option>
+          </select>
+
+          <label class="sr-only" for="sortFilter">Sắp xếp phim</label>
+          <select id="sortFilter" data-focusable>
+            <option value="default">Sắp xếp mặc định</option>
+            <option value="year-desc">Năm mới nhất</option>
+            <option value="title-asc">Tên A-Z</option>
+            <option value="episodes-desc">Nhiều tập nhất</option>
+          </select>
+        </div>
+      </header>
+
       <section class="continue-section" id="continueSection" hidden>
         <div class="section-heading">
           <h2>Tiếp tục xem</h2>
