@@ -171,7 +171,7 @@ window.MOVIE_DATA = [
           {
             id: "movie-6",
             title: "Thám tử lừng danh Conan: Bóng ma đường Baker",
-            videoUrl: "https://drive.google.com/file/d/15RE0zWotwJRmgMSEBDBdpiSMK8Lg2FSm/preview"
+            videoUrl: "https://drive.google.com/file/d/16yFQ1Qru2MIUHq4eQp3hv_4osT4DLEIY/preview"
           }
         ]
       }
