@@ -48,6 +48,7 @@
     playerSession: null,
     embedAutoNextTimer: null,
     progressTimer: null,
+    playerControlsTimer: null,
     lastFocused: null,
     progress: loadJsonWithLegacy(STORAGE_KEYS.progress, LEGACY_KEYS.progress, {}),
     favorites: loadJsonWithLegacy(STORAGE_KEYS.favorites, LEGACY_KEYS.favorites, []),
@@ -111,9 +112,18 @@
     relatedRow: document.getElementById("relatedRow"),
     playerView: document.getElementById("playerView"),
     playerCloseButton: document.getElementById("playerCloseButton"),
+    playerFullscreenButton: document.getElementById("playerFullscreenButton"),
     playerFrame: document.getElementById("playerFrame"),
     videoPlayer: document.getElementById("videoPlayer"),
     iframePlayer: document.getElementById("iframePlayer"),
+    playerKicker: document.getElementById("playerKicker"),
+    playerTitle: document.getElementById("playerTitle"),
+    playerMeta: document.getElementById("playerMeta"),
+    playerPrevButton: document.getElementById("playerPrevButton"),
+    playerNextButton: document.getElementById("playerNextButton"),
+    playerDetailButton: document.getElementById("playerDetailButton"),
+    playerEpisodeCount: document.getElementById("playerEpisodeCount"),
+    playerEpisodeList: document.getElementById("playerEpisodeList"),
     assistantPanel: document.getElementById("assistantPanel"),
     closeAssistantButton: document.getElementById("closeAssistantButton"),
     groqKeyInput: document.getElementById("groqKeyInput"),
@@ -138,6 +148,12 @@
     closeFinishedButton: document.getElementById("closeFinishedButton"),
     toast: document.getElementById("toast"),
     structuredData: document.getElementById("structuredData")
+  };
+
+  var keyGuard = {
+    key: "",
+    time: 0,
+    down: {}
   };
 
   init();
@@ -296,18 +312,61 @@
     });
 
     els.videoPlayer.addEventListener("timeupdate", saveCurrentPlaybackTime);
-    els.videoPlayer.addEventListener("pause", saveCurrentPlaybackTime);
+    els.videoPlayer.addEventListener("play", function () {
+      showPlayerControls(false);
+    });
+    els.videoPlayer.addEventListener("pause", function () {
+      saveCurrentPlaybackTime();
+      showPlayerControls(true);
+    });
     els.videoPlayer.addEventListener("loadedmetadata", restorePlaybackTime);
     els.videoPlayer.addEventListener("ended", function () {
+      showPlayerControls(true);
       handleEpisodeEnded("video-ended");
     });
 
-    els.playerView.addEventListener("click", function () {
+    els.playerView.addEventListener("pointermove", function () {
+      showPlayerControls(false);
+    });
+    els.playerView.addEventListener("touchstart", function () {
+      showPlayerControls(false);
+    }, { passive: true });
+    els.playerView.addEventListener("click", function (event) {
+      showPlayerControls(false);
+      if (event.target.closest("button, input, select, textarea, a") || event.target.closest(".watch-sidebar")) {
+        return;
+      }
       focusElement(els.videoPlayer.hidden ? els.iframePlayer : els.videoPlayer);
     });
     els.playerCloseButton.addEventListener("click", function (event) {
       event.stopPropagation();
       closePlayer();
+    });
+    els.playerFullscreenButton.addEventListener("click", function (event) {
+      event.stopPropagation();
+      enterLandscapePlayback(true);
+    });
+    els.playerPrevButton.addEventListener("click", function (event) {
+      event.stopPropagation();
+      playPreviousEpisode();
+    });
+    els.playerNextButton.addEventListener("click", function (event) {
+      event.stopPropagation();
+      playNextEpisode();
+    });
+    els.playerDetailButton.addEventListener("click", function (event) {
+      event.stopPropagation();
+      closePlayer();
+    });
+    els.playerEpisodeList.addEventListener("click", function (event) {
+      var button = event.target.closest("[data-player-season][data-player-episode]");
+      if (!button) {
+        return;
+      }
+      state.activeSeasonIndex = Number(button.dataset.playerSeason);
+      state.activeEpisodeIndex = Number(button.dataset.playerEpisode);
+      renderDetailEpisodes();
+      playCurrentSelection();
     });
 
     els.closeAssistantButton.addEventListener("click", closeAssistant);
@@ -371,6 +430,7 @@
     });
 
     document.addEventListener("keydown", handleGlobalKeys);
+    document.addEventListener("keyup", handleGlobalKeys);
     document.addEventListener("error", handleImageError, true);
     window.addEventListener("popstate", function () {
       applyRouteFromUrl(false);
@@ -387,25 +447,15 @@
     els.navList.innerHTML = [
       '<label class="category-picker">',
       '<span>Danh mục</span>',
-      '<select data-category-select data-focusable>',
+      '<select aria-label="Chọn danh mục phim" data-category-select data-focusable>',
       NAV_ITEMS.map(function (item) {
         var count = getCategoryMovies(item.id).length;
         var selected = state.activeCategory === item.id ? " selected" : "";
         return '<option value="' + escapeAttr(item.id) + '"' + selected + '>' + escapeHtml(item.label) + ' (' + count + ')</option>';
       }).join(""),
       '</select>',
-      '</label>',
-      '<div class="nav-button-list">'
-    ].join("") + NAV_ITEMS.map(function (item) {
-      var count = getCategoryMovies(item.id).length;
-      var active = state.activeCategory === item.id ? " active" : "";
-      return [
-        '<button class="nav-button' + active + '" type="button" data-category-id="' + escapeAttr(item.id) + '" data-focusable>',
-        '<span>' + escapeHtml(item.label) + '</span>',
-        '<span class="nav-count">' + count + '</span>',
-        '</button>'
-      ].join("");
-    }).join("") + '</div>';
+      '</label>'
+    ].join("");
   }
 
   function renderFilterOptions() {
@@ -845,6 +895,9 @@
 
     renderPlayButton();
     scrollActiveEpisodeIntoView();
+    if (!els.playerView.hidden) {
+      renderPlayerView();
+    }
   }
 
   function renderComments() {
@@ -987,12 +1040,65 @@
       duration: inferEpisodeDuration(movie, episode)
     };
 
+    renderPlayerView();
     loadEpisodeSource(episode.videoUrl || episode.embedUrl || episode.url || "");
     markCurrentEpisodeProgress(false);
     addHistoryEntry(movie, episode, false);
     updateRouteForCurrent(true, true);
     startProgressTimer();
+    showPlayerControls(false);
     focusElement(els.videoPlayer.hidden ? els.iframePlayer : els.videoPlayer);
+  }
+
+  function renderPlayerView() {
+    var movie = getActiveMovie();
+    var episode = getActiveEpisode();
+    if (!movie || !episode) {
+      return;
+    }
+
+    var flat = flattenEpisodes(movie);
+    var episodeCount = flat.length;
+    var season = movie.seasons[state.activeSeasonIndex] || {};
+    var metaParts = [
+      episode.title || "Đang xem",
+      season.name || "Mùa 1",
+      movie.year || "",
+      getMovieCategoryText(movie)
+    ].filter(Boolean);
+
+    els.playerKicker.textContent = (movie.genres || [])[0] || "Đang xem";
+    els.playerTitle.textContent = movie.title;
+    els.playerMeta.textContent = metaParts.join(" · ");
+    els.playerEpisodeCount.textContent = episodeCount + " tập";
+    els.playerPrevButton.disabled = !getRelativeEpisode(-1);
+    els.playerNextButton.disabled = !getRelativeEpisode(1);
+
+    els.playerEpisodeList.innerHTML = flat.map(function (item, index) {
+      var isCurrent = item.seasonIndex === state.activeSeasonIndex && item.episodeIndex === state.activeEpisodeIndex;
+      var status = getEpisodeStatus(movie.id, item.seasonIndex, item.episodeIndex);
+      var progress = getEpisodeProgress(movie.id, item.seasonIndex, item.episodeIndex);
+      var classes = "watch-episode-button" + (isCurrent ? " current" : "");
+      var label = item.episode.title || "Tập " + (item.episodeIndex + 1);
+      var thumbText = item.episodeIndex + 1;
+      return [
+        '<button class="' + classes + '" type="button" data-player-season="' + item.seasonIndex + '" data-player-episode="' + item.episodeIndex + '" data-focusable>',
+        '<span class="watch-episode-thumb">' + escapeHtml(thumbText) + '</span>',
+        '<span class="watch-episode-copy">',
+        '<strong>' + escapeHtml(label) + '</strong>',
+        '<span>' + escapeHtml((item.season.name || "Mùa " + (item.seasonIndex + 1)) + " · " + status) + '</span>',
+        progress ? '<span class="episode-progress"><i style="width:' + progress + '%"></i></span>' : '',
+        '</span>',
+        '</button>'
+      ].join("");
+    }).join("");
+
+    window.requestAnimationFrame(function () {
+      var current = els.playerEpisodeList.querySelector(".watch-episode-button.current");
+      if (current) {
+        current.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+      }
+    });
   }
 
   function loadEpisodeSource(url) {
@@ -1040,6 +1146,7 @@
     var playPromise = els.videoPlayer.play();
     if (playPromise && typeof playPromise.catch === "function") {
       playPromise.catch(function () {
+        showPlayerControls(true);
         showToast("Nếu trình duyệt chặn tự phát, hãy bấm nút Play gốc của video.");
       });
     }
@@ -1201,7 +1308,10 @@
     els.iframePlayer.src = "about:blank";
     els.iframePlayer.hidden = true;
     els.playerView.hidden = true;
+    els.playerView.classList.remove("controls-hidden");
     document.body.classList.remove("player-open");
+    unlockScreenOrientation();
+    exitPlayerFullscreen();
     state.playerSession = null;
     renderAll();
     renderDetailEpisodes();
@@ -1212,16 +1322,114 @@
   function clearPlaybackTimers() {
     window.clearTimeout(state.embedAutoNextTimer);
     window.clearInterval(state.progressTimer);
+    window.clearTimeout(state.playerControlsTimer);
     state.embedAutoNextTimer = null;
     state.progressTimer = null;
+    state.playerControlsTimer = null;
+  }
+
+  function showPlayerControls(keepVisible) {
+    if (els.playerView.hidden) {
+      return;
+    }
+    els.playerView.classList.remove("controls-hidden");
+    window.clearTimeout(state.playerControlsTimer);
+    state.playerControlsTimer = null;
+
+    if (keepVisible || !shouldAutoHidePlayerControls()) {
+      return;
+    }
+
+    state.playerControlsTimer = window.setTimeout(function () {
+      if (shouldAutoHidePlayerControls()) {
+        els.playerView.classList.add("controls-hidden");
+      }
+    }, 2600);
+  }
+
+  function shouldAutoHidePlayerControls() {
+    if (els.playerView.hidden) {
+      return false;
+    }
+    if (els.videoPlayer.hidden) {
+      return true;
+    }
+    return !els.videoPlayer.paused && !els.videoPlayer.ended;
   }
 
   function requestPlayerFullscreen() {
-    var target = els.playerFrame;
+    var target = els.playerView;
     var fn = target.requestFullscreen || target.webkitRequestFullscreen || target.msRequestFullscreen;
     if (fn) {
       try {
         var result = fn.call(target);
+        if (result && typeof result.catch === "function") {
+          result.catch(function () {});
+        }
+        return result;
+      } catch (error) {}
+    }
+    return null;
+  }
+
+  function enterLandscapePlayback(showHint) {
+    showPlayerControls(false);
+    var fullscreenResult = requestPlayerFullscreen();
+    var lock = function () {
+      lockScreenOrientation(showHint);
+    };
+
+    if (fullscreenResult && typeof fullscreenResult.then === "function") {
+      fullscreenResult.then(lock).catch(function () {
+        lock();
+      });
+      return;
+    }
+    lock();
+  }
+
+  function lockScreenOrientation(showHint) {
+    var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+    if (!orientation || typeof orientation.lock !== "function") {
+      if (showHint) {
+        showToast("Thiáº¿t bá»‹ nÃ y chÆ°a há»— trá»£ tá»± xoay ngang.");
+      }
+      return;
+    }
+    try {
+      var result = orientation.lock("landscape");
+      if (result && typeof result.catch === "function") {
+        result.catch(function () {
+          if (showHint) {
+            showToast("HÃ£y cho phÃ©p toÃ n mÃ n hÃ¬nh Ä‘á»ƒ xoay ngang.");
+          }
+        });
+      }
+    } catch (error) {
+      if (showHint) {
+        showToast("HÃ£y cho phÃ©p toÃ n mÃ n hÃ¬nh Ä‘á»ƒ xoay ngang.");
+      }
+    }
+  }
+
+  function unlockScreenOrientation() {
+    var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+    if (orientation && typeof orientation.unlock === "function") {
+      try {
+        orientation.unlock();
+      } catch (error) {}
+    }
+  }
+
+  function exitPlayerFullscreen() {
+    var fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+    if (!fullscreenElement) {
+      return;
+    }
+    var fn = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+    if (fn) {
+      try {
+        var result = fn.call(document);
         if (result && typeof result.catch === "function") {
           result.catch(function () {});
         }
@@ -1264,7 +1472,9 @@
   }
 
   function openAssistant() {
+    closeSidePanels("assistant");
     els.assistantPanel.hidden = false;
+    els.assistantButton.classList.add("active");
     if (!els.chatLog.children.length) {
       addChatMessage("assistant", "Mình có thể gợi ý phim theo mood, tóm tắt nội dung, giải thích thứ tự xem series, hoặc trả lời cách dùng website. Nếu chưa nhập Groq key, mình dùng AI offline ngay trong trình duyệt.");
     }
@@ -1273,7 +1483,23 @@
 
   function closeAssistant() {
     els.assistantPanel.hidden = true;
+    els.assistantButton.classList.remove("active");
     focusElement(els.assistantButton);
+  }
+
+  function closeSidePanels(except) {
+    if (except !== "assistant") {
+      els.assistantPanel.hidden = true;
+      els.assistantButton.classList.remove("active");
+    }
+    if (except !== "admin") {
+      els.adminPanel.hidden = true;
+      els.adminButton.classList.remove("active");
+    }
+    if (except !== "history") {
+      els.historyPanel.hidden = true;
+      els.historyButton.classList.remove("active");
+    }
   }
 
   function renderQuickPrompts() {
@@ -1327,13 +1553,16 @@
   }
 
   function openAdmin() {
+    closeSidePanels("admin");
     els.adminPanel.hidden = false;
+    els.adminButton.classList.add("active");
     renderImportResult();
     focusElement(els.movieForm.elements.title);
   }
 
   function closeAdmin() {
     els.adminPanel.hidden = true;
+    els.adminButton.classList.remove("active");
     focusElement(els.adminButton);
   }
 
@@ -1496,13 +1725,16 @@
   }
 
   function openHistoryPanel() {
+    closeSidePanels("history");
     els.historyPanel.hidden = false;
+    els.historyButton.classList.add("active");
     renderHistoryPanel();
     focusElement(els.historyPanel.querySelector("[data-focusable]") || els.closeHistoryButton);
   }
 
   function closeHistoryPanel() {
     els.historyPanel.hidden = true;
+    els.historyButton.classList.remove("active");
     focusElement(els.historyButton);
   }
 
@@ -1728,9 +1960,67 @@
     }
   }
 
+  function normalizeRemoteKey(event) {
+    var key = event.key || "";
+    var code = event.code || "";
+    var keyCode = event.keyCode || event.which || 0;
+
+    if (key === "Up" || code === "ArrowUp" || keyCode === 38 || keyCode === 19) {
+      return "ArrowUp";
+    }
+    if (key === "Down" || code === "ArrowDown" || keyCode === 40 || keyCode === 20) {
+      return "ArrowDown";
+    }
+    if (key === "Left" || code === "ArrowLeft" || keyCode === 37 || keyCode === 21) {
+      return "ArrowLeft";
+    }
+    if (key === "Right" || code === "ArrowRight" || keyCode === 39 || keyCode === 22) {
+      return "ArrowRight";
+    }
+    if (key === "OK" || key === "Select" || key === "Accept" || code === "Enter" || keyCode === 13 || keyCode === 23) {
+      return "Enter";
+    }
+    if (key === "Esc" || key === "Back" || key === "GoBack" || key === "BrowserBack" || key === "XF86Back" || keyCode === 27 || keyCode === 4 || keyCode === 461 || keyCode === 10009) {
+      return "Escape";
+    }
+    if (key === "MediaPlayPause" || keyCode === 179 || keyCode === 10252) {
+      return "MediaPlayPause";
+    }
+    if (key === " " || key === "Spacebar" || code === "Space" || keyCode === 32) {
+      return " ";
+    }
+    return key;
+  }
+
+  function shouldHandleKeyEvent(event, key) {
+    if (!key) {
+      return false;
+    }
+    if (event.type === "keydown") {
+      keyGuard.down[key] = true;
+    }
+    if (event.type === "keyup") {
+      var now = Date.now();
+      if (keyGuard.down[key]) {
+        delete keyGuard.down[key];
+        return false;
+      }
+      if (keyGuard.key === key && now - keyGuard.time < 180) {
+        return false;
+      }
+    }
+    keyGuard.key = key;
+    keyGuard.time = Date.now();
+    return true;
+  }
+
   function handleGlobalKeys(event) {
     var active = document.activeElement;
-    var key = event.key;
+    var key = normalizeRemoteKey(event);
+
+    if (!shouldHandleKeyEvent(event, key)) {
+      return;
+    }
 
     if (!els.finishedModal.hidden && (key === "Escape" || key === "Backspace")) {
       event.preventDefault();
@@ -1764,13 +2054,13 @@
       return;
     }
 
-    if (key.toLowerCase() === "r") {
+    if (key.toLowerCase && key.toLowerCase() === "r") {
       playRandomMovie();
       return;
     }
 
     if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(key) !== -1) {
-      if (!isArrowEditingControl(active)) {
+      if (!isTypingTarget(active)) {
         moveFocus(event);
       }
       return;
@@ -1783,28 +2073,29 @@
   }
 
   function handlePlayerKeys(event) {
-    var key = event.key;
+    var key = normalizeRemoteKey(event);
+    showPlayerControls(false);
     if (key === "Escape" || key === "Backspace") {
       event.preventDefault();
       closePlayer();
       return;
     }
-    if (key.toLowerCase() === "n") {
+    if (key.toLowerCase && key.toLowerCase() === "n") {
       event.preventDefault();
       playNextEpisode();
       return;
     }
-    if (key.toLowerCase() === "p") {
+    if (key.toLowerCase && key.toLowerCase() === "p") {
       event.preventDefault();
       playPreviousEpisode();
       return;
     }
-    if (key.toLowerCase() === "f") {
+    if (key.toLowerCase && key.toLowerCase() === "f") {
       event.preventDefault();
-      requestPlayerFullscreen();
+      enterLandscapePlayback(true);
       return;
     }
-    if ((key === " " || key.toLowerCase() === "k") && !els.videoPlayer.hidden) {
+    if ((key === " " || key === "MediaPlayPause" || key.toLowerCase && key.toLowerCase() === "k") && !els.videoPlayer.hidden) {
       event.preventDefault();
       if (els.videoPlayer.paused) {
         els.videoPlayer.play().catch(function () {});
@@ -1817,6 +2108,7 @@
   function moveFocus(event) {
     var active = document.activeElement;
     var root = getFocusRoot();
+    var key = normalizeRemoteKey(event);
     var candidates = Array.prototype.slice.call(root.querySelectorAll("[data-focusable], button, input, select, textarea, video, iframe")).filter(function (element) {
       return isVisible(element) && !element.disabled;
     });
@@ -1832,7 +2124,7 @@
       ArrowDown: { x: 0, y: 1 },
       ArrowLeft: { x: -1, y: 0 },
       ArrowRight: { x: 1, y: 0 }
-    }[event.key];
+    }[key];
 
     var next = candidates.reduce(function (best, element) {
       if (element === active) {
