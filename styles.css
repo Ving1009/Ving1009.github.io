@@ -200,7 +200,7 @@ img {
 }
 
 .nav-button-list {
-  display: none;
+  display: grid;
   gap: 10px;
 }
 
@@ -225,6 +225,7 @@ img {
 
 .nav-button.active,
 .nav-button:hover,
+.rail-button.active,
 .rail-button:hover,
 .chip-button:hover {
   background: rgba(255, 255, 255, 0.08);
@@ -317,6 +318,20 @@ textarea {
   background: rgba(0, 0, 0, 0.32);
   color: var(--text);
   outline: none;
+}
+
+select {
+  color-scheme: dark;
+}
+
+select option {
+  background: #121212;
+  color: #fff8ec;
+}
+
+select option:checked {
+  background: var(--accent);
+  color: #ffffff;
 }
 
 input,
@@ -496,6 +511,8 @@ textarea::placeholder {
 
 .shelf {
   margin-bottom: clamp(28px, 4vw, 64px);
+  content-visibility: auto;
+  contain-intrinsic-size: 720px;
 }
 
 .movie-grid,
@@ -976,37 +993,72 @@ textarea::placeholder {
   position: fixed;
   inset: 0;
   z-index: 90;
-  background: #000;
+  overflow: auto;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.96), rgba(7, 7, 6, 0.96)),
+    var(--bg);
+  color: var(--text);
 }
 
-.player-close-button {
-  position: fixed;
+.player-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+  gap: clamp(16px, 2vw, 28px);
+  width: min(1780px, 100%);
+  min-height: 100%;
+  margin: 0 auto;
+  padding: max(14px, env(safe-area-inset-top)) clamp(14px, 2.4vw, 34px) max(28px, env(safe-area-inset-bottom));
+}
+
+.watch-column {
+  min-width: 0;
+}
+
+.player-controls {
+  position: absolute;
   top: max(14px, env(safe-area-inset-top));
   right: max(14px, env(safe-area-inset-right));
-  z-index: 95;
-  min-height: 46px;
-  padding: 0 18px;
+  display: flex;
+  gap: 10px;
+  z-index: 3;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.player-view.controls-hidden .player-controls {
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.player-control-button {
+  min-height: 42px;
+  padding: 0 14px;
   border: 1px solid rgba(255, 255, 255, 0.26);
-  border-radius: 14px;
-  background: rgba(0, 0, 0, 0.72);
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.72);
   color: #ffffff;
-  font-weight: 900;
+  font-size: 0.86em;
+  font-weight: 800;
   outline: none;
   backdrop-filter: blur(12px);
 }
 
-.player-close-button:hover,
-.player-close-button:focus {
+.player-control-button:hover,
+.player-control-button:focus {
   background: rgba(217, 71, 47, 0.9);
 }
 
 .clean-player-frame {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
+  position: sticky;
+  top: max(14px, env(safe-area-inset-top));
+  width: 100%;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
+  border-radius: 18px;
   background: #000;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.52);
 }
 
 .clean-player-frame video,
@@ -1028,12 +1080,150 @@ textarea::placeholder {
   display: none !important;
 }
 
+.watch-info {
+  display: grid;
+  gap: 10px;
+  padding: 18px 2px 10px;
+}
+
+.watch-info h2 {
+  margin: 0;
+  font-size: clamp(24px, 2.4vw, 42px);
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.watch-meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95em;
+  line-height: 1.45;
+}
+
+.watch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.watch-sidebar {
+  align-self: start;
+  position: sticky;
+  top: max(14px, env(safe-area-inset-top));
+  max-height: calc(100vh - 28px);
+  overflow: auto;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.watch-episode-list {
+  display: grid;
+  gap: 8px;
+}
+
+.watch-episode-button {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  min-height: 78px;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  outline: none;
+}
+
+.watch-episode-button:hover,
+.watch-episode-button:focus,
+.watch-episode-button.current {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.watch-episode-button.current {
+  border-color: rgba(245, 193, 108, 0.48);
+}
+
+.watch-episode-thumb {
+  display: grid;
+  place-items: center;
+  width: 82px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(245, 193, 108, 0.26), rgba(217, 71, 47, 0.26)),
+    #111;
+  color: var(--accent-2);
+  font-size: 0.78em;
+  font-weight: 900;
+}
+
+.watch-episode-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.watch-episode-copy strong,
+.watch-episode-copy span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.watch-episode-copy strong {
+  font-size: 0.9em;
+}
+
+.watch-episode-copy span {
+  color: var(--muted);
+  font-size: 0.78em;
+}
+
+.player-view:fullscreen,
 .clean-player-frame:fullscreen,
 .clean-player-frame video:fullscreen,
 .clean-player-frame iframe:fullscreen {
   width: 100vw;
   height: 100vh;
   background: #000;
+}
+
+.player-view:fullscreen {
+  overflow: hidden;
+}
+
+.player-view:fullscreen .player-page {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+}
+
+.player-view:fullscreen .watch-column {
+  height: 100vh;
+}
+
+.player-view:fullscreen .clean-player-frame {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+
+.player-view:fullscreen .watch-info,
+.player-view:fullscreen .watch-sidebar {
+  display: none;
 }
 
 .assistant-panel,
@@ -1306,7 +1496,7 @@ button:disabled {
   }
 
   .nav-button-list {
-    display: none;
+    display: contents;
   }
 
   .rail-actions {
@@ -1319,6 +1509,15 @@ button:disabled {
   .topbar,
   .filter-bar {
     grid-template-columns: 1fr;
+  }
+
+  .player-page {
+    grid-template-columns: 1fr;
+  }
+
+  .watch-sidebar {
+    position: static;
+    max-height: none;
   }
 
   h1 {
@@ -1411,6 +1610,24 @@ button:disabled {
     grid-template-columns: 1fr;
   }
 
+  .player-page {
+    padding: 0 0 18px;
+  }
+
+  .clean-player-frame {
+    top: 0;
+    border-radius: 0;
+  }
+
+  .watch-info,
+  .watch-sidebar {
+    margin-inline: 12px;
+  }
+
+  .watch-info h2 {
+    font-size: 22px;
+  }
+
   .history-item {
     grid-template-columns: 62px minmax(0, 1fr);
   }
@@ -1464,5 +1681,21 @@ button:disabled {
   .movie-kicker,
   .movie-stat {
     font-size: 11px;
+  }
+
+  .watch-episode-button {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+
+  .watch-episode-thumb {
+    width: 96px;
+  }
+}
+
+@media (hover: none) {
+  .movie-card:hover,
+  .movie-card:focus,
+  .movie-card.focus-visible {
+    transform: none;
   }
 }
