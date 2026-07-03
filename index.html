@@ -177,10 +177,34 @@
   </section>
 
   <section class="player-view" id="playerView" hidden aria-label="Trình phát phim">
-    <button class="player-close-button" id="playerCloseButton" type="button" aria-label="Thoát trình phát" data-focusable>Thoát</button>
-    <div class="clean-player-frame" id="playerFrame">
-      <video id="videoPlayer" controls playsinline preload="metadata"></video>
-      <iframe id="iframePlayer" title="Trình phát nhúng" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen hidden></iframe>
+    <div class="player-page">
+      <main class="watch-column">
+        <div class="clean-player-frame" id="playerFrame">
+          <video id="videoPlayer" controls playsinline preload="metadata"></video>
+          <iframe id="iframePlayer" title="Trình phát nhúng" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen hidden></iframe>
+          <div class="player-controls" aria-label="Điều khiển trình phát">
+            <button class="player-control-button" id="playerCloseButton" type="button" aria-label="Thoát trình phát" data-focusable>Thoát</button>
+            <button class="player-control-button" id="playerFullscreenButton" type="button" aria-label="Toàn màn hình" data-focusable>Toàn màn hình</button>
+          </div>
+        </div>
+        <section class="watch-info" aria-label="Thông tin phim đang xem">
+          <p class="eyebrow" id="playerKicker">Đang xem</p>
+          <h2 id="playerTitle"></h2>
+          <p class="watch-meta" id="playerMeta"></p>
+          <div class="watch-actions">
+            <button class="secondary-button compact" id="playerPrevButton" type="button" data-focusable>Tập trước</button>
+            <button class="secondary-button compact" id="playerNextButton" type="button" data-focusable>Tập sau</button>
+            <button class="ghost-button compact" id="playerDetailButton" type="button" data-focusable>Chi tiết phim</button>
+          </div>
+        </section>
+      </main>
+      <aside class="watch-sidebar" aria-label="Danh sách tập">
+        <div class="section-heading compact-heading">
+          <h3>Danh sách tập</h3>
+          <span id="playerEpisodeCount"></span>
+        </div>
+        <div class="watch-episode-list" id="playerEpisodeList"></div>
+      </aside>
     </div>
   </section>
 
