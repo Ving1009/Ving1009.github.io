@@ -89,6 +89,28 @@ window.MOVIE_DATA = [
       }
     ]
   },
+{
+    id: "tho-oi",
+    title: "Thỏ Ơi",
+    thumbnail: "https://upload.wikimedia.org/wikipedia/vi/b/b3/Tho_oi_poster.jpg?_=20260206043045",
+    description: "Hải Linh là một nữ người dẫn chương trình nổi tiếng của talk show về tình yêu Chị bờ vai, gây thiện cảm với công chúng nhờ hình ảnh dịu dàng và những lời khuyên tỉnh táo dành cho các tâm hồn lạc lối. Trong chương trình, cô là biểu tượng của sự thấu hiểu và cân bằng trong các mối quan hệ, còn ngoài đời thì cô có một cuộc hôn nhân viên mãn với Thế Phong – một doanh nhân thành đạt, luôn thể hiện tình yêu và sự ủng hộ dành cho cô. Thế nhưng, biến cố bắt đầu ập đến khi Nhật Hạ xuất hiện với tư cách khách mời trong chương trình. Câu chuyện tình yêu đầy uẩn khúc, rối ren của Hạ với Trần Trung Kim không chỉ gây chấn động trường quay mà còn vô tình chạm đến những bí mật trong chính cuộc sống của Hải Linh. Từ một người quen đứng ở vị trí tư vấn, Hải Linh dần bị kéo vào vòng xoáy của sự thật, từ đây cô buộc phải đối diện với những sự thật ngỡ ngàng có thể làm lung lay mọi niềm tin mà cô từng nắm giữ.",
+    category: ["Phim lẻ", "Thành Cry"],
+    genres: ["Drama", "Giật gân", "Lãng mạn"],
+    year: 2026,
+    isNew: true,
+    seasons: [
+      {
+        name: "Thỏ Ơi",
+        episodes: [
+          {
+            id: "tho-oi",
+            title: "Thỏ Ơi",
+            videoUrl: "https://embed15.streamc.xyz/embed.php?hash=85ec7792ae930ca9a3667e26f62a9215"
+          }
+        ]
+      }
+    ]
+  },
   {
     id: "doraemon-movie-44",
     title: "Doraemon: Nobita Và Cuộc Phiêu Lưu Vào Thế Giới Trong Tranh",
