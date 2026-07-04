@@ -17,9 +17,7 @@ window.MOVIE_DATA = [
           { id: "s1e3", title: "Tập 3", videoUrl: "https://drive.google.com/file/d/14hUwEH_HpXrjxcgZyu8EWCKXRRWhv23z/preview" },
           { id: "s1e4", title: "Tập 4", videoUrl: "https://drive.google.com/file/d/1D7l54S3FiBS3VrjOK4oHhGvcbXx4Sz3J/preview" },
           { id: "s1e5", title: "Tập 5", videoUrl: "https://drive.google.com/file/d/1_cvSD_J9b7qn_9-Qb8fq9oHh75eL9_CQ/preview" },
-          /* Thay link mới cho tập 6 */
           { id: "s1e6", title: "Tập 6", videoUrl: "https://drive.google.com/file/d/1nih9ESWYwXYan9X-o9kg1d3ZO4XEjaIj/preview" },
-          /* Tạm giữ các tập từ 7 đến 20 */
           { id: "s1e7", title: "Tập 7", videoUrl: "https://drive.google.com/file/d/1xaVkTUvQPfUUQpYngu5PfeK_4MCvSV_r/preview" },
           { id: "s1e8", title: "Tập 8", videoUrl: "https://drive.google.com/file/d/1kg_HE7enXTWPpOjGLpa2GM4GpGiNaff9/preview" },
           { id: "s1e9", title: "Tập 9", videoUrl: "https://drive.google.com/file/d/1dMP3sXSjLeY42O_9-4Tgoip8D0TAx4GF/preview" },
@@ -34,7 +32,6 @@ window.MOVIE_DATA = [
           { id: "s1e18", title: "Tập 18", videoUrl: "https://drive.google.com/file/d/1MJl2zBhcnfZ4N-hQScsniE-lECt25AgW/preview" },
           { id: "s1e19", title: "Tập 19", videoUrl: "https://drive.google.com/file/d/1qECHZqUitu9kMJIcRCtlm6Loso2uTFuS/preview" },
           { id: "s1e20", title: "Tập 20", videoUrl: "https://drive.google.com/file/d/1esIFqZA99AqSmcDWl6iKAeRoJk62o-z0/preview" },
-          /* Thêm loạt link mới từ tập 21 đến tập 48 */
           { id: "s1e21", title: "Tập 21", videoUrl: "https://drive.google.com/file/d/1bxBcOkgnynQ2-yseCWW0EsyAVcVg-Ecr/preview" },
           { id: "s1e22", title: "Tập 22", videoUrl: "https://drive.google.com/file/d/1113oCXyoWYmn9k0oZ0lpAnk_bwPI_k8p/preview" },
           { id: "s1e23", title: "Tập 23", videoUrl: "https://drive.google.com/file/d/1jnUjNvVVrl_NVwG22bP7jFnl75eKlHjp/preview" },
@@ -68,23 +65,46 @@ window.MOVIE_DATA = [
     ]
   },
   {
-    id: "conan-movie-28",
-    title: "Thám Tử Lừng Danh Conan Movie 28 Dư Ảnh Của Độc Nhãn",
-    thumbnail: "https://upload.wikimedia.org/wikipedia/vi/3/3c/Conan_2025.jpg",
-    description: "Trên những ngọn núi tuyết của Nagano, một vụ án bí ẩn đã đưa Conan và các thám tử quay trở lại quá khứ. Thanh tra Yamato Kansuke - người đã bị thương nặng trong một trận tuyết lở nhiều năm trước - bất ngờ phải đối mặt với những ký ức đau thương của mình trong khi điều tra một vụ tấn công tại Đài quan sát Nobeyama. Cùng lúc đó, Mori Kogoro nhận được một cuộc gọi từ một đồng nghiệp cũ, tiết lộ mối liên hệ đáng ngờ giữa anh ta và vụ án đã bị lãng quên từ lâu. Sự xuất hiện của Morofushi Takaaki, cùng với những nhân vật chủ chốt như Amuro Tooru, Kazami và cảnh sát Tokyo, càng làm phức tạp thêm cuộc điều tra. Khi quá khứ và hiện tại đan xen, một bí ẩn rùng rợn dần dần được hé lộ - và ký ức của Kansuke nắm giữ chìa khóa cho mọi thứ.",
+    id: "conan",
+    title: "Thám Tử Lừng Danh Conan Movie",
+    thumbnail: "https://www.posters.eu/cdn/shop/files/2026-06-10_abystyle-abydco723-detective-conan-group-poster-38x52cm.jpg",
+    description: "Conan",
     category: ["Phim lẻ", "Hoạt hình"],
     genres: ["Trinh thám", "Hành động", "Giật gân"],
-    year: 2025,
+    year: 1997,
     isNew: true,
     seasons: [
       {
-        name: "Movie 28",
+        name: "Movie",
         episodes: [
-          {
-            id: "movie",
-            title: "Dư Ảnh Của Độc Nhãn",
-            videoUrl: "https://drive.google.com/file/d/1-Ai4L_Lnkbhezi-1F1Rl1pVjj5U1JbFi/preview"
-          }
+         { id: "conan-movie-1", title: "Movie 1: Quả Bom Chọc Trời", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=12431887de49d3195fa2f7c8e340bdfc" },
+          { id: "conan-movie-2", title: "Movie 2: Mục Tiêu Thứ 14", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=14f5e0bce5f578d0d512b929ac9dab32" },
+          { id: "conan-movie-3", title: "Movie 3: Ảo Thuật Gia Cuối Cùng Của Thế Kỷ", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=23b601f75a66e884629dc76f5835d87e" },
+          { id: "conan-movie-4", title: "Movie 4: Thủ Phạm Trong Đôi Mắt", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=63a47e19b74d70c97da770b85084ebfd" },
+          { id: "conan-movie-5", title: "Movie 5: Những Giây Phút Cuối Cùng Đến Thiên Đường", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=8031c6caa4374290e369ec5284a523de" },
+          { id: "conan-movie-6", title: "Movie 6: Bóng Ma Đường Baker", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=a4697d82f5b247a4bf6559e0d47658f4" },
+          { id: "conan-movie-7", title: "Movie 7: Mê Cung Trong Thành Phố Cổ", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=70a71298cf88fe8ff95df397ac99d013" },
+          { id: "conan-movie-8", title: "Movie 8: Nhà Ảo Thuật Với Đôi Cánh Bạc", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=f4927f9b364f5478617568b10a4e7b34" },
+          { id: "conan-movie-9", title: "Movie 9: Âm Mưu Trên Biển", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=8d30d19edaebd174368df6120be117cc" },
+          { id: "conan-movie-10", title: "Movie 10: Lễ Cầu Hồn Của Thám Tử", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=ce88df16c07c74557508c96e4e8d903e" },
+          { id: "conan-movie-11", title: "Movie 11: Kho Báu Dưới Đáy Đại Dương", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=f8d0f6823014b722de22184b7a6fa52e" },
+          { id: "conan-movie-12", title: "Movie 12: Tận Cùng Của Sự Sợ Hãi", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=4e962cee03e2b7675cc0f3e9c5964331" },
+          { id: "conan-movie-13", title: "Movie 13: Truy Lùng Tổ Chức Áo Đen", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=d20aae96aaeeaa2e70aadc6d39fef631" },
+          { id: "conan-movie-14", title: "Movie 14: Con Tàu Biến Mất Giữa Trời Xanh", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=1a4029493b51b1db9f3f570681bbc68a" },
+          { id: "conan-movie-15", title: "Movie 15: 15 Phút Tĩnh Lặng", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=66e1bb27626c24980983a3a13e254dec" },
+          { id: "conan-movie-16", title: "Movie 16: Tiền Đạo Thứ 11", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=fd5ba9307675432d6d311856c0c88e42" },
+          { id: "conan-movie-17", title: "Movie 17: Con Mắt Bí Ẩn Ngoài Biển Xa", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=5962e618cb1095217fee6919b61cc2c9" },
+          { id: "conan-movie-18", title: "Movie 18: Sát Thủ Bắn Tỉa Không Tưởng", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=e86a1ada062afbee8447c45f7bbfd054" },
+          { id: "conan-movie-19", title: "Movie 19: Hoa Hướng Dương Rực Lửa", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=a21ac706ac5e10931f832f72553b83bc" },
+          { id: "conan-movie-20", title: "Movie 20: Cơn Ác Mộng Đen Tối", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=e5f9428cf407969c1d6178d89c00b319" },
+          { id: "conan-movie-21", title: "Movie 21: Bản Tình Ca Màu Đỏ Thẫm", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=0389601836cc731009d844747781182b" },
+          { id: "conan-movie-22", title: "Movie 22: Kẻ Hành Pháp Zero", videoUrl: "https://embed3.streamc.xyz/embed.php?hash=b8830d2dff3427b3f6e1198c34408bc0" },
+          { id: "conan-movie-23", title: "Movie 23: Cú Đấm Sapphire Xanh", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=79a83fba474608e6024e671bace0b8e5" },
+          { id: "conan-movie-24", title: "Movie 24: Viên Đạn Đỏ", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=0069fbe48fbd59374bd0ed637383557b" },
+          { id: "conan-movie-25", title: "Movie 25: Nàng Dâu Halloween", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=8c0f3b6db53c1886416d383038186833" },
+          { id: "conan-movie-26", title: "Movie 26: Tàu Ngầm Sắt Màu Đen", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=5a6e9113ee6117e92f0d0aee38e302e6" },
+          { id: "conan-movie-27", title: "Movie 27: Ngôi Sao 5 Cánh Triệu Đô", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=71e546aa0c86ed1c407742e0aa9818a1" },
+          { id: "conan-movie-28", title: "Movie 28: Dư Ảnh Của Độc Nhãn", videoUrl: "https://drive.google.com/file/d/1riUNajSVxDWEDXleUtYtRsSaESQcSDnn/preview" }
         ]
       }
     ]
@@ -111,112 +131,88 @@ window.MOVIE_DATA = [
       }
     ]
   },
-  {
-    id: "doraemon-movie-44",
-    title: "Doraemon: Nobita Và Cuộc Phiêu Lưu Vào Thế Giới Trong Tranh",
-    thumbnail: "https://upload.wikimedia.org/wikipedia/vi/5/5d/Doraemon_Movie_2025_Poster.jpg?_=20250318144151",
-    description: "Thông qua món bảo bối mới của Doraemon, cả nhóm bạn bước thế giới trong một bức tranh nổi tiếng và bắt gặp cô bạn bí ẩn tên Claire. Với lời mời của Claire, cả nhóm cùng đến thăm vương quốc Artoria, nơi ẩn giấu một viên ngọc quý mang tên Artoria Blue đang ngủ yên. Trên hành trình tìm kiếm viên ngọc, nhóm bạn Doraemon phát hiện một truyền thuyết về sự hủy diệt của thế giới, mà truyền thuyết đó dường như đang sống dậy! Liệu cả nhóm có thể phá hủy lời nguyền này và bảo vệ cả thế giới?",
-    category: ["Phim lẻ", "Hoạt hình"],
-    genres: ["Khoa học viễn tưởng giả tưởng", "Phiêu lưu", "Hài hước"],
-    year: 2024,
-    isNew: true,
-    seasons: [
-      {
-        name: "Movie 44",
-        episodes: [
-          {
-            id: "movie-44",
-            title: "Doraemon: Nobita Và Cuộc Phiêu Lưu Vào Thế Giới Trong Tranh",
-            videoUrl: "https://mega.nz/embed/aOAhjYqC#MVOo9yNwd_er4W1ptxgqhTynKoauA7-el7xVstHqL10"
-          }
-        ]
-      }
-    ]
-  },
 {
-    id: "conan-movie-22",
-    title: "Thám Tử Lừng Danh Conan Movie 22 Kẻ Hành Pháp Zero",
-    thumbnail: "https://pbs.twimg.com/media/FVviGQcUUAEFOuO?format=jpg&name=small",
-    description: "Conan Movie 22 xoay quanh nhân vật Tooru 'Zero' Amuro và nghi vấn cảnh sát trưởng Kuroda là một trong những thành phần của tổ chức áo đen. 'Edge of Ocean', một cơ sở mới của Vịnh Tokyo sẽ là nơi tổ chức Hội nghị Thượng đỉnh Tokyo. Hội nghị sẽ được tổ chức vào ngày 1/5 và có tới 22.000 cảnh sát được huy động, nhưng một vụ nổ bom cực lớn đột ngột xảy ra tại cơ sở siêu hoành tráng này! Tại nơi đó, vào lúc xảy ra vụ việc, lại nhìn thấy bóng dáng của Amuro Tooru thuộc tổ chức bí mật của Cảnh sát Quốc gia với bí danh là 'Zero' đang điều khiển các cảnh sát an ninh trên toàn quốc. Tại hiện trường, cảnh sát đã phát hiện dấu vân tay của Mori Kogoro và ông bị bắt. Để chứng minh ông Mori vô tội, Conan đã bắt tay vào điều tra nhưng liên tục bị 'kẻ 3 mặt' Amuro cản đường.",
-    category: ["Phim lẻ", "Hoạt hình"],
-    genres: ["Trinh thám", "Hành động", "Giật gân"],
-    year: 2018,
+    id: "your-name",
+    title: "Your Name",
+    thumbnail: "https://m.media-amazon.com/images/M/MV5BMTIyNzFjNzItZmQ1MC00NzhjLThmMzYtZjRhN2Y3MmM2OGQyXkEyXkFqcGc@._V1_.jpg",
+    description: "Nguyễn Văn Mười",
+    category: ["Phim lẻ"],
+    genres: ["Drama", "Lãng mạn"],
+    year: 2026,
     isNew: true,
     seasons: [
       {
-        name: "Movie 22",
+        name: "Your Name",
         episodes: [
           {
-            id: "movie-22",
-            title: "Kẻ Hành Pháp Zero",
-            videoUrl: "https://drive.google.com/file/d/1M5fv7EAmbBudycG_H6zkG7zv0wdi4gOw/preview"
-          }
-        ]
-      }
-    ]
-  },
-{
-    id: "conan-movie-20",
-    title: "Thám tử lừng danh Conan: Cơn ác mộng đen tối",
-    thumbnail: "https://upload.wikimedia.org/wikipedia/vi/0/00/%C3%81p_ph%C3%ADch_phim_Th%C3%A1m_t%E1%BB%AD_l%E1%BB%ABng_danh_Conan_th%E1%BB%A9_20.jpg?_=20220416231551",
-    description: "Những vụ ám sát bí ẩn xảy ra khắp thế giới. Kẻ tình nghi là một điệp viên có thể truy cập những tài liệu tuyệt mật. Ở Nhật Bản, một điệp viên đột nhập vào trụ sở cảnh sát và truy cập vào những tài liệu mật liên quan đến các cơ sở của điệp viên trong tổ chức Áo Đen đến từ rất nhiều cơ quan tình báo. Bị phát hiện trước khi đánh cắp các tài liệu mật, tên điệp viên bị Rei Furuya phát hiện và trốn thoát. Biệt đội thám tử của Conan nhập cuộc điều tra vụ án liên quan đến Tổ Chức Áo đen.",
-    category: ["Phim lẻ", "Hoạt hình"],
-    genres: ["Trinh thám", "Hành động", "Giật gân"],
-    year: 2014,
-    isNew: true,
-    seasons: [
-      {
-        name: "Movie 20",
-        episodes: [
-          {
-            id: "movie-20",
-            title: "Thám tử lừng danh Conan: Cơn ác mộng đen tối",
-            videoUrl: "https://drive.google.com/file/d/15RE0zWotwJRmgMSEBDBdpiSMK8Lg2FSm/preview"
-          }
-        ]
-      }
-    ]
-  },
-{
-    id: "conan-movie-6",
-    title: "Thám tử lừng danh Conan: Bóng ma đường Baker",
-    thumbnail: "https://www.detectiveconanworld.com/wiki/images/a/a4/Movie_6.jpg",
-    description: "Conan và các bạn bước vào một trò chơi thực tế ảo nơi ranh giới giữa thế giới thật và ảo dần biến mất. Để giải cứu những người mắc kẹt, Conan phải lần theo dấu vết của Jack the Ripper giữa lòng London thế kỷ 19, đồng thời khám phá bí ẩn liên quan đến trí tuệ nhân tạo và di sản của Sherlock Holmes.",
-    category: ["Phim lẻ", "Hoạt hình"],
-    genres: ["Trinh thám", "Hành động", "Giật gân"],
-    year: 2002,
-    isNew: true,
-    seasons: [
-      {
-        name: "Movie 6",
-        episodes: [
-          {
-            id: "movie-6",
-            title: "Thám tử lừng danh Conan: Bóng ma đường Baker",
-            videoUrl: "https://drive.google.com/file/d/16yFQ1Qru2MIUHq4eQp3hv_4osT4DLEIY/preview"
+            id: "your-name",
+            title: "Your Name",
+            videoUrl: "https://embed14.streamc.xyz/embed.php?hash=63afb639f02c4dfdbf7a686b353eca78"
           }
         ]
       }
     ]
   },
   {
-    id: "doraemon-movie-41",
-    title: "Nobita Và Cuộc Chiến Vũ Trụ Tí Hon",
-    thumbnail: "https://upload.wikimedia.org/wikipedia/vi/0/0e/Little_Star_Wars_2021.jpg",
-    description: "Trong chuyến phiêu lưu này, Nobita và nhóm bạn tình cờ gặp gỡ Papi – vị tổng thống tí hon của hành tinh Pirika xa xôi đang lánh nạn tại Trái Đất. Khi lực lượng phản loạn truy đuổi Papi đến tận đây và bắt cóc Shizuka, nhóm bạn đã sử dụng Đèn Thu Nhỏ của Doraemon để biến thành kích thước tí hon, cùng Papi dấn thân vào một cuộc chiến vũ trụ đầy cam go nhưng vĩ đại nhằm giải phóng quê hương Pirika khỏi ách thống trị của tên độc tài tàn bạo.",
+    id: "doraemon-movie",
+    title: "Doraemon Movie",
+    thumbnail: "https://m.media-amazon.com/images/M/MV5BNTRjMDA5ZTQtNWVkMy00OTAwLWI2NmMtYjQxYWM4MTIxYWFhXkEyXkFqcGc@._V1_.jpg",
+    description: "Doraemon",
     category: ["Phim lẻ", "Hoạt hình"],
     genres: ["Khoa học viễn tưởng giả tưởng", "Phiêu lưu", "Hài hước"],
-    year: 2021,
+    year: 1980,
     isNew: true,
     seasons: [
       {
-        name: "Movie 41",
+        name: "Movie",
         episodes: [
-          {
-            id: "movie-41",
-            title: "Nobita Và Cuộc Chiến Vũ Trụ Tí Hon",
-            videoUrl: "https://drive.google.com/file/d/1_jpweXb1C_4XzIioqkBnsdX1RRRbXixQ/preview"
-          }
+          { id: "doraemon-movie-1", title: "Movie 1: Chú khủng long của Nobita", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=53a3af3e942ca4f8110d30a2a70efa70" },
+          { id: "doraemon-movie-2", title: "Movie 2: Nobita và lịch sử khai phá vũ trụ", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=e51f9463da5055be919c36fec9c2f1e1" },
+          { id: "doraemon-movie-3", title: "Movie 3: Nobita thám hiểm vùng đất mới", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=660be634631f1779261155158fefe0fe" },
+          { id: "doraemon-movie-4", title: "Movie 4: Nobita và lâu đài dưới đáy biển", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=76f66e2bdae8d088c35c1e1b24b28f46" },
+          { id: "doraemon-movie-5", title: "Movie 5: Nobita và chuyến phiêu lưu vào xứ quỷ", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=99ab86324bbb86b1a0d50a74d6623ae7" },
+          { id: "doraemon-movie-6", title: "Movie 6: Nobita và cuộc chiến vũ trụ", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=a623cdcd19a4207b28244dbd0e49eb0e" },
+          { id: "doraemon-movie-7", title: "Movie 7: Nobita và binh đoàn người sắt", videoUrl: "https://embed17.streamc.xyz/embed.php?hash=5d76acb4050a9b7602e33c109fb22328" },
+          { id: "doraemon-movie-8", title: "Movie 8: Nobita và hiệp sĩ rồng", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=1330d4a63da86cc527870e8f5967d130" },
+          { id: "doraemon-movie-9", title: "Movie 9: Nobita Tây du kí", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=5b23f5cd732f3f1926172cd9b1c32306" },
+          { id: "doraemon-movie-10", title: "Movie 10: Nobita và nước Nhật thời nguyên thủy", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=700cc3a0ee4bc73422d414151f61a2af" },
+          { id: "doraemon-movie-11", title: "Movie 11: Nobita và hành tinh muông thú", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=6530e8baaf183f411369364711fe6c91" },
+          { id: "doraemon-movie-12", title: "Movie 12: Nobita ở xứ sở nghìn lẻ một đêm", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=f4c7f6cdeb1e48a6d334c5f1ea763f3e" },
+          { id: "doraemon-movie-13", title: "Movie 13: Nobita và vương quốc trên mây", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=5b32e96de0d6bdb7dfab0a0863f79f92" },
+          { id: "doraemon-movie-14", title: "Movie 14: Nobita và mê cung thiếc", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=bea295d935577ebe1a8d2a2ef9625478" },
+          { id: "doraemon-movie-15", title: "Movie 15: Nobita và ba chàng hiệp sĩ mộng mơ", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=d05c36b236942561d6815d1dc0e1fdd2" },
+          { id: "doraemon-movie-16", title: "Movie 16: Đấng toàn năng Nobita", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=0cef75f02472954bd56f062e895b5b41" },
+          { id: "doraemon-movie-17", title: "Movie 17: Nobita và chuyến tàu tốc hành Ngân Hà", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=7c4395ea75c1606df3f74b0be592e72e" },
+          { id: "doraemon-movie-18", title: "Movie 18: Nobita và cuộc phiêu lưu ở thành phố dây cót", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=7bf7944327df383f9fd3849c66224b8d" },
+          { id: "doraemon-movie-19", title: "Movie 19: Nobita du hành biển phương Nam", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=b4d0dd995f6f484bdc3e64bfbe996998" },
+          { id: "doraemon-movie-20", title: "Movie 20: Nobita - Vũ trụ phiêu lưu kí", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=4b5fbb6cd524aaad09d864b6c3cceff1" },
+          { id: "doraemon-movie-21", title: "Movie 21: Nobita và truyền thuyết vua Mặt Trời", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=58a2d20690061b231990ffeec795cf26" },
+          { id: "doraemon-movie-22", title: "Movie 22: Nobita và những dũng sĩ có cánh", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=cf99bc3729613d178add0051c49aa7c0" },
+          { id: "doraemon-movie-23", title: "Movie 23: Nobita và vương quốc robot", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=716b2e389287e47b270360c12d1b482c" },
+          { id: "doraemon-movie-24", title: "Movie 24: Nobita và những pháp sư Gió bí ẩn", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=07584b4667e90ba94139b30c6a5f6f4a" },
+          { id: "doraemon-movie-25", title: "Movie 25: Nobita ở vương quốc chó mèo", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=c9d0f0b662431e9a1aa3617bd954d99d" },
+          { id: "doraemon-movie-26", title: "Movie 26: Chú khủng long của Nobita 2006 (Remake)", videoUrl: "https://embed17.streamc.xyz/embed.php?hash=209b721bf25fff7fcc4927ce23ae8185" },
+          { id: "doraemon-movie-27", title: "Movie 27: Tân • Nobita và chuyến phiêu lưu vào xứ quỷ - 7 nhà phép thuật (Remake)", videoUrl: "https://embed17.streamc.xyz/embed.php?hash=17dcc92e6796f4771759dcc06a1cb0b0" },
+          { id: "doraemon-movie-28", title: "Movie 28: Nobita và người khổng lồ xanh", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=ca397c1ef1c2d2d6393e496789506687" },
+          { id: "doraemon-movie-29", title: "Movie 29: Tân • Nobita và lịch sử khai phá vũ trụ (Remake)", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=b8ce1ba04846422ed7c6944589ad52c0" },
+          { id: "doraemon-movie-30", title: "Movie 30: Nobita và cuộc đại thủy chiến ở xứ sở người cá", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=865f5f2d0f5addaf9ac77e90c835c778" },
+          { id: "doraemon-movie-31", title: "Movie 31: Tân • Nobita và binh đoàn người sắt - Bay đến các vì sao (Remake)", videoUrl: "https://odysee.com/$/embed/Xem-Nobita-V%C3%A0-Binh-%C4%90o%C3%A0n-Ng%C6%B0%E1%BB%9Di-S%E1%BA%AFt-%28Doraemon-Movie-31-Nobita-And-The-New-Steel-Troops%29-L%E1%BB%93ng-Ti%E1%BA%BFng-Full-HD---1Phim1/6" },
+          { id: "doraemon-movie-32", title: "Movie 32: Nobita và hòn đảo diệu kì - Cuộc phiêu lưu của loài thú", videoUrl: "https://drive.google.com/file/d/1NBOMHhtEwxGfJJQugHrYiN3CLo_HP0Nc/preview" },
+          { id: "doraemon-movie-33", title: "Movie 33: Nobita và viện bảo tàng bảo bối", videoUrl: "https://drive.google.com/file/d/1iz54ueln_tdTAcXzKGgZO_zaF93Oxepw/preview" },
+          { id: "doraemon-movie-34", title: "Movie 34: Tân • Nobita thám hiểm vùng đất mới - Peko và 5 nhà thám hiểm (Remake)", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=72d1bd24e9c9df82edc56e6f3aa542b0" },
+          { id: "doraemon-movie-35", title: "Movie 35: Nobita và những hiệp sĩ không gian", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=e0a7ba2208dc61e855cbc3915d15b483" },
+          { id: "doraemon-movie-36", title: "Movie 36: Tân • Nobita và nước Nhật thời nguyên thủy (Remake)", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=796dc9d7531ce43d0f8c393543ea7442" },
+          { id: "doraemon-movie-37", title: "Movie 37: Nobita và chuyến thám hiểm Nam Cực Kachi Kochi", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=3552c7df56548510e570076ae4678c8a" },
+          { id: "doraemon-movie-38", title: "Movie 38: Nobita và đảo giấu vàng", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=148a6e00817acf90d0ef5e16fee47fd5" },
+          { id: "doraemon-movie-39", title: "Movie 39: Nobita và Mặt Trăng phiêu lưu ký", videoUrl: "https://drive.google.com/file/d/12O4Jxn1I7WP4DO7_wmwHQbXdyGYwPGy8/preview" },
+          { id: "doraemon-movie-40", title: "Movie 40: Nobita và những bạn khủng long mới", videoUrl: "https://odysee.com/$/embed/@anime5369official:e/Doraemon-%28Movie-40%29.-Nobita-V%C3%A0-Nh%E1%BB%AFng-B%E1%BA%A1n-Kh%E1%BB%A7ng-Long-M%E1%BB%9Bi-%282020%29----Ver-3-/d" },
+          { id: "doraemon-movie-41", title: "Movie 41: Nobita và cuộc chiến vũ trụ tí hon 2021 (Remake)", videoUrl: "https://embed17.streamc.xyz/embed.php?hash=54c994a688f8452aee8e95784a964dfe" },
+          { id: "doraemon-movie-42", title: "Movie 42: Nobita và vùng đất lý tưởng trên bầu trời", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=706d340693bd7a227455c9ef07c359b6" },
+          { id: "doraemon-movie-43", title: "Movie 43: Nobita và bản giao hưởng Địa Cầu", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=4e21264a8c042abd671a2e826091b371" },
+          { id: "doraemon-movie-44", title: "Movie 44: Nobita và cuộc phiêu lưu vào thế giới trong tranh", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=ee6346164cad9b5c337fa3971fce4d5b" },
+          { id: "doraemon-movie-45", title: "Movie 45: Phiên bản mới • Nobita và lâu đài dưới đáy biển (COMING SOON)", videoUrl: "https://drive.google.com/file/d/1R3kQb_Wx9IgddtzdnMcIeU9fZKl2xjgu/preview" },
+          { id: "doraemon-movie-standbyme", title: "Stand By Me", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=36d7a950ee97733aece75eba3fe622aa" },
+          { id: "doraemon-movie-standbyme2", title: "Stand By Me 2", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=774e1b0a3ce271d00213853dbbad1c88" }
         ]
       }
     ]
