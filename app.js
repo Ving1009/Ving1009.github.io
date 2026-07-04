@@ -2471,10 +2471,9 @@
   function isHlsUrl(url) {
     return /\.m3u8($|\?)/i.test(url);
   }
-
-  function isEmbedUrl(url) {
-    return /youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com|ok\.ru|drive\.google\.com|mega\.nz|\/embed\//i.test(url);
-  }
+function isEmbedUrl(url) {
+    return /youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com|ok\.ru|drive\.google\.com|mega\.nz|streamc\.xyz|\/embed(?:\/|\.php)/i.test(url);
+}
 
   function normalizeSourceUrl(url, resumeSeconds) {
     var value = String(url || "").trim();
