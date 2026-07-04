@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="V Hub là web xem phim tĩnh tối ưu cho TV, có AI gợi ý phim, lịch sử xem, yêu thích, import phim và player nhúng sạch.">
+  <meta name="theme-color" content="#050505">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="V Hub - Rạp phim tại nhà">
+  <meta property="og:description" content="Xem phim, lưu tiến trình, tìm kiếm thông minh và quản lý thư viện phim ngay trên GitHub Pages.">
+  <meta property="og:image" content="https://dummyimage.com/1200x630/050505/f5f1e8&text=V+Hub">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>V Hub - Rạp phim tại nhà</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell" id="appShell">
+    <aside class="side-rail" aria-label="Điều hướng chính">
+      <button class="brand" id="homeButton" type="button" data-focusable>
+        <span class="brand-mark">V</span>
+        <span>
+          <strong>V Hub</strong>
+          <small>Movie OS</small>
+        </span>
+      </button>
+
+      <nav class="nav-list" id="navList" aria-label="Danh mục phim"></nav>
+
+      <div class="rail-actions">
+        <button class="rail-button" id="randomButton" type="button" data-focusable>Random Movie</button>
+        <button class="rail-button" id="assistantButton" type="button" data-focusable>AI Assistant</button>
+        <button class="rail-button" id="adminButton" type="button" data-focusable>Thêm phim</button>
+        <button class="rail-button" id="historyButton" type="button" data-focusable>Lịch sử</button>
+        <button class="rail-button" id="themeButton" type="button" data-focusable>AMOLED</button>
+      </div>
+    </aside>
+
+    <main class="main-stage">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Netflix + AniWave + YouTube TV</p>
+          <h1 id="pageTitle">Rạp phim tại nhà</h1>
+        </div>
+
+        <form class="search-console" id="searchForm" role="search">
+          <label class="sr-only" for="searchInput">Tìm kiếm phim</label>
+          <input id="searchInput" type="search" placeholder="Tìm phim anime buồn, hành động có quái vật..." autocomplete="off" data-focusable>
+          <button class="primary-button compact" id="smartSearchButton" type="submit" data-focusable>Tìm AI</button>
+        </form>
+      </header>
+
+      <section class="hero" id="heroSection" aria-label="Phim nổi bật"></section>
+
+      <section class="filter-bar" aria-label="Bộ lọc nâng cao">
+        <label>
+          <span>Thể loại</span>
+          <select id="genreFilter" data-focusable></select>
+        </label>
+        <label>
+          <span>Năm</span>
+          <select id="yearFilter" data-focusable></select>
+        </label>
+        <label>
+          <span>Quốc gia</span>
+          <select id="countryFilter" data-focusable></select>
+        </label>
+        <label>
+          <span>Trạng thái</span>
+          <select id="statusFilter" data-focusable></select>
+        </label>
+        <label>
+          <span>Số tập</span>
+          <select id="episodeFilter" data-focusable>
+            <option value="all">Tất cả</option>
+            <option value="single">Phim lẻ</option>
+            <option value="short">1-12 tập</option>
+            <option value="medium">13-30 tập</option>
+            <option value="long">Trên 30 tập</option>
+          </select>
+        </label>
+        <label>
+          <span>Sắp xếp</span>
+          <select id="sortFilter" data-focusable>
+            <option value="smart">Thông minh</option>
+            <option value="trending">Top trending</option>
+            <option value="recent">Mới cập nhật</option>
+            <option value="year-desc">Năm mới nhất</option>
+            <option value="title-asc">Tên A-Z</option>
+            <option value="rating-desc">Điểm cao</option>
+            <option value="episodes-desc">Nhiều tập</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="shelf" id="continueShelf" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Resume</p>
+            <h2>Continue Watching</h2>
+          </div>
+          <button class="ghost-button" id="clearHistoryButton" type="button" data-focusable>Xóa lịch sử</button>
+        </div>
+        <div class="movie-row" id="continueRow"></div>
+      </section>
+
+      <section class="shelf" id="recommendedShelf">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">AI taste profile</p>
+            <h2>Recommended For You</h2>
+          </div>
+        </div>
+        <div class="movie-row" id="recommendedRow"></div>
+      </section>
+
+      <section class="shelf">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" id="gridEyebrow">Library</p>
+            <h2 id="gridTitle">Tất cả phim</h2>
+          </div>
+          <span class="result-count" id="resultCount"></span>
+        </div>
+        <div class="movie-grid" id="movieGrid" aria-live="polite"></div>
+      </section>
+    </main>
+  </div>
+
+  <section class="detail-view" id="detailView" hidden aria-modal="true" role="dialog" aria-labelledby="detailTitle">
+    <div class="detail-backdrop" id="detailBackdrop"></div>
+    <article class="detail-panel">
+      <button class="icon-button close-button" id="closeDetailButton" type="button" aria-label="Đóng chi tiết" data-focusable>×</button>
+      <div class="detail-poster-wrap">
+        <img class="detail-poster" id="detailPoster" alt="">
+      </div>
+      <div class="detail-info">
+        <p class="eyebrow" id="detailCategory"></p>
+        <h2 id="detailTitle"></h2>
+        <p class="original-title" id="detailOriginalTitle"></p>
+        <p id="detailDescription"></p>
+        <div class="detail-meta" id="detailMeta"></div>
+        <div class="detail-actions">
+          <button class="primary-button" id="playButton" type="button" data-focusable>Xem ngay</button>
+          <button class="secondary-button" id="favoriteButton" type="button" data-focusable>Yêu thích</button>
+          <button class="secondary-button" id="shareButton" type="button" data-focusable>Chia sẻ</button>
+          <button class="ghost-button" id="clearMovieProgressButton" type="button" data-focusable>Xóa tiến trình</button>
+        </div>
+        <div class="rating-box" id="ratingBox" aria-label="Đánh giá phim"></div>
+        <div class="watch-hint">Player khi mở phim chỉ còn khung video/iframe gốc. Dùng Esc hoặc Back để quay lại, N/P để đổi tập.</div>
+        <div class="season-tabs" id="seasonTabs"></div>
+        <div class="episode-grid" id="episodeGrid"></div>
+        <section class="comments-panel">
+          <div class="section-heading compact-heading">
+            <h3>Bình luận cục bộ</h3>
+            <span>Lưu trên trình duyệt này</span>
+          </div>
+          <form class="comment-form" id="commentForm">
+            <input id="commentInput" type="text" placeholder="Viết cảm nhận của bạn..." data-focusable>
+            <button class="secondary-button compact" type="submit" data-focusable>Gửi</button>
+          </form>
+          <div class="comment-list" id="commentList"></div>
+        </section>
+        <section class="related-panel">
+          <div class="section-heading compact-heading">
+            <h3>Phim đề xuất</h3>
+          </div>
+          <div class="movie-row mini-row" id="relatedRow"></div>
+        </section>
+      </div>
+    </article>
+  </section>
+
+  <section class="player-view" id="playerView" hidden aria-label="Trình phát phim">
+    <div class="player-page">
+      <main class="watch-column">
+        <div class="clean-player-frame" id="playerFrame">
+          <video id="videoPlayer" controls playsinline preload="metadata"></video>
+          <iframe id="iframePlayer" title="Trình phát nhúng" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen hidden></iframe>
+          <div class="player-controls" aria-label="Điều khiển trình phát">
+            <button class="player-control-button" id="playerCloseButton" type="button" aria-label="Thoát trình phát" data-focusable>Thoát</button>
+            <button class="player-control-button" id="playerFullscreenButton" type="button" aria-label="Toàn màn hình" data-focusable>Toàn màn hình</button>
+          </div>
+        </div>
+        <section class="watch-info" aria-label="Thông tin phim đang xem">
+          <p class="eyebrow" id="playerKicker">Đang xem</p>
+          <h2 id="playerTitle"></h2>
+          <p class="watch-meta" id="playerMeta"></p>
+          <div class="watch-actions">
+            <button class="secondary-button compact" id="playerPrevButton" type="button" data-focusable>Tập trước</button>
+            <button class="secondary-button compact" id="playerNextButton" type="button" data-focusable>Tập sau</button>
+            <button class="ghost-button compact" id="playerDetailButton" type="button" data-focusable>Chi tiết phim</button>
+          </div>
+        </section>
+      </main>
+      <aside class="watch-sidebar" aria-label="Danh sách tập">
+        <div class="section-heading compact-heading">
+          <h3>Danh sách tập</h3>
+          <span id="playerEpisodeCount"></span>
+        </div>
+        <div class="watch-episode-list" id="playerEpisodeList"></div>
+      </aside>
+    </div>
+  </section>
+
+  <aside class="assistant-panel" id="assistantPanel" hidden aria-label="AI Assistant">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Groq AI</p>
+        <h2>AI Assistant</h2>
+      </div>
+      <button class="icon-button" id="closeAssistantButton" type="button" aria-label="Đóng AI Assistant" data-focusable>×</button>
+    </div>
+    <label class="setting-field">
+      <span>Groq API Key</span>
+      <input id="groqKeyInput" type="password" placeholder="gsk_... hoặc để trống dùng AI offline" autocomplete="off" data-focusable>
+    </label>
+    <div class="quick-prompts" id="quickPrompts"></div>
+    <div class="chat-log" id="chatLog" aria-live="polite"></div>
+    <form class="chat-form" id="chatForm">
+      <textarea id="chatInput" rows="3" placeholder="Ví dụ: gợi ý phim anime buồn nhưng đẹp hình ảnh..." data-focusable></textarea>
+      <button class="primary-button compact" type="submit" data-focusable>Gửi</button>
+    </form>
+  </aside>
+
+  <aside class="admin-panel" id="adminPanel" hidden aria-label="Quản lý phim">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Movie builder</p>
+        <h2>Thêm phim mới</h2>
+      </div>
+      <button class="icon-button" id="closeAdminButton" type="button" aria-label="Đóng quản lý phim" data-focusable>×</button>
+    </div>
+
+    <form class="movie-form" id="movieForm">
+      <div class="form-grid">
+        <label><span>Tên phim</span><input name="title" required data-focusable></label>
+        <label><span>Tên gốc</span><input name="originalTitle" data-focusable></label>
+        <label><span>Thumbnail</span><input name="thumbnail" type="url" required data-focusable></label>
+        <label><span>Banner</span><input name="banner" type="url" data-focusable></label>
+        <label><span>Thể loại</span><input name="genres" placeholder="Anime, Phiêu lưu" required data-focusable></label>
+        <label><span>Quốc gia</span><input name="country" placeholder="Nhật Bản" data-focusable></label>
+        <label><span>Năm phát hành</span><input name="year" type="number" min="1900" max="2100" data-focusable></label>
+        <label><span>Trạng thái</span><input name="status" placeholder="Đang chiếu / Hoàn thành" data-focusable></label>
+      </div>
+      <label><span>Mô tả</span><textarea name="description" rows="4" required data-focusable></textarea></label>
+      <label><span>Danh sách tập và link nhúng</span><textarea name="episodes" rows="8" placeholder="Episode 1: https://...\nEpisode 2: https://..." required data-focusable></textarea></label>
+      <div class="form-actions">
+        <button class="primary-button" type="submit" data-focusable>Thêm vào web</button>
+        <button class="secondary-button" id="exportMoviesButton" type="button" data-focusable>Xuất JSON</button>
+        <button class="ghost-button" id="clearImportedButton" type="button" data-focusable>Xóa phim import</button>
+      </div>
+    </form>
+
+    <div class="import-box">
+      <div class="section-heading compact-heading">
+        <h3>Import nhanh JSON</h3>
+        <span>Dán object hoặc array phim</span>
+      </div>
+      <textarea id="jsonImportInput" rows="9" placeholder='[{ "title": "...", "thumbnail": "...", "seasons": [...] }]' data-focusable></textarea>
+      <button class="secondary-button" id="importJsonButton" type="button" data-focusable>Validate & Import</button>
+      <pre id="importResult" aria-live="polite"></pre>
+    </div>
+  </aside>
+
+  <aside class="history-panel" id="historyPanel" hidden aria-label="Lịch sử xem">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Watch log</p>
+        <h2>Lịch sử xem</h2>
+      </div>
+      <button class="icon-button" id="closeHistoryButton" type="button" aria-label="Đóng lịch sử" data-focusable>×</button>
+    </div>
+    <div class="history-list" id="historyList"></div>
+  </aside>
+
+  <div class="modal" id="finishedModal" hidden role="dialog" aria-modal="true" aria-labelledby="finishedTitle">
+    <div class="modal-card">
+      <p class="eyebrow">Hoàn thành</p>
+      <h2 id="finishedTitle">Bộ phim đã xem xong.</h2>
+      <div class="modal-actions">
+        <button class="primary-button" id="replayButton" type="button" data-focusable>Xem lại</button>
+        <button class="secondary-button" id="showRecommendationsButton" type="button" data-focusable>Phim đề xuất</button>
+        <button class="ghost-button" id="closeFinishedButton" type="button" data-focusable>Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script type="application/ld+json" id="structuredData"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js"></script>
+  <script src="movies.js"></script>
+  <script src="groqService.js"></script>
+  <script src="ai.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
