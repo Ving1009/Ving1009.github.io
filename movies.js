@@ -157,7 +157,7 @@ window.MOVIE_DATA = [
     id: "kimetsu-no-yaiba-vo-han-thanh",
     title: "Kimetsu No Yaiba: Vô Hạn Thành",
     thumbnail: "https://thegioidienanh.vn/stores/news_dataimages/2025/082025/14/10/522614313-1192582656245400-4341167171187466950-n20250814102922.jpg?rt=20250814102926",
-    description: "Tìm Em Gái",
+    description: "Cứu Em Gái",
     category: ["Phim lẻ"],
     genres: ["Drama", "chan bố mày đi"],
     year: 2025,
