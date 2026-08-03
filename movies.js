@@ -67,7 +67,7 @@ window.MOVIE_DATA = [
   {
     id: "conan",
     title: "Thám Tử Lừng Danh Conan Movie",
-    thumbnail: "https://www.posters.eu/cdn/shop/files/2026-06-10_abystyle-abydco723-detective-conan-group-poster-38x52cm.jpg",
+    thumbnail: "https://image.tmdb.org/t/p/w500/atFAo8rJNQQwyhKSXGrYrbgslsx.jpg",
     description: "Conan",
     category: ["Phim lẻ", "Hoạt hình"],
     genres: ["Trinh thám", "Hành động", "Giật gân"],
