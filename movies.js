@@ -590,6 +590,42 @@ window.MOVIE_DATA = [
       }
     ]
   },
+ {
+    id: "cong-chua-mononoke",
+    title: "Công Chúa Mononoke",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/cDuKyP0SqubYo7hTVMN5wihjjJG.jpg",
+    description: "Bị trúng lời nguyền chết chóc, vị hoàng tử lên đường tìm cách hóa giải, để rồi rơi vào cuộc chiến giữa một thị trấn khai thác mỏ và các loài động vật trong rừng.",
+    category: ["Phim lẻ"],
+    genres: ["Phiêu Lưu", "Hoạt Hình", "Giả Tưởng"],
+    year: 1997,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "cong-chua-mononoke-lt-full", title: "Full", videoUrl: "https://embed17.streamc.xyz/embed.php?hash=8be8be886be72d2aa98a55a443a7eb02" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "ngon-doi-hoa-hong-anh",
+    title: "Ngọn Đồi Hoa Hồng Anh",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/7GMpBtYUJhRTye6rKBNVyffm6L5.jpg",
+    description: "Bộ phim lấy bối cảnh Nhật Bản những năm 1960, nói về một cô gái tên Matsuzaki Umi sống cùng với gia đình trên đỉnh một ngọn đồi ở sát biển, cây Ngu Mỹ Nhân mọc rất nhiều trên ngọn đồi này và hằng ngày cô thường kéo cờ hiệu trong sân nhà vốn là đỉnh của ngọn đồi đó, cha của cô đã mất tích trong chiến tranh và những lá cờ hiệu cô kéo lên hằng ngày là dấu hiệu để nếu cha cô trở về từ biển có thể nhận ra nhà của mình. Cô đã gặp một nam sinh cùng học trong ngôi trường trung học với mình người muốn giữ và sửa chữa lại ngôi trường cũ thay vì phá bỏ và xây ngôi trường mới. Cô cũng có tình cảm với anh ta nhưng sau đó họ đã phát hiện ra 2 người có chung huyết thống..",
+    category: ["Phim lẻ"],
+    genres: ["Hoạt Hình", "Chính Kịch"],
+    year: 2011,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "ngon-doi-hoa-hong-anh-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=2453c3041120ed58eae91a86b3997f2a" }
+        ]
+      }
+    ]
+  },
   {
     id: "doraemon-movie",
     title: "Doraemon Movie",
