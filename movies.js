@@ -178,7 +178,7 @@ window.MOVIE_DATA = [
 {
     id: "thanh-guom-diet-quy-phan-1",
     title: "Thanh Gươm Diệt Quỷ (Phần 1)",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/2785.jpg",
+    thumbnail: "https://i0.wp.com/bloganchoi.com/wp-content/uploads/2023/08/review-thanh-guom-diet-quy-anime-full-1-2-3-3.jpg",
     description: "Cứu Em Gái",
     category: ["Phim bộ", "Hoạt hình"],
     genres: ["Hành Động", "Phiêu Lưu", "Hoạt Hình", "Giả Tưởng"],
