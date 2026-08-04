@@ -175,6 +175,49 @@ window.MOVIE_DATA = [
       }
     ]
   },
+{
+    id: "thanh-guom-diet-quy-phan-1",
+    title: "Thanh Gươm Diệt Quỷ (Phần 1)",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/2785.jpg",
+    description: "Cứu Em Gái",
+    category: ["Phim bộ", "Hoạt hình"],
+    genres: ["Hành Động", "Phiêu Lưu", "Hoạt Hình", "Giả Tưởng"],
+    year: 2019,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "tgdq-p1-lt-1", title: "Tập 1", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=a47a8cc6bccc0b06b0543b00a8377f11" },
+          { id: "tgdq-p1-lt-2", title: "Tập 2", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=7a67be78859bc3ca596e111f8e3df963" },
+          { id: "tgdq-p1-lt-3", title: "Tập 3", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=798f92dfad92ba93cb58452aa64c69bb" },
+          { id: "tgdq-p1-lt-4", title: "Tập 4", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=bf7e916c23c3ebbbf5a2da3f5779aebb" },
+          { id: "tgdq-p1-lt-5", title: "Tập 5", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=5a458632d5f1adb34316d2044c97b4c2" },
+          { id: "tgdq-p1-lt-6", title: "Tập 6", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=3d175dd90c390e244f46855d95c56657" },
+          { id: "tgdq-p1-lt-7", title: "Tập 7", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=ddec5accbe3f0fc1555d369e15b451dc" },
+          { id: "tgdq-p1-lt-8", title: "Tập 8", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=e10060ad5cf276ba9a3cab6df2ff05fe" },
+          { id: "tgdq-p1-lt-9", title: "Tập 9", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=d37ff07586f047556d3dcc34f2a6d760" },
+          { id: "tgdq-p1-lt-10", title: "Tập 10", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=bb92d9b17b56778c95efef710c75e8f0" },
+          { id: "tgdq-p1-lt-11", title: "Tập 11", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=787c06331cec3c43be38737ff8ffc66b" },
+          { id: "tgdq-p1-lt-12", title: "Tập 12", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=c84258ed22234c37d25b3d0b41a96c94" },
+          { id: "tgdq-p1-lt-13", title: "Tập 13", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=7eed8d29678bb11ac9d95cdda2aabfbb" },
+          { id: "tgdq-p1-lt-14", title: "Tập 14", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=54fc9c7103751db1ff3da219020d2eef" },
+          { id: "tgdq-p1-lt-15", title: "Tập 15", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=cfae277525bcebb535a6f8ec89aece2d" },
+          { id: "tgdq-p1-lt-16", title: "Tập 16", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=a74239cc7a957cdb6babcf84f3871da2" },
+          { id: "tgdq-p1-lt-17", title: "Tập 17", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=e3e23473d238a43fdc3c955566ddb04c" },
+          { id: "tgdq-p1-lt-18", title: "Tập 18", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=0b6c1a30667d78028e82896b0c7ad953" },
+          { id: "tgdq-p1-lt-19", title: "Tập 19", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=57e0071ce5e3cef9dfb12eeb09ed63b5" },
+          { id: "tgdq-p1-lt-20", title: "Tập 20", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=c0e6d266a0e2e492910b35cfc1ef58dd" },
+          { id: "tgdq-p1-lt-21", title: "Tập 21", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=c2b7c9bb07ac375af9ece5d2a6baf1b0" },
+          { id: "tgdq-p1-lt-22", title: "Tập 22", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=df17c416ef06f22967b483fbdc8932f2" },
+          { id: "tgdq-p1-lt-23", title: "Tập 23", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=720cd4b95441dd7bc5269b469182e56d" },
+          { id: "tgdq-p1-lt-24", title: "Tập 24", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=78a5ff800b746399462843882d888bff" },
+          { id: "tgdq-p1-lt-25", title: "Tập 25", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=b7bedc263737f2f444e249e31741c35b" },
+          { id: "tgdq-p1-lt-26", title: "Tập 26", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=24bbec3156dc9f37f057621187033112" }
+        ]
+      }
+    ]
+  },
   {
     id: "doraemon-movie",
     title: "Doraemon Movie",
