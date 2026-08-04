@@ -356,6 +356,240 @@ window.MOVIE_DATA = [
       }
     ]
   },
+ {
+    id: "vung-dat-linh-hon",
+    title: "Vùng Đất Linh Hồn",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/aXhGpSh9dLalC6OZtgPjJMm8QSR.jpg",
+    description: "Câu chuyện kể về cô bé bướng bỉnh Chihiro. Gia đình của Chihiro chuyển từ thành phố về quê sinh sống, và Chihiro chẳng thích thú tí nào với sự thay đổi này. Bố của Chihiro là một tay lái xe tệ hại và có một trí nhớ \"quá tồi\", ông đã lái xe lạc đường đến một thành phố bị bỏ hoang, không bóng người. Bị cuốn hút bởi mùi vị thơm ngon của thức ăn, bố mẹ của Chihiro bắt đầu \"thưởng thức\", nhưng kết quả họ bị biến thành những con heo mập. Còn thành phố không người kia, sau khi trời tối, tất cả sống dậy, những bóng ma bắt đầu xuất hiện và hoạt động. Cô bé bướng bỉnh phải làm gì để cứu bố mẹ mình và thoát khỏi đây?",
+    category: ["Phim lẻ"],
+    genres: ["Hoạt Hình", "Gia Đình"],
+    year: 2001,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "vung-dat-linh-hon-lt-full", title: "Full", videoUrl: "https://embed17.streamc.xyz/embed.php?hash=2b759c82279d4b5e28c15aef8c46521d" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "hang-xom-cua-toi-la-totoro",
+    title: "Hàng Xóm Của Tôi Là Totoro",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/ykeaF3Ldz1Kf6sfnOJJH4dW56F4.jpg",
+    description: "Những ngày cùng cha nghỉ hè tại miền quê thuộc đất nước Nhật Bản, hai chị em bé nhỏ đã kết bạn với những sinh vật huyền bí sống trong khu rừng gần đó.",
+    category: ["Phim lẻ"],
+    genres: ["Hoạt Hình", "Gia Đình", "Giả Tưởng"],
+    year: 1988,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "hang-xom-cua-toi-la-totoro-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=864da2249c041ef437955dda1546ae26" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "song-dai-duong",
+    title: "Sóng Đại Dương",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/90cJV1vLKtjXZyhtBwx3VnwaOcd.jpg",
+    description: "Là một phim nói về tình cảm lứa tuổi học trò, 72 phút của Ocean Waves trôi qua một cách lặng lẽ, để lại nhiều cảm xúc, làm cho người xem hồi tưởng lại một thời cắp sách đến trường, một tình yêu chớm nở nhưng lại giữ kín trong tim, để rồi bất giác một lúc nào đó, ta lại nhớ đến một bóng hình...",
+    category: ["Phim lẻ"],
+    genres: ["Hoạt Hình", "Chính Kịch", "Lãng Mạn"],
+    year: 1994,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "song-dai-duong-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=e32b761798f1039c46a847db9a343d23" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "the-gioi-bi-mat-cua-arrietty",
+    title: "Thế Giới Bí Mật Của Arrietty",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/lSbCP68azahDzcfl8sm1VBxZqX.jpg",
+    description: "Khi \"người vay mượn\" nhỏ bé tên Arrietty kết bạn với cậu nhóc to lớn hơn cô gấp nhiều lần, cô cũng phải bảo vệ gia đình mình trước những người khổng lồ cao chót vót.",
+    category: ["Phim lẻ"],
+    genres: ["Hoạt Hình", "Gia Đình"],
+    year: 2010,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "the-gioi-bi-mat-cua-arrietty-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=2446280c6757e011575687e010f38487" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "loai-meo-tra-on",
+    title: "Loài Mèo Trả Ơn",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/9ripXZmaPueob1qVgqJz4HWIGlm.jpg",
+    description: "Haru, một nữ sinh buồn chán với thói quen bình thường của mình, đã cứu mạng một con mèo khác thường và đột nhiên thế giới của cô bị biến đổi ngoài những gì cô từng tưởng tượng. Vua Mèo thưởng cho hành động tốt của cô bằng một loạt quà, trong đó có một màn cầu hôn vô cùng sốc với con trai mình! Haru bắt đầu một cuộc hành trình bất ngờ đến Vương quốc Mèo, nơi đôi mắt của cô được mở ra với một thế giới hoàn toàn khác.",
+    category: ["Phim lẻ"],
+    genres: ["Phiêu Lưu", "Hoạt Hình", "Chính Kịch", "Gia Đình"],
+    year: 2002,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "loai-meo-tra-on-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=020d9ae63bf585eef5fac9c596f50f42" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "loi-thi-tham-cua-trai-tim",
+    title: "Lời Thì Thầm Của Trái Tim",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/eN2Re2uBcBk815WnJFIvCbIqDtY.jpg",
+    description: "Phát hiện mọi cuốn sách cô mượn từ thư viện đều được mượn bởi cùng một người trước đó, nữ sinh Shizuku tìm cách gặp cậu bạn ấy và theo đuổi giấc mơ của mình.",
+    category: ["Phim lẻ"],
+    genres: ["Hoạt Hình", "Chính Kịch", "Gia Đình"],
+    year: 1995,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "loi-thi-tham-cua-trai-tim-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=d1f64f6d09c52e3173de404da54103bf" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "marnie-trong-ky-uc",
+    title: "Marnie Trong Ký Ức",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/vRk9U3z9JjjvBRk08VGoOgtGhnR.jpg",
+    description: "Phải nghỉ hè tại thị trấn ven biển buồn tẻ, cô bé ốm yếu Anna kết bạn với bé gái tò mò sống trong căn biệt thự hiu quạnh. Nhưng tình bạn ấy có phải là thật?",
+    category: ["Phim lẻ"],
+    genres: ["Hoạt Hình", "Chính Kịch", "Gia Đình", "Bí Ẩn"],
+    year: 2014,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "marnie-trong-ky-uc-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=5303c06c96d3a06dbce005879021640f" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "huyen-thoai-dat-lien-va-dai-duong",
+    title: "Huyền Thoại Đất Liền Và Đại Dương",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/ggqKQeBX4N2p67KA4XxqaswSFrV.jpg",
+    description: "Thế giới dần suy tàn, Đại pháp sư đưa vị hoàng tử mang trong lòng nhiều trăn trở và cả ác tâm lên đường tìm kiếm ngọn nguồn cái ác, cứu lấy những người con gái họ yêu.",
+    category: ["Phim lẻ"],
+    genres: ["Phiêu Lưu", "Hoạt Hình"],
+    year: 2006,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "huyen-thoai-dat-lien-va-dai-duong-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=6c46b10062ed52327bcde35a463827c7" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "lau-dai-di-dong-cua-howl",
+    title: "Lâu Đài Di Động Của Howl",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/xNIz1UpNUywSjecaPsJHJG6Ilb3.jpg",
+    description: "Sophie vốn dĩ làm việc tại cửa hàng mũ do người cha quá cố để lại. Cuộc sống nơi thị trấn buồn tẻ cứ thế trôi qua trong lặng lẽ... cho đến ngày cô bỗng biến thành bà lão.",
+    category: ["Phim lẻ"],
+    genres: ["Phiêu Lưu", "Hoạt Hình", "Giả Tưởng"],
+    year: 2004,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "lau-dai-di-dong-cua-howl-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=4c6515b6c3fbb1ddb17170807501dbc7" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "co-be-nguoi-ca-ponyo",
+    title: "Cô Bé Người Cá Ponyo",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/9Qn1PNKl23gc8XMdJD0sVjGvf9H.jpg",
+    description: "Cậu bé năm tuổi Sosuke làm bạn với Ponyo – cô công chúa cá vàng tha thiết muốn trở thành con người.",
+    category: ["Phim lẻ"],
+    genres: ["Hoạt Hình", "Gia Đình"],
+    year: 2008,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "co-be-nguoi-ca-ponyo-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=8cad62090788131526c7ea5d081874a3" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "dich-vu-giao-hang-kiki",
+    title: "Dịch Vụ Giao Hàng Kiki",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/rlNKTz07MtYlIJY6zKaQedRN8HF.jpg",
+    description: "Bộ phim bắt đầu ngay thời điểm Kiki - một cô bé phù thuỷ thực tập - đủ tuổi để rời gia đình và đến một nơi khác, nơi cô phải sống một mình trong vòng một năm để cô có thể trở thành một phù thủy thực thụ. Kiki khởi hành vào buổi tối cùng với sự cổ vũ của mọi người, sử dụng chiếc chổi của mẹ cô, và mang theo chú mèo Jiji cùng một số thứ cần thiết. Kiki chọn thành phố Koriko, một nơi mà cô có thể nhìn thấy biển, một thành phố có chiếc tháp đồng hồ cổ kính. Nhưng với một cô bé 13 tuổi cùng với chiếc chổi bay khắp thành phố thì khó mà có thể tìm được một chỗ để trú thân. Nhờ một lần vô tình giúp đỡ bà chủ tiệm bánh, Kiki đã bắt đầu công việc chuyển phát bằng chiếc chổi bay của mình.",
+    category: ["Phim lẻ"],
+    genres: ["Hoạt Hình", "Gia Đình"],
+    year: 1989,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "dich-vu-giao-hang-kiki-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=8f7527530388ba7eb590374616fd0c45" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "chi-con-ngay-hom-qua",
+    title: "Chỉ Còn Ngày Hôm Qua",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/8L1QJ4iBORbyrb5fOQerhRdQyC8.jpg",
+    description: "Từ trái dứa đến tình đầu: đó chính là câu chuyện ngày ấy bây giờ của cô gái 27 tuổi tại Tokyo. Khi cô rời thành phố cũng là lúc cô bước vào miền ký ức xa xôi.",
+    category: ["Phim lẻ"],
+    genres: ["Hoạt Hình", "Chính Kịch", "Lãng Mạn"],
+    year: 1991,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "chi-con-ngay-hom-qua-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=54928c157c39cb16912aa78f48ebcaf2" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "nausicaa-cong-chua-cua-thung-lung-gio",
+    title: "Nausicaa - Công Chúa Của Thung Lũng Gió",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/207G6eTblcmvQBcfnoNkZffjqtR.jpg",
+    description: "Khi tài nguyên thiên nhiên của hành tinh bị hủy hoại, công chúa chiến binh Nausicaa tập hợp thần dân của mình chống lại đội quân hung tàn của nữ hoàng độc ác.",
+    category: ["Phim lẻ"],
+    genres: ["Phiêu Lưu", "Hoạt Hình", "Giả Tưởng"],
+    year: 1984,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "nausicaa-cong-chua-cua-thung-lung-gio-lt-full", title: "Full", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=911fe944d75adf62c69b3fb2d7e24dfe" }
+        ]
+      }
+    ]
+  },
   {
     id: "doraemon-movie",
     title: "Doraemon Movie",
