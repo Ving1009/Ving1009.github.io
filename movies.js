@@ -109,6 +109,56 @@ window.MOVIE_DATA = [
       }
     ]
   },
+ {
+    id: "one-piece-live-action-phan-1",
+    title: "One Piece Live Action (Phần 1)",
+    thumbnail: "https://phim.nguonc.com/public/images/Post/6/one-piece-live-action.jpg",
+    description: "Với chiếc mũ rơm và nhóm bạn đủ thành phần, hải tặc trẻ Monkey D. Luffy có hành trình săn kho báu hoành tráng trong bản chuyển thể người đóng này của bộ manga nổi tiếng.",
+    category: ["Phim bộ"],
+    genres: ["Hành Động", "Phiêu Lưu", "Chính Kịch", "Giả Tưởng"],
+    year: 2023,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "one-piece-live-action-phan-1-lt-1", title: "Tập 1", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=7f75cc89b9885ad19021466408a6189d" },
+          { id: "one-piece-live-action-phan-1-lt-2", title: "Tập 2", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=26a7e258a9dc6ae3c472e0f28f405eb1" },
+          { id: "one-piece-live-action-phan-1-lt-3", title: "Tập 3", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=b3dfe2e310d58e930315c2e81ec39242" },
+          { id: "one-piece-live-action-phan-1-lt-4", title: "Tập 4", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=3d52d5e173556718905b6699d27aa9a9" },
+          { id: "one-piece-live-action-phan-1-lt-5", title: "Tập 5", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=6adfcb86b7661f069cecf6261986f5e9" },
+          { id: "one-piece-live-action-phan-1-lt-6", title: "Tập 6", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=33b364c0e550b1fc4b61b8140938ffa1" },
+          { id: "one-piece-live-action-phan-1-lt-7", title: "Tập 7", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=b7085ed2257e92a5380c55e48078f37c" },
+          { id: "one-piece-live-action-phan-1-lt-8", title: "Tập 8", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=fb843f4e5b2167b4cc43ec9d6e7db40c" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "one-piece-live-action-phan-2",
+    title: "One Piece Live Action (Phần 2)",
+    thumbnail: "https://phim.nguonc.com/public/images/Post/7/one-piece-live-action-phan-2.jpg",
+    description: "Season 2 của bản live-action One Piece trên Netflix tiếp tục câu chuyện sau khi Luffy đánh bại Arlong ở Season 1 và chính thức bắt đầu hành trình vào Grand Line.",
+    category: ["Phim bộ"],
+    genres: ["Hành Động", "Phiêu Lưu", "Chính Kịch", "Giả Tưởng"],
+    year: 2026,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "one-piece-live-action-phan-2-lt-1", title: "Tập 1", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=2b00196ca4c278478e68f7ef64075a2c" },
+          { id: "one-piece-live-action-phan-2-lt-2", title: "Tập 2", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=31ba419f81da2ea229203bcb7a708936" },
+          { id: "one-piece-live-action-phan-2-lt-3", title: "Tập 3", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=3e925e60fdf403865fd52f09b5e2d9cb" },
+          { id: "one-piece-live-action-phan-2-lt-4", title: "Tập 4", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=b2821340c1b6d5232d8c0d1dafb4c790" },
+          { id: "one-piece-live-action-phan-2-lt-5", title: "Tập 5", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=ba013675a139345794bdac904a1ba938" },
+          { id: "one-piece-live-action-phan-2-lt-6", title: "Tập 6", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=e963af3e62177179f43840613c9cf2e9" },
+          { id: "one-piece-live-action-phan-2-lt-7", title: "Tập 7", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=76554180ed8194f8894c568f37ddcc93" },
+          { id: "one-piece-live-action-phan-2-lt-8", title: "Tập 8", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=cebd21f7eef44da9ba31c574766611b6" }
+        ]
+      }
+    ]
+  },
 {
     id: "tho-oi",
     title: "Thỏ Ơi",
@@ -214,6 +264,94 @@ window.MOVIE_DATA = [
           { id: "tgdq-p1-lt-24", title: "Tập 24", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=78a5ff800b746399462843882d888bff" },
           { id: "tgdq-p1-lt-25", title: "Tập 25", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=b7bedc263737f2f444e249e31741c35b" },
           { id: "tgdq-p1-lt-26", title: "Tập 26", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=24bbec3156dc9f37f057621187033112" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "thanh-guom-diet-quy-phan-3",
+    title: "Thanh Gươm Diệt Quỷ (Phần 3)",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/3387.jpg",
+    description: "Sự tàn phá của sự cố Mugen Train vẫn đè nặng lên các thành viên của Quân đoàn Sát quỷ. Mặc dù có thời gian để phục hồi, nhưng cuộc sống vẫn phải tiếp diễn, vì kẻ ác không bao giờ ngủ: một con quỷ độc ác đang khủng bố những người phụ nữ quyến rũ của Khu giải trí Yoshiwara.",
+    category: ["Phim bộ"],
+    genres: ["Hành Động", "Phiêu Lưu", "Hoạt Hình", "Giả Tưởng"],
+    year: 2021,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "tgdq-p3-lt-1", title: "Tập 1", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=6ce6957240c1e7b217d05d741a03ea87" },
+          { id: "tgdq-p3-lt-2", title: "Tập 2", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=baf1d26f34036cd154a0798163427483" },
+          { id: "tgdq-p3-lt-3", title: "Tập 3", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=efea74ba61c83632e34923d5237a8822" },
+          { id: "tgdq-p3-lt-4", title: "Tập 4", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=303036e8c49bf9fe2b36f4764181717e" },
+          { id: "tgdq-p3-lt-5", title: "Tập 5", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=70ae89f4f4e3c5d702e88cde46d87646" },
+          { id: "tgdq-p3-lt-6", title: "Tập 6", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=999a923642a9332b08984f6a45f203b4" },
+          { id: "tgdq-p3-lt-7", title: "Tập 7", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=9d608d41b14293ea0f9bb3cba6c81556" },
+          { id: "tgdq-p3-lt-8", title: "Tập 8", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=7e4b198371c37861cc4da3e6e871a314" },
+          { id: "tgdq-p3-lt-9", title: "Tập 9", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=c049495ebe2aca9079f713ace7225a96" },
+          { id: "tgdq-p3-lt-10", title: "Tập 10", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=cc809dde9f14956b78ce8c3b99e175b7" },
+          { id: "tgdq-p3-lt-11", title: "Tập 11", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=bb3ef517e1696b5491919071dd3dbee3" },
+          { id: "tgdq-p3-lt-12", title: "Tập 12", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=2d798dfeb2b74f6c49603d723c7c269d" },
+          { id: "tgdq-p3-lt-13", title: "Tập 13", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=8016cbb5f35980acc215540b0f6a7b43" },
+          { id: "tgdq-p3-lt-14", title: "Tập 14", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=2f853cd0331089932c931723b6eb2109" },
+          { id: "tgdq-p3-lt-15", title: "Tập 15", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=813d9fa038bae7ab4d89a0dbd15e473a" },
+          { id: "tgdq-p3-lt-16", title: "Tập 16", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=058242941ac683279824ea8ebed514ab" },
+          { id: "tgdq-p3-lt-17", title: "Tập 17", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=a8c9ba31c3c751633ec4b0e0f4db3afe" },
+          { id: "tgdq-p3-lt-18", title: "Tập 18", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=8249e9a87d5581662290a1ec6c5c68c4" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "thanh-guom-diet-quy-phan-4",
+    title: "Thanh Gươm Diệt Quỷ (Phần 4)",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/133915.jpg",
+    description: "Diễn biến của Kimetsu No Yaiba - Thanh Gươm Diệt Quỷ Season 3 sẽ dẫn đến cuộc đại chiến lớn là cuộc chạm trán với Thượng Huyền Ngũ và Thượng Huyền Tứ ở Làng Thợ Rèn.",
+    category: ["Phim bộ"],
+    genres: ["Hành Động", "Phiêu Lưu", "Hoạt Hình", "Giả Tưởng"],
+    year: 2023,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "tgdq-p4-lt-1", title: "Tập 1", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=3f16f2bfc2b4400a45f2500df1180101" },
+          { id: "tgdq-p4-lt-2", title: "Tập 2", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=f8d4770f87b38b0ab06ea879024a5e33" },
+          { id: "tgdq-p4-lt-3", title: "Tập 3", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=a7e6bf921cfff1c50bd69ad9bb2f1799" },
+          { id: "tgdq-p4-lt-4", title: "Tập 4", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=a5859790d7aed0589bfb5dd99d1c3855" },
+          { id: "tgdq-p4-lt-5", title: "Tập 5", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=c0f1a92b9c816e9539803490e6cf37ae" },
+          { id: "tgdq-p4-lt-6", title: "Tập 6", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=32df83e2ef78b7cae5d9055a1c39a489" },
+          { id: "tgdq-p4-lt-7", title: "Tập 7", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=a32f932a7186f0ab9f7459c1cf031338" },
+          { id: "tgdq-p4-lt-8", title: "Tập 8", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=a6eed739c162cb5b34ec9f5471500adc" },
+          { id: "tgdq-p4-lt-9", title: "Tập 9", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=4d4314f44a8cc0c53f51fc95e36298b9" },
+          { id: "tgdq-p4-lt-10", title: "Tập 10", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=5212b676a9880e903a06fcc693d55a28" },
+          { id: "tgdq-p4-lt-11", title: "Tập 11", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=dc9976622054500bcfe056b5b92185a6" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "thanh-guom-diet-quy-phan-5",
+    title: "Thanh Gươm Diệt Quỷ (Phần 5)",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/142711.jpg",
+    description: "Chuyến Đặc Huấn Của Đại Trụ sẽ có chương trình huấn luyện đặc biệt thường dành cho nhóm Tanjiro và những thợ săn quỷ có tài năng đặc biệt, được chỉ định là người kế thừa các Trụ cột. Trong phần này, Tanjiro và các nhân vật khác sẽ trải qua một chế độ luyện tập nghiêm ngặt, do mỗi Trụ cột yêu cầu riêng.",
+    category: ["Phim bộ"],
+    genres: ["Hành Động", "Phiêu Lưu", "Hoạt Hình", "Giả Tưởng"],
+    year: 2024,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "tgdq-p5-lt-1", title: "Tập 1", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=90ca562020f32ae7987681ec0aa0ceb2" },
+          { id: "tgdq-p5-lt-2", title: "Tập 2", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=dab55b71cf850bc4dd13d129d8376a07" },
+          { id: "tgdq-p5-lt-3", title: "Tập 3", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=1fdcefacb00ac780c823c1de890a6e6c" },
+          { id: "tgdq-p5-lt-4", title: "Tập 4", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=05dd25a4d783b9869c705630e5d2de75" },
+          { id: "tgdq-p5-lt-5", title: "Tập 5", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=d14da87cc42f9230d27deb10c071b15b" },
+          { id: "tgdq-p5-lt-6", title: "Tập 6", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=ce6e71aaa11c0d6f8acbc1f97ed6ff1e" },
+          { id: "tgdq-p5-lt-7", title: "Tập 7", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=048a1dde7bf8bd75920bc34f2d7f8eb0" },
+          { id: "tgdq-p5-lt-8", title: "Tập 8", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=b00561587d4507bc9f71cc2bd8e9bb07" }
         ]
       }
     ]
