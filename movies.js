@@ -1,5 +1,218 @@
 window.MOVIE_DATA = [
  {
+    id: "shingeki-no-kyojin-season-1",
+    title: "Shingeki no Kyojin Season 1",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/177.jpg",
+    description: "Nhiều thế kỷ trước, nhân loại đã bị tàn sát gần như tuyệt chủng bởi những sinh vật hình người quái dị được gọi là Titans, buộc loài người phải trốn trong sợ hãi đằng sau những bức tường đồng tâm khổng lồ. Điều khiến những người khổng lồ này thực sự đáng sợ là sở thích ăn thịt người của chúng không phải do đói mà do khoái cảm.",
+    category: ["Phim bộ"],
+    genres: ["Hành Động", "Phiêu Lưu", "Hoạt Hình", "Giả Tưởng", "Kinh Dị"],
+    year: 2013,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "shingeki-no-kyojin-season-1-lt-1", title: "Tập 1", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=4aff011b82a3695eccea19dd5305d9bb" },
+          { id: "shingeki-no-kyojin-season-1-lt-2", title: "Tập 2", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=dd56718d3973bc9ea1f753abdf115be5" },
+          { id: "shingeki-no-kyojin-season-1-lt-3", title: "Tập 3", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=31986390bd26d5947a44073a9d551878" },
+          { id: "shingeki-no-kyojin-season-1-lt-4", title: "Tập 4", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=33ebb7fe36e8d9d588b178d399ab6c85" },
+          { id: "shingeki-no-kyojin-season-1-lt-5", title: "Tập 5", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=d372c4fd3f683a3a463095ac8bb0f99c" },
+          { id: "shingeki-no-kyojin-season-1-lt-6", title: "Tập 6", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=f688a7cb2d2fd22e9fd342c0ab8889dc" },
+          { id: "shingeki-no-kyojin-season-1-lt-7", title: "Tập 7", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=aafa5832e88e5a117b1e481b78ce2e7f" },
+          { id: "shingeki-no-kyojin-season-1-lt-8", title: "Tập 8", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=5fe1841b9b107df20075b8f3a3be4733" },
+          { id: "shingeki-no-kyojin-season-1-lt-9", title: "Tập 9", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=a400d4b9ba7ecdb078cdfa3b62f4d39b" },
+          { id: "shingeki-no-kyojin-season-1-lt-10", title: "Tập 10", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=addb57996c2f95eeed95a2cc56793c7b" },
+          { id: "shingeki-no-kyojin-season-1-lt-11", title: "Tập 11", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=3bf70abf7a9b47c358648b20133e904b" },
+          { id: "shingeki-no-kyojin-season-1-lt-12", title: "Tập 12", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=dd3e5bcce36e6c8ad5399d7afaaf0ff6" },
+          { id: "shingeki-no-kyojin-season-1-lt-13", title: "Tập 13", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=30feb1b655903a8ca44f984c074a9306" },
+          { id: "shingeki-no-kyojin-season-1-lt-14", title: "Tập 14", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=5a6b47bfefa384a9784d6a4cbd510e7e" },
+          { id: "shingeki-no-kyojin-season-1-lt-15", title: "Tập 15", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=f97d683fce30ae8c0a88af442c07fe5c" },
+          { id: "shingeki-no-kyojin-season-1-lt-16", title: "Tập 16", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=b792ef50dab7e6460aa943d36ef3618c" },
+          { id: "shingeki-no-kyojin-season-1-lt-17", title: "Tập 17", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=9c4b9078ddef1f0024afb2a0cebe41f9" },
+          { id: "shingeki-no-kyojin-season-1-lt-18", title: "Tập 18", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=579ce234e01600ac292ae41664ae6094" },
+          { id: "shingeki-no-kyojin-season-1-lt-19", title: "Tập 19", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=4a9432f95ba5e82bc035494676e1836d" },
+          { id: "shingeki-no-kyojin-season-1-lt-20", title: "Tập 20", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=53bbc8a228c2cb5433dba52689cf5239" },
+          { id: "shingeki-no-kyojin-season-1-lt-21", title: "Tập 21", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=d50f60ceeac8efcdc2e9d533f799a038" },
+          { id: "shingeki-no-kyojin-season-1-lt-22", title: "Tập 22", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=88c3cef8b8bf920fa397f1a97d4599c3" },
+          { id: "shingeki-no-kyojin-season-1-lt-23", title: "Tập 23", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=ef2704f0f1271511f85d5ada79273f2d" },
+          { id: "shingeki-no-kyojin-season-1-lt-24", title: "Tập 24", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=2dc7d5d1920ebc78b61325287a671247" },
+          { id: "shingeki-no-kyojin-season-1-lt-25", title: "Tập 25", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=0d080a7a01518c2aec996ced81ae0828" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "shingeki-no-kyojin-season-2",
+    title: "Shingeki no Kyojin Season 2",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/1541.jpg",
+    description: "Trong nhiều thế kỷ, loài người đã bị săn đuổi bởi những kẻ săn mồi khổng lồ, bí ẩn được gọi là Titan. Ba bức tường hùng vĩ Bức tường Maria, Rose và Sheena đã mang lại hòa bình và sự bảo vệ cho nhân loại trong hơn một trăm năm.",
+    category: ["Phim bộ"],
+    genres: ["Hành Động", "Phiêu Lưu", "Hoạt Hình", "Giả Tưởng", "Kinh Dị"],
+    year: 2017,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "shingeki-no-kyojin-season-2-lt-1", title: "Tập 1", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=4a5d1d952f574b9219aa8c2b62b02c7c" },
+          { id: "shingeki-no-kyojin-season-2-lt-2", title: "Tập 2", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=11469d28ae95b500b8fc9f755fa9f4f1" },
+          { id: "shingeki-no-kyojin-season-2-lt-3", title: "Tập 3", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=4dbb9a2a47e4872d0366193b6cbe3148" },
+          { id: "shingeki-no-kyojin-season-2-lt-4", title: "Tập 4", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=b4b148dac7f68352c87dc5c827d66c38" },
+          { id: "shingeki-no-kyojin-season-2-lt-5", title: "Tập 5", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=0c6dd0833d1b6714d8f2b62a91468b0d" },
+          { id: "shingeki-no-kyojin-season-2-lt-6", title: "Tập 6", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=a320e8374cd1e11c14323c0ec5ba1d71" },
+          { id: "shingeki-no-kyojin-season-2-lt-7", title: "Tập 7", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=272f023e5551cc8314f3d1702e190fe9" },
+          { id: "shingeki-no-kyojin-season-2-lt-8", title: "Tập 8", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=c7f43114f3177000c5b78cc75a606f50" },
+          { id: "shingeki-no-kyojin-season-2-lt-9", title: "Tập 9", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=5647d6b6d2bd08a54349c52bdd915b16" },
+          { id: "shingeki-no-kyojin-season-2-lt-10", title: "Tập 10", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=61227bf014ce9a6601046b561fcf281b" },
+          { id: "shingeki-no-kyojin-season-2-lt-11", title: "Tập 11", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=01eb8d961794636719f096e748c0acd9" },
+          { id: "shingeki-no-kyojin-season-2-lt-12", title: "Tập 12", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=c4bab2596cc4bcc8d4a256b9c4c39947" }
+        ]
+      }
+    ]
+  },
+ {
+  id: "shingeki-no-kyojin-season-3",
+  title: "Shingeki no Kyojin Season 3",
+  thumbnail: "https://phim.nguonc.com/public/images/Film/2484.jpg",
+  description: "Vẫn bị đe dọa bởi những \"Titans\" đã cướp đi tự do của họ, nhân loại vẫn bị giam cầm trong hai bức tường còn lại. Những nỗ lực để tiêu diệt những con quái vật vẫn tiếp tục; tuy nhiên, các mối đe dọa không chỉ phát sinh từ các Titan bên ngoài bức tường mà còn từ những con người bên trong chúng.",
+  category: ["Phim bộ"],
+  genres: ["Hành Động", "Phiêu Lưu", "Hoạt Hình", "Giả Tưởng", "Lịch Sử"],
+  year: 2018,
+  isNew: true,
+  seasons: [
+    {
+      name: "Lồng Tiếng",
+      episodes: [
+        { id: "shingeki-no-kyojin-season-3-lt-1", title: "Tập 1", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=4cca6bb89f070442da0378bfc759de31" },
+        { id: "shingeki-no-kyojin-season-3-lt-2", title: "Tập 2", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=e775593dbcd01549af4008e710fc4ad5" },
+        { id: "shingeki-no-kyojin-season-3-lt-3", title: "Tập 3", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=869a7bd7e5946fefbbaa9505a8bcdb75" },
+        { id: "shingeki-no-kyojin-season-3-lt-4", title: "Tập 4", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=b5b95cb8c8c029b92719dfacf64d8b15" },
+        { id: "shingeki-no-kyojin-season-3-lt-5", title: "Tập 5", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=4a00e3269aa74188d4205da32c22ed7a" },
+        { id: "shingeki-no-kyojin-season-3-lt-6", title: "Tập 6", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=f6c026e4927e418d25efae61c2b85ad0" },
+        { id: "shingeki-no-kyojin-season-3-lt-7", title: "Tập 7", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=5038baf955ac4a3ac1278b680bb191d1" },
+        { id: "shingeki-no-kyojin-season-3-lt-8", title: "Tập 8", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=de47c7edac2e66e70e90855b03fb2fbc" },
+        { id: "shingeki-no-kyojin-season-3-lt-9", title: "Tập 9", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=2fd5b94ef1fe637ad14878f1ee1bfda6" },
+        { id: "shingeki-no-kyojin-season-3-lt-10", title: "Tập 10", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=425d274ef0648e3ed3642b9a3e25b901" },
+        { id: "shingeki-no-kyojin-season-3-lt-11", title: "Tập 11", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=0c57d6bb9c6306965476aaca27a3ec66" },
+        { id: "shingeki-no-kyojin-season-3-lt-12", title: "Tập 12", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=86e90e7c2fce232a1a3d4ba0198719c8" },
+        { id: "shingeki-no-kyojin-season-3-lt-13", title: "Tập 13", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=bf9b0f23a7a1db8a8c7fa76d8180123d" },
+        { id: "shingeki-no-kyojin-season-3-lt-14", title: "Tập 14", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=8beb0b0fb004c85955a6f727831ab28b" },
+        { id: "shingeki-no-kyojin-season-3-lt-15", title: "Tập 15", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=735a8ffb6b6ca621e12f5b152a205970" },
+        { id: "shingeki-no-kyojin-season-3-lt-16", title: "Tập 16", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=3f94e922aa6822e960b19ad7208858a7" },
+        { id: "shingeki-no-kyojin-season-3-lt-17", title: "Tập 17", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=594b6b325929ccffd98436b634ac68a1" },
+        { id: "shingeki-no-kyojin-season-3-lt-18", title: "Tập 18", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=881c52d927c53a06c6b3541954fec9ee" },
+        { id: "shingeki-no-kyojin-season-3-lt-19", title: "Tập 19", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=1c00d87fc2b4793f21fe1a95ecc092c8" },
+        { id: "shingeki-no-kyojin-season-3-lt-20", title: "Tập 20", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=97811065fc887295a7dac1cf4b731ee1" },
+        { id: "shingeki-no-kyojin-season-3-lt-21", title: "Tập 21", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=98e632b8c258c09dd5e65c1e548834fc" },
+        { id: "shingeki-no-kyojin-season-3-lt-22", title: "Tập 22", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=b11001c158e318fddeb6da0b86e98676" }
+      ]
+    }
+  ]
+},
+ {
+  id: "shingeki-no-kyojin-the-final-season",
+  title: "Shingeki no Kyojin: The Final Season",
+  thumbnail: "https://phim.nguonc.com/public/images/Film/3141.jpg",
+  description: "Gabi Braun và Falco Grice đã rèn luyện cả đời để kế thừa một trong bảy Người khổng lồ dưới sự kiểm soát của Marley và hỗ trợ quốc gia của họ tiêu diệt Eldians trên Paradis. Tuy nhiên, khi mọi thứ có vẻ ổn đối với hai học viên, thì hòa bình của họ đột nhiên bị lung lay bởi sự xuất hiện của Eren Yeager và các thành viên còn lại của Quân đoàn Khảo sát.",
+  category: ["Phim bộ"],
+  genres: ["Hành Động", "Phiêu Lưu", "Hoạt Hình", "Chính Kịch", "Giả Tưởng", "Kinh Dị"],
+  year: 2020,
+  isNew: true,
+  seasons: [
+    {
+      name: "Lồng Tiếng",
+      episodes: [
+        { id: "shingeki-no-kyojin-the-final-season-lt-1", title: "Tập 1", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=31146d5d91c9a4f2dced90f55ccb8e17" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-2", title: "Tập 2", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=9a04c04aa63f4fc1ac5060a1d4f585a1" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-3", title: "Tập 3", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=483ba6faab5418d76464f7731f64d87e" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-4", title: "Tập 4", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=b070807016400006a0d92c5c06015f83" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-5", title: "Tập 5", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=2840b4ce342ab9f40d962ec4967304a9" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-6", title: "Tập 6", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=ccaa62858ba1dcceeeb279f43ba1d371" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-7", title: "Tập 7", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=e7ff4dc358758b8f3ab194d9c371613f" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-8", title: "Tập 8", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=5d1f0a10519d5d8f941f0ba9310f63c8" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-9", title: "Tập 9", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=021fd5c73914dfaf10d34b6acfdcea32" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-10", title: "Tập 10", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=0e3b885491921fdf5171ef3dfb13714f" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-11", title: "Tập 11", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=8931f6d10ba6d1ace75ba506f7883f64" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-12", title: "Tập 12", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=c41fa0363d59fda39442f655c509765d" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-13", title: "Tập 13", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=373a3500cdd2d8c01d41f8b5d82289cc" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-14", title: "Tập 14", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=2ce41b40ac6197312a175f891b0d6e89" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-15", title: "Tập 15", videoUrl: "https://embed15.streamc.xyz/embed.php?hash=a485321881a85c20f385f2c422095e55" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-16", title: "Tập 16", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=301747d7b5d5d4eb06873de7fbc9081a" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-17", title: "Tập 17", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=c1b989e81a9dfc2538d88c4d8b0a6e63" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-18", title: "Tập 18", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=6ae4352abc563f465f6352e4d8ad0a67" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-19", title: "Tập 19", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=c800ac759725cd5b438ea7c67a10d249" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-20", title: "Tập 20", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=115df37c0383cc967025a0ddc0428679" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-21", title: "Tập 21", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=4f6f093df261205fb9ec451449cb6065" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-22", title: "Tập 22", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=7199506b2c02c792d5e2461968d4f66d" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-23", title: "Tập 23", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=fe40f36095489e9f065b1f18bdc24ebc" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-24", title: "Tập 24", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=19aff68649a22a0212c6282481a8a48f" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-25", title: "Tập 25", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=cfce15226e64c4ed81c808c9f29a22cf" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-26", title: "Tập 26", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=9fbf890f5a1e2dc1a04b64bd3e9db026" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-27", title: "Tập 27", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=9b9caea50bd62cf760095f081d6dc353" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-28", title: "Tập 28", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=0b61c59357199e81354f4d1c369ccc9e" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-29", title: "Tập 29", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=41552d8622f8dfbb7ae03b5cb32638e9" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-30", title: "Tập 30", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=19e6e2893881418840113971d46712f6" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-31", title: "Tập 31", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=1de147d699db96a2ead6a94e6a02e74c" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-32", title: "Tập 32", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=a1d01d81ea6aedebfd9c74cc38eb7714" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-33", title: "Tập 33", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=4f4eee1f963044d7928d61c494992aaf" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-34", title: "Tập 34", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=5b0b7597870cbda839e61c46f7a92187" },
+        { id: "shingeki-no-kyojin-the-final-season-lt-35", title: "Tập 35", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=35753e34cdfbfac96af24c9abbb5ec16" }
+      ]
+    }
+  ]
+},
+ {
+  id: "dai-chien-nguoi-khong-lo-lan-tan-cong-cuoi-cung",
+  title: "Đại Chiến Người Khổng Lồ: Lần Tấn Công Cuối Cùng",
+  thumbnail: "https://phim.nguonc.com/public/images/Film/h46FSEvcmZt2K0pwbfL9P7fpYRu.jpg",
+  description: "Trong cuộc chiến cuối cùng định đoạt số phận thế giới, Eren Yeager đã giải phóng sức mạnh tối thượng của các Titan. Dẫn đầu đội quân Titan Đại hình khổng lồ, Eren quyết tâm hủy diệt mọi kẻ thù đe dọa đến quê hương Eldia. Thế nhưng, cuộc chiến này không chỉ là về sự sống còn, mà còn là cuộc đối đầu giữa lòng thù hận và hy vọng. Kết thúc khúc hùng ca đầy bi tráng, di sản của chiến tranh và những ám ảnh về tự do vẫn tiếp tục đeo bám nhân loại, để lại câu hỏi về giá trị của sự hy sinh và tự do thật sự.",
+  category: ["Phim lẻ"],
+  genres: ["Hành Động", "Phiêu Lưu", "Hoạt Hình", "Chính Kịch"],
+  year: 2024,
+  isNew: true,
+  seasons: [
+    {
+      name: "Lồng Tiếng",
+      episodes: [
+        {
+          id: "dai-chien-nguoi-khong-lo-lan-tan-cong-cuoi-cung-full",
+          title: "Full",
+          videoUrl: "https://embed14.streamc.xyz/embed.php?hash=45ca8bcf01dfade8b9fc617c799021ae"
+        }
+      ]
+    }
+  ]
+},
+ {
+  id: "shingeki-kyojin-chuugakkou",
+  title: "Shingeki! Kyojin Chuugakkou",
+  thumbnail: "https://phim.nguonc.com/public/images/Film/976.jpg",
+  description: "Vào ngày đầu tiên của trường trung học cơ sở, Eren Yeager đối mặt với một người khổng lồ — và bị đánh cắp bữa trưa của anh ta! Kể từ ngày đó, anh ta có một mối hận thù với những người khổng lồ vì đã lấy món ăn yêu thích của anh ta, một chiếc bánh mì kẹp thịt, thề sẽ loại bỏ đồng loại của chúng một lần và mãi mãi. Cùng với em gái nuôi Mikasa Ackerman và người bạn Armin Arlert của họ, bộ ba đi ngang qua các hội trường của trường Titan Junior High, chạm trán với những gương mặt quen thuộc và tham gia các hoạt động ngoại khóa khác nhau như một phần của Câu lạc bộ Dọn tường.",
+  category: ["Phim bộ"],
+  genres: ["Hoạt Hình"],
+  year: 2015,
+  isNew: false,
+  seasons: [
+    {
+      name: "Vietsub",
+      episodes: [
+        { id: "shingeki-kyojin-chuugakkou-1", title: "Tập 1", videoUrl: "https://embed1.streamc.xyz/embed.php?hash=143ec650af2c6a700c6a6f6ae865915d" },
+        { id: "shingeki-kyojin-chuugakkou-2", title: "Tập 2", videoUrl: "https://embed1.streamc.xyz/embed.php?hash=d0c346b5b289663b27fd4bdcda72dab2" },
+        { id: "shingeki-kyojin-chuugakkou-3", title: "Tập 3", videoUrl: "https://embed1.streamc.xyz/embed.php?hash=963b452927a25e5c51384c918f87b5e5" },
+        { id: "shingeki-kyojin-chuugakkou-4", title: "Tập 4", videoUrl: "https://embed1.streamc.xyz/embed.php?hash=901f72f7fb6a33ca9644ef74b2155d0d" },
+        { id: "shingeki-kyojin-chuugakkou-5", title: "Tập 5", videoUrl: "https://embed1.streamc.xyz/embed.php?hash=39b49faef8e462ea8f86319de020d37a" },
+        { id: "shingeki-kyojin-chuugakkou-6", title: "Tập 6", videoUrl: "https://embed1.streamc.xyz/embed.php?hash=8ee636ae36a37799a950f9ec155c56c5" },
+        { id: "shingeki-kyojin-chuugakkou-7", title: "Tập 7", videoUrl: "https://embed1.streamc.xyz/embed.php?hash=6377475edcf7e57fe7db71489d6644e4" },
+        { id: "shingeki-kyojin-chuugakkou-8", title: "Tập 8", videoUrl: "https://embed1.streamc.xyz/embed.php?hash=fa327367bd511c89a5b2ecee47ccc789" },
+        { id: "shingeki-kyojin-chuugakkou-9", title: "Tập 9", videoUrl: "https://embed1.streamc.xyz/embed.php?hash=baac90826c73ec316f1afaa8103e98df" },
+        { id: "shingeki-kyojin-chuugakkou-10", title: "Tập 10", videoUrl: "https://embed1.streamc.xyz/embed.php?hash=d327b951e512d09fdb2b7a25be2fe6ba" },
+        { id: "shingeki-kyojin-chuugakkou-11", title: "Tập 11", videoUrl: "https://embed1.streamc.xyz/embed.php?hash=87ed8daaabd310d19189b5ed4c3457ea" },
+        { id: "shingeki-kyojin-chuugakkou-12", title: "Tập 12", videoUrl: "https://embed1.streamc.xyz/embed.php?hash=ef3cc84d714a1c2b49834fde6592287e" }
+      ]
+    }
+  ]
+},
+ {
     id: "pokemonxyz",
     title: "POKEMON XYZ",
     thumbnail: "https://m.media-amazon.com/images/M/MV5BOWU5MDI0NjMtMWRjMy00NjNmLWI1MjctYzRmMDQ2MDFmZTM1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
@@ -622,6 +835,42 @@ window.MOVIE_DATA = [
         name: "Lồng Tiếng",
         episodes: [
           { id: "ngon-doi-hoa-hong-anh-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=2453c3041120ed58eae91a86b3997f2a" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "laputa-lau-dai-tren-khong",
+    title: "Laputa: Lâu Đài Trên Không",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/xDse6WI1npXK9XUn3gOHSu4SFp3.jpg",
+    description: "Bộ phim hoạt hình phiêu lưu cho trẻ em kể về cậu bé thợ mỏ và cô bé bí ẩn. Hai em khao khát tìm kiếm hòn đảo mất tích đã lâu mà mọi người đồn rằng có rất nhiều của cải.",
+    category: ["Phim lẻ"],
+    genres: ["Hành Động", "Phiêu Lưu", "Hoạt Hình", "Gia Đình"],
+    year: 1986,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "laputa-lau-dai-tren-khong-lt-full", title: "Full", videoUrl: "https://embed8.streamc.xyz/embed.php?hash=c719d3a28f309c058eb64e06ceb07a99" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "bo-gia-2021",
+    title: "Bố Già (2021)",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/WoFe2UXDzLAZAk6aFxcOkBXyfT.jpg",
+    description: "Trong phim, Trấn Thành vào vai ông Tư – một tài xế xe ôm quần quật làm việc qua ngày để chăm lo cho gia đình của mình. Mặc dù khá bảo thủ, nóng nảy, thường xuyên quát tháo nhưng thực chất ông Tư lại là một người rất giàu lòng yêu thương – không chỉ với người thân mà còn có hàng xóm, bạn bè xung quanh và thậm chí là cả những người xa lạ.",
+    category: ["Phim lẻ"],
+    genres: ["Phim Hài", "Chính Kịch", "Gia Đình"],
+    year: 2021,
+    isNew: true,
+    seasons: [
+      {
+        name: "Vietsub",
+        episodes: [
+          { id: "bo-gia-2021-vs-full", title: "Full", videoUrl: "https://embed.streamc.xyz/embed.php?hash=a8e683e9c81ea14fac266a02d9237d6f" }
         ]
       }
     ]
