@@ -1,5 +1,88 @@
 window.MOVIE_DATA = [
  {
+    id: "chu-thuat-hoi-chien-phan-1",
+    title: "Chú Thuật Hồi Chiến (Phần 1)",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/3093.jpg",
+    description: "Mải mê tham gia các hoạt động huyền bí vô căn cứ với Câu lạc bộ Huyền bí, cậu học sinh trung học Yuuji Itadori dành cả ngày ở phòng câu lạc bộ hoặc bệnh viện, nơi cậu đến thăm người ông đang nằm liệt giường của mình.",
+    category: ["Phim bộ"],
+    genres: ["Hành Động", "Hoạt Hình"],
+    year: 2020,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "chu-thuat-hoi-chien-phan-1-lt-1", title: "1", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=941208bce5a4eee70105508eca5dbfb8" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-2", title: "2", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=afcb47bab35062d61d160fd9b03c4caa" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-3", title: "3", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=5c8a4964860723aa88e83b68bb8e9aaf" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-4", title: "4", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=873e20c336b9d29328ddcbc9694f9c1a" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-5", title: "5", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=dd5cd883dcc73755af3fb154cb86d30d" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-6", title: "6", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=261741ab145a797fd9e318115412608f" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-7", title: "7", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=bb11186c4a277e24fb17700dc61704d4" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-8", title: "8", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=ae0330e68bb4613e42fefa878265eebb" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-9", title: "9", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=af323b03c0f4b1160ec5b901585359f6" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-10", title: "10", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=f0d06fbaf60df07b6c0dc1559bbba8fc" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-11", title: "11", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=e0855512ccf5bd876e61f64265dc754b" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-12", title: "12", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=bce38d531083ed13b2272a22cbe73e21" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-13", title: "13", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=f0425580df7582b889d2d6f4fab53d1a" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-14", title: "14", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=dd1130f00126b4637422b906df2c84bc" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-15", title: "15", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=ad37969a082369e11912c4e79900f175" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-16", title: "16", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=a76fc57e7ecda8fa313ea0075efb2887" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-17", title: "17", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=f1bebb787993ce8aa76b82e852a4f8df" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-18", title: "18", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=aa3aaada9259041c548aa5d1fa111c59" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-19", title: "19", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=a37ed7f6225256120144195134b74e81" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-20", title: "20", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=7f3254652096aba1066196ef88004788" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-21", title: "21", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=7919046ee82d9e83d533792b391bca43" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-22", title: "22", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=51b0e2fc4349888ac561ee9d75ea2051" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-23", title: "23", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=c4f384dbab9f8788f027d27f9355fa4b" },
+          { id: "chu-thuat-hoi-chien-phan-1-lt-24", title: "24", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=9b87d55513ed3a01e876438f47526f60" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "chu-thuat-hoi-chien-phan-2",
+    title: "Chú Thuật Hồi Chiến (Phần 2)",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/134703.jpg",
+    description: "Mùa thứ 2 của Jujutsu Kaisen.",
+    category: ["Phim bộ"],
+    genres: ["Hành Động", "Hoạt Hình"],
+    year: 2023,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "chu-thuat-hoi-chien-phan-2-lt-1", title: "1", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=9d19fee43a5df57190c4d8014a403c4a" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-2", title: "2", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=b8ef46f5a7de0e81309d5155e1d013c3" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-3", title: "3", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=ae990e17d29d7bb9ea8dd9cfb5b0ecbb" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-4", title: "4", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=d63a575573d0f49b1f1b3a5774002bfd" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-5", title: "5", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=d20866bdd8d72f3a04e238faae01bad0" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-6", title: "6", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=90de78a8e1ac35a6d2396c4aac0b4d74" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-7", title: "7", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=00034c43bff99538dbe28cd9a1140ee7" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-8", title: "8", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=93d2218981a8c6450ddc76810c6f7fba" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-9", title: "9", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=b701319d876e46357b05e7e40a2e50b2" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-10", title: "10", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=1d41597b711ae48c99ebfadc63f5ec46" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-11", title: "11", videoUrl: "https://embed12.streamc.xyz/embed.php?hash=eb5107565d69d2547792eea046b8e862" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-12", title: "12", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=2ece79fcde4bba73011bdaee3aeecae5" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-13", title: "13", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=9ab9b4c569cc5ed78de15cba38acc386" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-14", title: "14", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=82f310518f6672bd26cbc97c336d4d15" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-15", title: "15", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=de8e17696115fdc66acb232147e23904" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-16", title: "16", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=4eabe446375a56ec0af6ad349e17431d" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-17", title: "17", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=e7b4dd6ad2383aff0a1639cf6e25f981" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-18", title: "18", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=070f8f39c0441439e8f267a6b7a902c9" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-19", title: "19", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=5d2f65ea820f7340618335656e1182f0" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-20", title: "20", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=f16da6efecf38e6cdc987e3370e39233" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-21", title: "21", videoUrl: "https://embed11.streamc.xyz/embed.php?hash=6e760fdba5cd15fbfb3476089eb46a60" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-22", title: "22", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=9efc6aa7a6d457e3de063928ccfa6e19" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-23", title: "23", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=0b9e5370caa148fdae3c461cb7ef65e9" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-24", title: "24", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=311315e2f8b68bd0194a028d11022a2d" },
+          { id: "chu-thuat-hoi-chien-phan-2-lt-25", title: "25", videoUrl: "https://embed13.streamc.xyz/embed.php?hash=f0b3867ac9c6c4d449724dc4a818badb" }
+        ]
+      }
+    ]
+  },
+ {
     id: "shingeki-no-kyojin-season-1",
     title: "Shingeki no Kyojin Season 1",
     thumbnail: "https://phim.nguonc.com/public/images/Film/177.jpg",
@@ -871,6 +954,95 @@ window.MOVIE_DATA = [
         name: "Lồng Tiếng",
         episodes: [
           { id: "laputa-lau-dai-tren-khong-lt-full", title: "Full", videoUrl: "https://embed8.streamc.xyz/embed.php?hash=c719d3a28f309c058eb64e06ceb07a99" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "gia-dinh-diep-vien-phan-1",
+    title: "Gia Đình Điệp Viên (Phần 1)",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/3489.jpg",
+    description: "Các chính trị gia tham nhũng, những người theo chủ nghĩa dân tộc điên cuồng và các thế lực hiếu chiến khác liên tục gây nguy hiểm cho lớp vỏ hòa bình mỏng manh giữa các quốc gia láng giềng Ostania và Westalis.",
+    category: ["Phim bộ"],
+    genres: ["Hoạt Hình", "Phim Hài", "Gia Đình"],
+    year: 2022,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "gia-dinh-diep-vien-phan-1-lt-1", title: "1", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=053ab4f9157b99ce06fb677eb51a6129" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-2", title: "2", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=17312f421c32158f1ac7ce07e187dfa2" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-3", title: "3", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=2046218dc6880721599e387406eab35d" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-4", title: "4", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=59c388cabb02bb2772b2073058c5976d" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-5", title: "5", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=8746897a0699bedd5f8a86da8cdc5a31" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-6", title: "6", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=f21a833552c5e51df3ec06fbd56e9251" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-7", title: "7", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=1afa08eac51c5b7b42801ca359d27327" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-8", title: "8", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=84cac8e4c7e30f47514dd9b37e048254" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-9", title: "9", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=5049c7989a3ad4e51ec025481783d115" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-10", title: "10", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=eb48a3cb7b457000004c843b44cd36bd" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-11", title: "11", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=e0c37f46199044249b91308e9cd9979a" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-12", title: "12", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=2048d847992e67300a57b26700cfd424" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-13", title: "13", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=a5cfe60c97a5628ffb652d5d265dfb6b" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-14", title: "14", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=c34ed9a36540f9ed6da8f20104806f47" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-15", title: "15", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=2484c989199e33d22d1e5cbed0aae1d4" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-16", title: "16", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=c12f86fdd7fe56f1fbc1b51a7eee2837" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-17", title: "17", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=d766ffdba287fe95f6b00b45c041c200" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-18", title: "18", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=b479b3f497c4c1406626daf1df703f4d" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-19", title: "19", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=113fbf9ee2de0dc7e6ace6446bc048cb" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-20", title: "20", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=1b1593b70a40c12916243a0a73bbdf2b" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-21", title: "21", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=6a8c4b2e79694b818a3f5ee3d404be0e" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-22", title: "22", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=013b94b914fe2629c7014cc9505b6792" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-23", title: "23", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=c6b5ed9af54a0ed505129ce24dd9dec8" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-24", title: "24", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=bf1ddf63d4def40230c32cc55937c89a" },
+          { id: "gia-dinh-diep-vien-phan-1-lt-25", title: "25", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=3781f5f32dab875dc0c8a8fbd188f5a2" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "gia-dinh-diep-vien-phan-2",
+    title: "Gia Đình Điệp Viên (Phần 2)",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/138482.jpg",
+    description: "Mùa thứ 2 của Spy x Family.",
+    category: ["Phim bộ"],
+    genres: ["Hoạt Hình", "Phim Hài", "Gia Đình"],
+    year: 2023,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "gia-dinh-diep-vien-phan-2-lt-1", title: "1", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=6abe8066bd31e3425f8547242bc90b39" },
+          { id: "gia-dinh-diep-vien-phan-2-lt-2", title: "2", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=bb9804671c026432071b93ccaf44e91c" },
+          { id: "gia-dinh-diep-vien-phan-2-lt-3", title: "3", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=dbd2df78f59030d2c7073549107c7e5b" },
+          { id: "gia-dinh-diep-vien-phan-2-lt-4", title: "4", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=c851bd9c9b349e50f99fb0738535a3b1" },
+          { id: "gia-dinh-diep-vien-phan-2-lt-5", title: "5", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=c5d28e0aa42740172a129b68c8f19d93" },
+          { id: "gia-dinh-diep-vien-phan-2-lt-6", title: "6", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=1f5aebf2686865ec84c33493c47016ce" },
+          { id: "gia-dinh-diep-vien-phan-2-lt-7", title: "7", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=1ae3a0730ee40b3d09b4006734d8b15f" },
+          { id: "gia-dinh-diep-vien-phan-2-lt-8", title: "8", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=91ac3ca8265a7373c6ea124f40d9ed3c" },
+          { id: "gia-dinh-diep-vien-phan-2-lt-9", title: "9", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=afb86ff08c1c855df35cce485d99c230" },
+          { id: "gia-dinh-diep-vien-phan-2-lt-10", title: "10", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=25c360be8f044683bd5be94d5a1396b9" },
+          { id: "gia-dinh-diep-vien-phan-2-lt-11", title: "11", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=960fbeb7e37b374b872d0872c5ea763c" },
+          { id: "gia-dinh-diep-vien-phan-2-lt-12", title: "12", videoUrl: "https://embed18.streamc.xyz/embed.php?hash=31373d0e006ff3b4ce77aa081be12b99" }
+        ]
+      }
+    ]
+  },
+ {
+    id: "gia-dinh-diep-vien-ma-trang",
+    title: "Gia Đình Điệp Viên Mã: Trắng",
+    thumbnail: "https://phim.nguonc.com/public/images/Post/9/spy-x-family-movie-code-white.jpg",
+    description: "Dựa trên hình ảnh, bối cảnh của Spy X Family CODE:White sẽ là mùa đông với những lễ hội cuối năm và tuyết. Chúng ta có thể sẽ được theo dõi một nhiệm vụ của Loid. Như mọi lần, nam chính sẽ phải hoàn thành các nhiệm vụ được giao và tìm cách đảm bảo cuộc sống gia đình hành phúc với mẹ con Anya trong giáng sinh và năm mới.",
+    category: ["Phim lẻ"],
+    genres: ["Hành Động", "Hoạt Hình", "Phim Hài"],
+    year: 2023,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "gia-dinh-diep-vien-ma-trang-lt-full", title: "Full", videoUrl: "https://embed3.streamc.xyz/embed.php?hash=07b850e7db2854e78c90669263aab575" }
         ]
       }
     ]
