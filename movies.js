@@ -2,7 +2,7 @@ window.MOVIE_DATA = [
  {
     id: "chu-thuat-hoi-chien-phan-1",
     title: "Chú Thuật Hồi Chiến (Phần 1)",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/3093.jpg",
+    thumbnail: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/9b52e811-e125-4bb8-b27b-02e36636f5d2/dg0ragn-f7027124-1aec-4741-8f17-1eb4bb8ce6c2.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi85YjUyZTgxMS1lMTI1LTRiYjgtYjI3Yi0wMmUzNjYzNmY1ZDIvZGcwcmFnbi1mNzAyNzEyNC0xYWVjLTQ3NDEtOGYxNy0xZWI0YmI4Y2U2YzIuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.uYiCcq-oqSeBOvMGtS5aXvejWHhNNDs7OTaMiJUCczs",
     description: "Mải mê tham gia các hoạt động huyền bí vô căn cứ với Câu lạc bộ Huyền bí, cậu học sinh trung học Yuuji Itadori dành cả ngày ở phòng câu lạc bộ hoặc bệnh viện, nơi cậu đến thăm người ông đang nằm liệt giường của mình.",
     category: ["Phim bộ"],
     genres: ["Hành Động", "Hoạt Hình"],
