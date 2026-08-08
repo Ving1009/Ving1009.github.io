@@ -570,6 +570,24 @@ window.MOVIE_DATA = [
     ]
   },
  {
+    id: "gio-noi",
+    title: "Gió Nổi",
+    thumbnail: "https://phim.nguonc.com/public/images/Film/RyosyYVvQL2fYBPl7hCLL6XyMC.jpg",
+    description: "Nhà làm phim hoạt hình Miyazaki Hayao dệt lên câu chuyện kéo dài nhiều thập kỉ lấy cảm hứng từ cuộc đời Horikoshi Jirô – cha đẻ của máy bay chiến đấu Zero ở Thế chiến II.",
+    category: ["Phim lẻ"],
+    genres: ["Hoạt Hình", "Chính Kịch", "Lịch Sử", "Lãng Mạn", "Chiến Tranh"],
+    year: 2013,
+    isNew: true,
+    seasons: [
+      {
+        name: "Lồng Tiếng",
+        episodes: [
+          { id: "gio-noi-lt-full", title: "Full", videoUrl: "https://embed14.streamc.xyz/embed.php?hash=7f8f29d15983a60677eb9fcd8dbc833e" }
+        ]
+      }
+    ]
+  },
+ {
     id: "vung-dat-linh-hon",
     title: "Vùng Đất Linh Hồn",
     thumbnail: "https://phim.nguonc.com/public/images/Film/aXhGpSh9dLalC6OZtgPjJMm8QSR.jpg",
