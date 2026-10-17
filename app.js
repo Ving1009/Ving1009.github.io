@@ -54,6 +54,10 @@
     embedAutoNextTimer: null,
     progressTimer: null,
     playerControlsTimer: null,
+    autoNextTimer: null,
+    autoNextInterval: null,
+    autoNextOrigin: null,
+    lastProgressPersistAt: 0,
     lastFocused: null,
     progress: loadJsonWithLegacy(STORAGE_KEYS.progress, LEGACY_KEYS.progress, {}),
     favorites: loadJsonWithLegacy(STORAGE_KEYS.favorites, LEGACY_KEYS.favorites, []),
@@ -61,7 +65,8 @@
     settings: Object.assign({
       autoplay: true,
       theme: "netflix",
-      embedAutoNext: false
+      embedAutoNext: false,
+      remoteNavigation: false
     }, loadJsonWithLegacy(STORAGE_KEYS.settings, LEGACY_KEYS.settings, {})),
     ratings: loadJson(STORAGE_KEYS.ratings, {}),
     comments: loadJson(STORAGE_KEYS.comments, {})
@@ -84,6 +89,7 @@
     adminButton: document.getElementById("adminButton"),
     historyButton: document.getElementById("historyButton"),
     themeButton: document.getElementById("themeButton"),
+    remoteModeButton: document.getElementById("remoteModeButton"),
     pageTitle: document.getElementById("pageTitle"),
     searchForm: document.getElementById("searchForm"),
     searchInput: document.getElementById("searchInput"),
@@ -145,6 +151,17 @@
     playerKicker: document.getElementById("playerKicker"),
     playerTitle: document.getElementById("playerTitle"),
     playerMeta: document.getElementById("playerMeta"),
+    playerProgressStatus: document.getElementById("playerProgressStatus"),
+    playerProgressClock: document.getElementById("playerProgressClock"),
+    playerProgressTrack: document.getElementById("playerProgressTrack"),
+    playerProgressFill: document.getElementById("playerProgressFill"),
+    playerProgressHint: document.getElementById("playerProgressHint"),
+    playerMarkDoneButton: document.getElementById("playerMarkDoneButton"),
+    autoNextBanner: document.getElementById("autoNextBanner"),
+    autoNextTitle: document.getElementById("autoNextTitle"),
+    autoNextCountdown: document.getElementById("autoNextCountdown"),
+    autoNextPlayButton: document.getElementById("autoNextPlayButton"),
+    autoNextCancelButton: document.getElementById("autoNextCancelButton"),
     playerChannelPoster: document.getElementById("playerChannelPoster"),
     playerChannelSubtitle: document.getElementById("playerChannelSubtitle"),
     playerFavoriteButton: document.getElementById("playerFavoriteButton"),
@@ -200,13 +217,14 @@
     state.baseMovies = normalizeMovies(window.MOVIE_DATA || [], "base");
     rebuildMovieList();
     applyTheme();
+    applyRemoteNavigationMode();
     bindEvents();
     renderFilterOptions();
     renderQuickPrompts();
     renderAll();
     applyRouteFromUrl(false);
     // Không bật Service Worker; tránh TV giữ bản player/phim cũ.
-    focusElement(els.homeButton);
+    if (isRemoteNavigationEnabled()) { focusElement(els.homeButton); }
   }
 
   function rebuildMovieList() {
@@ -286,6 +304,20 @@
     els.appShell.addEventListener("click", function (event) {
       var button = event.target.closest("[data-show-category]");
       if (button) { navigateCategory(button.dataset.showCategory); }
+      var arrow = event.target.closest("[data-row-scroll]");
+      if (arrow) {
+        var row = document.getElementById(arrow.dataset.rowScroll);
+        if (row) {
+          var distance = Math.max(210, Math.floor(row.clientWidth * .82)) *
+            (arrow.dataset.scrollDirection === "prev" ? -1 : 1);
+          if (typeof row.scrollBy === "function") {
+            try { row.scrollBy({ left: distance, behavior: "smooth" }); }
+            catch (error) { row.scrollLeft += distance; }
+          } else {
+            row.scrollLeft += distance;
+          }
+        }
+      }
     });
     els.seriesRow.addEventListener("click", handleMovieCardClick);
     els.animationRow.addEventListener("click", handleMovieCardClick);
@@ -295,6 +327,12 @@
     els.adminButton.addEventListener("click", openAdmin);
     els.historyButton.addEventListener("click", openHistoryPanel);
     els.themeButton.addEventListener("click", toggleTheme);
+    els.remoteModeButton.addEventListener("click", function () {
+      state.settings.remoteNavigation = !Boolean(state.settings.remoteNavigation);
+      saveJson(STORAGE_KEYS.settings, state.settings);
+      applyRemoteNavigationMode();
+      showToast(state.settings.remoteNavigation ? "Đã bật chọn bằng phím mũi tên." : "Đã tắt chọn bằng phím mũi tên.");
+    });
 
     els.searchInput.addEventListener("input", debounce(function () {
       state.activeSmartResult = null;
@@ -413,15 +451,20 @@
       addCurrentComment();
     });
 
-    els.videoPlayer.addEventListener("timeupdate", saveCurrentPlaybackTime);
+    els.videoPlayer.addEventListener("timeupdate", function () { saveCurrentPlaybackTime(false); });
+    els.videoPlayer.addEventListener("seeked", function () { saveCurrentPlaybackTime(true); });
+    els.videoPlayer.addEventListener("durationchange", updateLiveProgressUI);
     els.videoPlayer.addEventListener("play", function () {
       showPlayerControls(false);
     });
     els.videoPlayer.addEventListener("pause", function () {
-      saveCurrentPlaybackTime();
+      saveCurrentPlaybackTime(true);
       showPlayerControls(true);
     });
-    els.videoPlayer.addEventListener("loadedmetadata", restorePlaybackTime);
+    els.videoPlayer.addEventListener("loadedmetadata", function () {
+      restorePlaybackTime();
+      updateLiveProgressUI();
+    });
     els.videoPlayer.addEventListener("ended", function () {
       showPlayerControls(true);
       handleEpisodeEnded("video-ended");
@@ -443,6 +486,20 @@
     els.playerEmbedButton.addEventListener("click", function (event) {
       event.stopPropagation();
       focusElement(els.iframePlayer);
+    });
+    els.playerMarkDoneButton.addEventListener("click", function (event) {
+      event.stopPropagation();
+      if (els.playerView.hidden || !els.videoPlayer.hidden) { return; }
+      handleEpisodeEnded("iframe-confirmed");
+    });
+    els.autoNextPlayButton.addEventListener("click", function () {
+      if (!state.autoNextOrigin) { return; }
+      cancelAutoNext();
+      playNextEpisode();
+    });
+    els.autoNextCancelButton.addEventListener("click", function () {
+      cancelAutoNext();
+      showToast("Đã hủy tự chuyển tập.");
     });
     els.playerCloseButton.addEventListener("click", function (event) {
       event.stopPropagation();
@@ -572,6 +629,12 @@
 
     document.addEventListener("keydown", handleGlobalKeys);
     document.addEventListener("keyup", handleGlobalKeys);
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden && !els.playerView.hidden) { saveCurrentPlaybackTime(true); }
+    });
+    window.addEventListener("pagehide", function () {
+      if (!els.playerView.hidden) { saveCurrentPlaybackTime(true); }
+    });
     document.addEventListener("error", handleImageError, true);
     window.addEventListener("popstate", function () {
       applyRouteFromUrl(false);
@@ -686,6 +749,7 @@
     renderContinueRow();
     renderRecommendedRow();
     renderCollectionShelves(query);
+    installShelfControls();
 
     if (!movies.length) {
       els.movieGrid.innerHTML = '<div class="empty-state">Không tìm thấy phim phù hợp. Thử bỏ bớt bộ lọc hoặc hỏi AI Assistant bằng mô tả tự nhiên.</div>';
@@ -695,6 +759,23 @@
     els.movieGrid.innerHTML = movies.map(function (movie) {
       return renderMovieCard(movie, "grid");
     }).join("");
+  }
+
+  function installShelfControls() {
+    var shelves = [els.continueRow, els.recommendedRow, els.seriesRow,
+      els.animationRow, els.movieRow];
+    shelves.forEach(function (row) {
+      if (!row || !row.parentElement) { return; }
+      var header = row.parentElement.querySelector(".section-heading");
+      if (!header || header.querySelector(".shelf-arrows")) { return; }
+      var controls = document.createElement("div");
+      controls.className = "shelf-arrows";
+      controls.innerHTML = [
+        '<button type="button" data-row-scroll="' + row.id + '" data-scroll-direction="prev" aria-label="Cuộn phim sang trái" data-focusable>‹</button>',
+        '<button type="button" data-row-scroll="' + row.id + '" data-scroll-direction="next" aria-label="Cuộn phim sang phải" data-focusable>›</button>'
+      ].join("");
+      header.appendChild(controls);
+    });
   }
 
   function renderCollectionShelves(query) {
@@ -729,7 +810,6 @@
     var meta = buildMetaBadges(movie).slice(0, 5).join("");
     els.heroSection.style.setProperty("--hero-image", "url('" + escapeCssUrl(heroImage) + "')");
     els.heroSection.innerHTML = [
-      '<div class="hero-art" aria-hidden="true"><img src="' + escapeAttr(heroImage) + '" alt="" decoding="async" fetchpriority="high"></div>',
       '<div class="hero-copy">',
       '<p class="eyebrow">PHIM NỔI BẬT · V HUB CINEMA</p>',
       '<h2>' + escapeHtml(movie.title) + '</h2>',
@@ -1171,8 +1251,8 @@
         '<button class="episode-button' + current + watched + '" type="button" data-season-index="' + state.activeSeasonIndex +
            '" data-episode-index="' + index + '" data-focusable>',
         '<strong>' + escapeHtml(readableEpisodeTitle(episode, index)) + '</strong>',
-        '<small>' + escapeHtml(status) + '</small>',
-        progress ? '<span class="episode-progress"><i style="width:' + progress + '%"></i></span>' : '',
+        '<small class="episode-status-label">' + escapeHtml(status) + '</small>',
+        '<span class="episode-progress"' + (progress ? '' : ' hidden') + '><i style="width:' + progress + '%"></i></span>',
         '</button>'
       ].join("");
     }).join("");
@@ -1310,6 +1390,7 @@
     }
 
     clearPlaybackTimers();
+    state.lastProgressPersistAt = 0;
     if (els.playerView.hidden) {
       state.playerListOpen = false;
       els.playerView.scrollTop = 0;
@@ -1330,7 +1411,8 @@
     state.playerPage = Math.floor(state.activeEpisodeIndex / EPISODE_PAGE_SIZE);
     renderPlayerView();
     loadEpisodeSource(episode.videoUrl || episode.embedUrl || episode.url || "");
-    markCurrentEpisodeProgress(false);
+    markCurrentEpisodeProgress(false, true);
+    updateLiveProgressUI();
     addHistoryEntry(movie, episode, false);
     updateRouteForCurrent(true, true);
     startProgressTimer();
@@ -1359,6 +1441,7 @@
     els.playerChannelPoster.alt = "";
     els.playerChannelSubtitle.textContent = season.name || "Thư viện phim";
     renderPlayerFavoriteButton();
+    updateLiveProgressUI();
     els.playerEpisodeCount.textContent = countEpisodes(movie) + " tập";
     els.playerPrevButton.disabled = !getRelativeEpisode(-1);
     els.playerNextButton.disabled = !getRelativeEpisode(1);
@@ -1397,8 +1480,8 @@
           '<span class="watch-episode-number">' + (index + 1) + '</span></span>',
         '<span class="watch-episode-copy">',
         '<strong>' + escapeHtml(readableEpisodeTitle(item, index)) + '</strong>',
-        '<span>' + escapeHtml(browseSeason.name + " · " + status) + '</span>',
-        progress ? '<span class="episode-progress"><i style="width:' + progress + '%"></i></span>' : '',
+        '<span class="watch-episode-status">' + escapeHtml(browseSeason.name + " · " + status) + '</span>',
+        '<span class="episode-progress"' + (progress ? '' : ' hidden') + '><i style="width:' + progress + '%"></i></span>',
         '</span></button>'
       ].join("");
     }).join("");
@@ -1425,6 +1508,7 @@
     els.iframePlayer.hidden = true;
     els.iframePlayer.src = "about:blank";
     els.playerEmbedButton.hidden = true;
+    els.playerMarkDoneButton.hidden = true;
 
     if (!sourceUrl) {
       showToast("Tập này chưa có link video.");
@@ -1435,11 +1519,16 @@
       els.iframePlayer.hidden = false;
       els.iframePlayer.src = sourceUrl;
       els.playerEmbedButton.hidden = false;
-      // Iframe không báo kết thúc đáng tin cậy; không tự chuyển sau thời gian ước lượng.
+      els.playerMarkDoneButton.hidden = false;
+      updateLiveProgressUI();
+      // Iframe khác nguồn không cho trang đọc currentTime/duration hay ended.
+      // Có nút xác nhận kết thúc tập để người dùng tự kích hoạt đếm ngược.
       return;
     }
 
     els.videoPlayer.hidden = false;
+    els.playerMarkDoneButton.hidden = true;
+    updateLiveProgressUI();
     if (isHlsUrl(sourceUrl)) {
       if (els.videoPlayer.canPlayType("application/vnd.apple.mpegurl")) {
         els.videoPlayer.src = sourceUrl;
@@ -1479,119 +1568,253 @@
     }
   }
 
-  function setupEmbedAutoNext(movie, episode) {
-    if (!state.settings.autoplay || !state.settings.embedAutoNext) {
-      return;
-    }
-    var seconds = inferEpisodeDuration(movie, episode);
-    state.embedAutoNextTimer = window.setTimeout(function () {
-      handleEpisodeEnded("embed-fallback-timer");
-    }, Math.max(60, seconds) * 1000);
-  }
-
   function startProgressTimer() {
+    // Persist real <video> playback on a low frequency; timeupdate paints UI immediately.
+    window.clearInterval(state.progressTimer);
     state.progressTimer = window.setInterval(function () {
-      if (els.playerView.hidden) {
-        return;
+      if (!els.playerView.hidden && !els.videoPlayer.hidden) {
+        saveCurrentPlaybackTime(true);
       }
-      if (els.videoPlayer.hidden) {
-        markCurrentEpisodeProgress(false);
-      } else {
-        saveCurrentPlaybackTime();
-      }
-    }, 8000);
+    }, 5000);
   }
 
   function restorePlaybackTime() {
-    if (els.videoPlayer.hidden) {
-      return;
-    }
+    if (els.videoPlayer.hidden) { return; }
     var movie = getActiveMovie();
-    if (!movie) {
-      return;
-    }
+    if (!movie) { return; }
     var seconds = getStoredCurrentTime(movie.id, state.activeSeasonIndex, state.activeEpisodeIndex);
-    if (seconds > 5 && Number.isFinite(els.videoPlayer.duration) && seconds < els.videoPlayer.duration - 8) {
-      try {
-        els.videoPlayer.currentTime = seconds;
-      } catch (error) {}
-    }
-  }
-
-  function saveCurrentPlaybackTime() {
-    if (els.videoPlayer.hidden) {
-      return;
-    }
     var duration = getFiniteVideoDuration();
-    var currentTime = Math.floor(els.videoPlayer.currentTime || 0);
-    markCurrentEpisodeProgress(duration > 0 && currentTime / duration > 0.92);
+    if (seconds > 5 && duration > 0 && seconds < duration - 8) {
+      try { els.videoPlayer.currentTime = seconds; }
+      catch (error) {}
+    }
+    updateLiveProgressUI();
   }
 
-  function markCurrentEpisodeProgress(isWatched) {
-    var movie = getActiveMovie();
-    if (!movie) {
+  function saveCurrentPlaybackTime(force) {
+    if (els.playerView.hidden || els.videoPlayer.hidden) { return; }
+    var duration = getFiniteVideoDuration();
+    if (!duration) {
+      updateLiveProgressUI();
       return;
     }
+    markCurrentEpisodeProgress(false, Boolean(force));
+  }
+
+  function getSavedEpisodePosition(progress, seasonIndex, episodeIndex) {
+    if (!progress) { return null; }
+    var key = getEpisodeKey(seasonIndex, episodeIndex);
+    var positions = progress.episodePositions || {};
+    if (positions[key] && positions[key].duration > 0) { return positions[key]; }
+    // Compatible with previously saved single-episode progress from a native video.
+    if (!progress.episodePositions &&
+        progress.seasonIndex === seasonIndex && progress.episodeIndex === episodeIndex &&
+        progress.duration > 0) {
+      return { currentTime: Number(progress.currentTime || 0), duration: Number(progress.duration) };
+    }
+    return null;
+  }
+
+  function getEpisodeSource(movieId, seasonIndex, episodeIndex) {
+    var movie = findMovie(movieId);
+    var season = movie && movie.seasons[seasonIndex];
+    var episode = season && season.episodes[episodeIndex];
+    return episode ? String(episode.videoUrl || episode.embedUrl || episode.url || "") : "";
+  }
+
+  function markCurrentEpisodeProgress(isWatched, forceSave) {
+    var movie = getActiveMovie();
+    if (!movie) { return; }
     var existing = state.progress[movie.id] || {};
     var watched = Object.assign({}, existing.watched || {});
+    var positions = Object.assign({}, existing.episodePositions || {});
+    if (!existing.episodePositions && existing.duration > 0 &&
+        !isEmbedUrl(getEpisodeSource(movie.id, existing.seasonIndex, existing.episodeIndex))) {
+      positions[getEpisodeKey(existing.seasonIndex, existing.episodeIndex)] = {
+        currentTime: Number(existing.currentTime || 0),
+        duration: Number(existing.duration || 0),
+        updatedAt: Number(existing.updatedAt || 0)
+      };
+    }
     var key = getEpisodeKey(state.activeSeasonIndex, state.activeEpisodeIndex);
-    var currentTime = getCurrentPlaybackTime(existing);
-    var duration = getCurrentPlaybackDuration(existing);
-
+    var stored = getSavedEpisodePosition(existing, state.activeSeasonIndex, state.activeEpisodeIndex);
+    var isNativeVideo = !els.playerView.hidden && !els.videoPlayer.hidden;
+    var actualDuration = isNativeVideo ? getFiniteVideoDuration() : 0;
+    var currentTime = stored ? Math.max(0, Number(stored.currentTime) || 0) : 0;
+    var duration = stored ? Math.max(0, Number(stored.duration) || 0) : 0;
+    if (actualDuration > 0) {
+      duration = actualDuration;
+      currentTime = Math.max(0, Math.min(duration, Number(els.videoPlayer.currentTime) || 0));
+      positions[key] = {
+        currentTime: Math.floor(currentTime), duration: Math.floor(duration),
+        updatedAt: Date.now()
+      };
+    }
     if (isWatched) {
       watched[key] = true;
-      currentTime = duration || currentTime;
+      if (duration > 0) {
+        currentTime = duration;
+        positions[key] = { currentTime: Math.floor(duration), duration: Math.floor(duration), updatedAt: Date.now() };
+      }
     }
-
     state.progress[movie.id] = {
       seasonIndex: state.activeSeasonIndex,
       episodeIndex: state.activeEpisodeIndex,
-      currentTime: Math.max(0, Math.floor(currentTime || 0)),
-      duration: Math.max(0, Math.floor(duration || 0)),
+      currentTime: Math.floor(currentTime),
+      duration: Math.floor(duration),
       updatedAt: Date.now(),
-      watched: watched
+      watched: watched,
+      episodePositions: positions,
+      sourceType: isEmbedUrl(getEpisodeSource(movie.id, state.activeSeasonIndex, state.activeEpisodeIndex)) ? "embed" : "native"
     };
-    saveJson(STORAGE_KEYS.progress, state.progress);
+    updateLiveProgressUI();
+    if (forceSave || isWatched || Date.now() - state.lastProgressPersistAt > 3500) {
+      state.lastProgressPersistAt = Date.now();
+      saveJson(STORAGE_KEYS.progress, state.progress);
+    }
   }
 
   function getCurrentPlaybackTime(existing) {
-    if (!els.videoPlayer.hidden) {
+    if (!els.videoPlayer.hidden && !els.playerView.hidden) {
       return els.videoPlayer.currentTime || 0;
     }
-    if (state.playerSession) {
-      var elapsed = (Date.now() - state.playerSession.startedAt) / 1000;
-      return Math.min(state.playerSession.duration, state.playerSession.baseTime + elapsed);
-    }
-    return existing.currentTime || 0;
+    var position = getSavedEpisodePosition(existing, state.activeSeasonIndex, state.activeEpisodeIndex);
+    return position ? position.currentTime : 0;
   }
 
   function getCurrentPlaybackDuration(existing) {
-    if (!els.videoPlayer.hidden) {
+    if (!els.videoPlayer.hidden && !els.playerView.hidden) {
       return getFiniteVideoDuration();
     }
-    return state.playerSession ? state.playerSession.duration : existing.duration || 0;
+    var position = getSavedEpisodePosition(existing, state.activeSeasonIndex, state.activeEpisodeIndex);
+    return position ? position.duration : 0;
+  }
+
+  function formatPlaybackClock(seconds) {
+    if (!Number.isFinite(seconds) || seconds < 0) { return "--:--"; }
+    var total = Math.max(0, Math.floor(seconds));
+    var hours = Math.floor(total / 3600);
+    var minutes = Math.floor(total % 3600 / 60);
+    var secs = total % 60;
+    var pair = function (v) { return (v < 10 ? "0" : "") + v; };
+    return hours ? hours + ":" + pair(minutes) + ":" + pair(secs) : pair(minutes) + ":" + pair(secs);
+  }
+
+  function updateEpisodeProgressDom(root, selector, percentage, status) {
+    if (!root || root.hidden) { return; }
+    var button = root.querySelector(selector);
+    if (!button) { return; }
+    var bar = button.querySelector(".episode-progress");
+    if (bar) {
+      bar.hidden = percentage <= 0;
+      var fill = bar.querySelector("i");
+      if (fill) { fill.style.width = percentage + "%"; }
+    }
+    var statusLabel = button.querySelector(".episode-status-label, .watch-episode-status");
+    if (statusLabel) {
+      if (statusLabel.classList.contains("watch-episode-status")) {
+        var season = getActiveMovie().seasons[state.activeSeasonIndex];
+        statusLabel.textContent = (season ? season.name + " · " : "") + status;
+      } else {
+        statusLabel.textContent = status;
+      }
+    }
+  }
+
+  function updateLiveProgressUI() {
+    var movie = getActiveMovie();
+    if (!movie) { return; }
+    var saved = state.progress[movie.id] || {};
+    var key = getEpisodeKey(state.activeSeasonIndex, state.activeEpisodeIndex);
+    var viewed = Boolean(saved.watched && saved.watched[key]);
+    var trackable = !els.playerView.hidden && !els.videoPlayer.hidden && getFiniteVideoDuration() > 0;
+    var position = getSavedEpisodePosition(saved, state.activeSeasonIndex, state.activeEpisodeIndex);
+    var seconds = trackable ? (Number(els.videoPlayer.currentTime) || 0) : (position ? position.currentTime : 0);
+    var duration = trackable ? getFiniteVideoDuration() : (position ? position.duration : 0);
+    var isEmbed = isEmbedUrl(getEpisodeSource(movie.id, state.activeSeasonIndex, state.activeEpisodeIndex));
+    var percent = getEpisodeProgress(movie.id, state.activeSeasonIndex, state.activeEpisodeIndex);
+    if (trackable) { percent = Math.max(0, Math.min(100, Math.floor(seconds / duration * 100))); }
+    var known = duration > 0 && !isEmbed;
+    els.playerProgressFill.style.width = (viewed ? 100 : percent) + "%";
+    els.playerProgressTrack.setAttribute("aria-valuenow", String(viewed ? 100 : percent));
+    els.playerProgressTrack.hidden = !known && !viewed;
+    els.playerProgressClock.textContent = known ? formatPlaybackClock(seconds) + " / " + formatPlaybackClock(duration) : "--:-- / --:--";
+    els.playerProgressStatus.textContent = viewed ? "Đã xem xong tập này" :
+      known ? "Đã xem " + percent + "%" : isEmbed ? "Video nhúng · chưa có thời gian xem" : "Đang lấy thời lượng video…";
+    els.playerProgressHint.textContent = isEmbed ?
+      "Nguồn nhúng không chia sẻ thời gian xem. Bấm “Đã xem xong” khi kết thúc tập để chuyển tiếp." :
+      "Tiến độ được cập nhật theo thời gian phát thật và lưu riêng từng tập trên thiết bị.";
+    var season = state.activeSeasonIndex, episode = state.activeEpisodeIndex;
+    var status = getEpisodeStatus(movie.id, season, episode);
+    updateEpisodeProgressDom(els.episodeGrid,
+      '[data-season-index="' + season + '"][data-episode-index="' + episode + '"]', percent, status);
+    updateEpisodeProgressDom(els.playerEpisodeList,
+      '[data-player-season="' + season + '"][data-player-episode="' + episode + '"]', percent, status);
+    var continueCard = els.continueRow.querySelector('[data-movie-id="' + movie.id + '"]');
+    if (continueCard) {
+      var continueBar = continueCard.querySelector(".continue-progress");
+      if (continueBar) { continueBar.style.width = (viewed ? 100 : percent) + "%"; }
+    }
+  }
+
+  function currentEpisodeIdentity() {
+    return state.activeMovieId + ":" + state.activeSeasonIndex + ":" + state.activeEpisodeIndex;
+  }
+
+  function cancelAutoNext() {
+    window.clearTimeout(state.autoNextTimer);
+    window.clearInterval(state.autoNextInterval);
+    state.autoNextTimer = null;
+    state.autoNextInterval = null;
+    state.autoNextOrigin = null;
+    els.autoNextBanner.hidden = true;
+  }
+
+  function scheduleAutoNext() {
+    var next = getRelativeEpisode(1);
+    if (!next) { return false; }
+    cancelAutoNext();
+    var origin = currentEpisodeIdentity();
+    state.autoNextOrigin = origin;
+    var deadline = Date.now() + 5000;
+    els.autoNextTitle.textContent = "Tiếp theo: " + readableEpisodeTitle(next.episode, next.episodeIndex);
+    els.autoNextBanner.hidden = false;
+    var tick = function () {
+      if (state.autoNextOrigin !== origin || els.playerView.hidden || currentEpisodeIdentity() !== origin) {
+        cancelAutoNext();
+        return;
+      }
+      var seconds = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+      els.autoNextCountdown.textContent = "Tự chuyển sau " + seconds + " giây";
+    };
+    tick();
+    state.autoNextInterval = window.setInterval(tick, 250);
+    state.autoNextTimer = window.setTimeout(function () {
+      if (state.autoNextOrigin !== origin || els.playerView.hidden || currentEpisodeIdentity() !== origin) { return; }
+      cancelAutoNext();
+      playNextEpisode();
+    }, 5000);
+    return true;
   }
 
   function handleEpisodeEnded(reason) {
     var movie = getActiveMovie();
     var episode = getActiveEpisode();
-    if (!movie || !episode) {
-      return;
-    }
-    markCurrentEpisodeProgress(true);
+    if (!movie || !episode || els.playerView.hidden || state.autoNextOrigin) { return; }
+    // Native video fires ended. Cross-origin iframe only uses an explicit user's confirmation.
+    if (reason !== "video-ended" && reason !== "iframe-confirmed") { return; }
+    markCurrentEpisodeProgress(true, true);
     addHistoryEntry(movie, episode, true);
     renderAll();
     renderDetailEpisodes();
-
-    if (state.settings.autoplay && hasNextEpisode()) {
-      playNextEpisode(reason);
+    if (state.settings.autoplay && hasNextEpisode() && scheduleAutoNext()) {
       return;
     }
-
     showFinishedModal();
   }
 
   function playNextEpisode() {
+    cancelAutoNext();
     var next = getRelativeEpisode(1);
     if (!next) {
       showFinishedModal();
@@ -1605,6 +1828,7 @@
   }
 
   function playPreviousEpisode() {
+    cancelAutoNext();
     var previous = getRelativeEpisode(-1);
     if (!previous) {
       showToast("Đây là tập đầu tiên.");
@@ -1618,6 +1842,7 @@
   }
 
   function showFinishedModal() {
+    cancelAutoNext();
     clearPlaybackTimers();
     els.finishedModal.hidden = false;
     focusElement(els.replayButton);
@@ -1627,7 +1852,9 @@
     if (els.playerView.hidden) {
       return;
     }
-    markCurrentEpisodeProgress(false);
+    cancelAutoNext();
+    saveCurrentPlaybackTime(true);
+    markCurrentEpisodeProgress(false, true);
     clearPlaybackTimers();
     teardownHls();
     els.videoPlayer.pause();
@@ -1652,9 +1879,15 @@
 
   function clearPlaybackTimers() {
     window.clearTimeout(state.embedAutoNextTimer);
+    window.clearTimeout(state.autoNextTimer);
+    window.clearInterval(state.autoNextInterval);
     window.clearInterval(state.progressTimer);
     window.clearTimeout(state.playerControlsTimer);
     state.embedAutoNextTimer = null;
+    state.autoNextTimer = null;
+    state.autoNextInterval = null;
+    state.autoNextOrigin = null;
+    els.autoNextBanner.hidden = true;
     state.progressTimer = null;
     state.playerControlsTimer = null;
   }
@@ -2309,6 +2542,21 @@
     }
   }
 
+  function isTvDevice() {
+    return /smart[- ]?tv|tizen|webos|web0s|hbbtv|netcast|bravia|android tv|google tv|aft[a-z0-9]+/i.test(navigator.userAgent || "");
+  }
+
+  function isRemoteNavigationEnabled() {
+    return Boolean(state.settings.remoteNavigation) || isTvDevice();
+  }
+
+  function applyRemoteNavigationMode() {
+    var enabled = isRemoteNavigationEnabled();
+    document.body.classList.toggle("tv-remote-mode", enabled);
+    els.remoteModeButton.textContent = "Điều hướng bằng remote: " + (enabled ? "Bật" : "Tắt");
+    els.remoteModeButton.setAttribute("aria-pressed", String(enabled));
+  }
+
   function normalizeRemoteKey(event) {
     var key = event.key || "";
     var code = event.code || "";
@@ -2370,7 +2618,8 @@
     if (!shouldHandleKeyEvent(event, key)) {
       return;
     }
-    if (key === "ArrowUp" || key === "ArrowDown" || key === "ArrowLeft" || key === "ArrowRight") {
+    if (event.altKey || event.ctrlKey || event.metaKey) { return; }
+    if (isRemoteNavigationEnabled() && (key === "ArrowUp" || key === "ArrowDown" || key === "ArrowLeft" || key === "ArrowRight")) {
       document.body.classList.add("tv-remote-mode");
     }
 
@@ -2419,11 +2668,13 @@
 
     if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(key) !== -1) {
       if (active && active.tagName === "SELECT") { return; }
-      if (!isTypingTarget(active)) { moveFocus(event); }
+      if (isRemoteNavigationEnabled() && !isTypingTarget(active)) { moveFocus(event); }
       return;
     }
 
-    if (key === "Enter" && active && active.matches("button, [data-focusable], select")) {
+    // On laptops and tablets, native Enter activates buttons exactly once.
+    if (isRemoteNavigationEnabled() && key === "Enter" && active &&
+        active.matches("button, [data-focusable], select")) {
       event.preventDefault();
       active.click();
     }
@@ -2434,10 +2685,10 @@
     showPlayerControls(false);
     if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(key) !== -1) {
       if (document.activeElement && document.activeElement.tagName === "SELECT") { return; }
-      if (document.activeElement !== els.iframePlayer) { moveFocus(event); }
+      if (isRemoteNavigationEnabled() && document.activeElement !== els.iframePlayer) { moveFocus(event); }
       return;
     }
-    if (key === "Enter" && document.activeElement &&
+    if (isRemoteNavigationEnabled() && key === "Enter" && document.activeElement &&
         document.activeElement.matches("button, [data-focusable]") &&
         document.activeElement !== els.videoPlayer && document.activeElement !== els.iframePlayer) {
       event.preventDefault();
@@ -2464,7 +2715,9 @@
       enterLandscapePlayback(true);
       return;
     }
-    if ((key === " " || key === "MediaPlayPause" || key.toLowerCase && key.toLowerCase() === "k") && !els.videoPlayer.hidden) {
+    if ((key === " " || key === "MediaPlayPause" || key.toLowerCase && key.toLowerCase() === "k") &&
+        !els.videoPlayer.hidden &&
+        (!document.activeElement || !document.activeElement.matches("button, input, select, textarea, summary"))) {
       event.preventDefault();
       if (els.videoPlayer.paused) {
         els.videoPlayer.play().catch(function () {});
@@ -2669,43 +2922,42 @@
 
   function getEpisodeStatus(movieId, seasonIndex, episodeIndex) {
     var progress = state.progress[movieId];
-    if (!progress) {
-      return "Chưa xem";
-    }
-    var key = getEpisodeKey(seasonIndex, episodeIndex);
-    if (progress.watched && progress.watched[key]) {
+    if (!progress) { return "Chưa xem"; }
+    if (progress.watched && progress.watched[getEpisodeKey(seasonIndex, episodeIndex)]) {
       return "Đã xem";
     }
-    if (progress.seasonIndex === seasonIndex && progress.episodeIndex === episodeIndex) {
-      return progress.currentTime > 0 ? "Đang xem" : "Đã mở";
-    }
-    return "Chưa xem";
+    var percent = getEpisodeProgress(movieId, seasonIndex, episodeIndex);
+    if (percent > 0) { return "Đang xem · " + percent + "%"; }
+    return progress.seasonIndex === seasonIndex && progress.episodeIndex === episodeIndex ?
+      "Đã mở" : "Chưa xem";
   }
 
   function getEpisodeProgress(movieId, seasonIndex, episodeIndex) {
     var progress = state.progress[movieId];
-    if (!progress || progress.seasonIndex !== seasonIndex || progress.episodeIndex !== episodeIndex) {
-      return 0;
-    }
-    return getProgressWidth(progress);
+    if (!progress) { return 0; }
+    var key = getEpisodeKey(seasonIndex, episodeIndex);
+    if (progress.watched && progress.watched[key]) { return 100; }
+    // Never claim a time-based percentage for an opaque third-party iframe.
+    if (isEmbedUrl(getEpisodeSource(movieId, seasonIndex, episodeIndex))) { return 0; }
+    var position = getSavedEpisodePosition(progress, seasonIndex, episodeIndex);
+    if (!position || position.duration <= 0) { return 0; }
+    return Math.max(0, Math.min(99, Math.floor(position.currentTime / position.duration * 100)));
   }
 
   function getProgressWidth(progress) {
-    if (!progress) {
-      return 0;
-    }
-    if (progress.duration > 0 && progress.currentTime > 0) {
-      return Math.max(5, Math.min(100, Math.round(progress.currentTime / progress.duration * 100)));
-    }
-    return progress.currentTime > 0 ? 14 : 7;
+    if (!progress) { return 0; }
+    var key = getEpisodeKey(progress.seasonIndex, progress.episodeIndex);
+    if (progress.watched && progress.watched[key]) { return 100; }
+    if (progress.sourceType === "embed") { return 0; }
+    var item = getSavedEpisodePosition(progress, progress.seasonIndex, progress.episodeIndex);
+    if (!item || item.duration <= 0) { return 0; }
+    return Math.max(0, Math.min(99, Math.floor(item.currentTime / item.duration * 100)));
   }
 
   function getProgressText(progress) {
     var width = getProgressWidth(progress);
-    if (width >= 100) {
-      return "Đã xem";
-    }
-    return width > 14 ? width + "%" : "Đang xem";
+    if (width >= 100) { return "Đã xem"; }
+    return width > 0 ? width + "% đã xem" : "Đang xem";
   }
 
   function getDisplayRating(movie) {
@@ -2767,14 +3019,11 @@
 
   function getStoredCurrentTime(movieId, seasonIndex, episodeIndex) {
     var progress = state.progress[movieId];
-    if (!progress || progress.seasonIndex !== seasonIndex || progress.episodeIndex !== episodeIndex) {
-      return 0;
-    }
+    if (!progress || isEmbedUrl(getEpisodeSource(movieId, seasonIndex, episodeIndex))) { return 0; }
     var key = getEpisodeKey(seasonIndex, episodeIndex);
-    if (progress.watched && progress.watched[key]) {
-      return 0;
-    }
-    return Number(progress.currentTime || 0);
+    if (progress.watched && progress.watched[key]) { return 0; }
+    var position = getSavedEpisodePosition(progress, seasonIndex, episodeIndex);
+    return position ? Math.max(0, Number(position.currentTime) || 0) : 0;
   }
 
   function getEpisodeLabel(movie, seasonIndex, episodeIndex) {
@@ -2844,7 +3093,7 @@
     return /\.m3u8($|\?)/i.test(url);
   }
 function isEmbedUrl(url) {
-    return /youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com|ok\.ru|drive\.google\.com|mega\.nz|streamc\.xyz|\/embed(?:\/|\.php)/i.test(url);
+    return /youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com|ok\.ru|drive\.google\.com|mega\.nz|odysee\.com|streamc\.xyz|\/embed(?:\/|\.php)/i.test(url);
 }
 
   function normalizeSourceUrl(url, resumeSeconds) {
