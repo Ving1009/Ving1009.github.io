@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta property="og:type" content="website">
   <meta property="og:title" content="V Hub Cinema — Rạp phim tại nhà">
-  <meta property="og:description" content="Xem phim, lưu tiến trình, tìm kiếm thông minh và quản lý thư viện phim ngay trên GitHub Pages.">
+  <meta property="og:description" content="Thư viện phim với các phần và bản phát rõ ràng, tìm kiếm, yêu thích và tiếp tục xem trên TV, laptop, tablet, điện thoại.">
   <meta property="og:image" content="https://ving1009.github.io/logo.svg">
   <meta name="twitter:card" content="summary_large_image">
   <title>V Hub Cinema — Rạp phim tại nhà</title>
@@ -18,6 +18,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css?v=tv2">
   <link rel="stylesheet" href="tv.css?v=tv2">
+  <link rel="stylesheet" href="responsive.css?v=multi3">
 </head>
 <body>
   <div class="app-shell" id="appShell">
@@ -157,13 +158,42 @@
         </div>
         <div class="rating-box" id="ratingBox" aria-label="Đánh giá phim"></div>
         <div class="watch-hint">Trên TV dùng mũi tên và OK để chọn phần/tập. Trong trình phát: Back để thoát, N/P để đổi tập. Một số nguồn nhúng có điều khiển riêng.</div>
-        <div class="season-tabs" id="seasonTabs"></div>
+        <section class="season-picker" aria-labelledby="seasonPickerTitle">
+          <div class="season-picker-header">
+            <div>
+              <p class="eyebrow">CHỌN NỘI DUNG</p>
+              <h3 id="seasonPickerTitle">Các phần phim</h3>
+            </div>
+            <span id="seasonCount" class="season-count"></span>
+          </div>
+          <p class="season-picker-help">Chọn một phần để xem danh sách tập, bản Vietsub hoặc Lồng tiếng.</p>
+          <label class="season-quick" id="seasonQuickWrap" for="seasonQuickSelect">
+            <span>Chọn nhanh phần / bản phát</span>
+            <select id="seasonQuickSelect" aria-label="Chọn phần phim và ngôn ngữ" data-focusable></select>
+          </label>
+          <div class="season-tabs" id="seasonTabs" role="group" aria-label="Các phần phim và bản phát"></div>
+          <p class="season-selected-info" id="seasonSelectedInfo" aria-live="polite"></p>
+        </section>
+        <section class="episode-section" aria-labelledby="episodeSectionTitle">
+          <div class="episode-section-header">
+            <div>
+              <p class="eyebrow">XEM TẬP</p>
+              <h3 id="episodeSectionTitle">Danh sách tập</h3>
+            </div>
+            <form class="episode-jump" id="episodeJumpForm" autocomplete="off">
+              <label for="episodeJumpInput">Đến tập</label>
+              <input id="episodeJumpInput" type="number" min="1" step="1" placeholder="Số tập" inputmode="numeric" data-focusable>
+              <button class="secondary-button compact" type="submit" data-focusable>Đi đến</button>
+            </form>
+          </div>
         <div class="episode-pages" id="detailEpisodePages">
           <button class="ghost-button compact" id="detailPagePrev" type="button" data-focusable>← 48 tập trước</button>
+          <label class="episode-page-label">Nhóm tập <select id="detailPageSelect" aria-label="Chọn nhóm tập" data-focusable></select></label>
           <span id="detailEpisodeRange" aria-live="polite"></span>
           <button class="ghost-button compact" id="detailPageNext" type="button" data-focusable>48 tập sau →</button>
         </div>
         <div class="episode-grid" id="episodeGrid"></div>
+        </section>
         <section class="comments-panel">
           <div class="section-heading compact-heading">
             <h3>Bình luận cục bộ</h3>
@@ -216,8 +246,9 @@
         <label class="player-season-label">Chọn phần
           <select id="playerSeasonSelect" aria-label="Chọn phần của phim" data-focusable></select>
         </label>
-        <div class="episode-pages player-episode-pages">
+        <div class="episode-pages player-episode-pages" id="playerEpisodePages">
           <button class="ghost-button compact" id="playerPagePrev" type="button" data-focusable>← Trước</button>
+          <label class="episode-page-label player-page-label">Nhóm <select id="playerPageSelect" aria-label="Chọn nhóm tập trong trình phát" data-focusable></select></label>
           <span id="playerEpisodeRange" aria-live="polite"></span>
           <button class="ghost-button compact" id="playerPageNext" type="button" data-focusable>Sau →</button>
         </div>
@@ -312,9 +343,9 @@
   <div class="toast" id="toast" hidden></div>
 
   <script type="application/ld+json" id="structuredData"></script>
-  <script src="movies.js?v=tv2"></script>
+  <script src="movies.js?v=multi3"></script>
   <script src="groqService.js?v=tv2"></script>
   <script src="ai.js?v=tv2"></script>
-  <script src="app.js?v=tv2"></script>
+  <script src="app.js?v=multi3"></script>
 </body>
 </html>

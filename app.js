@@ -109,10 +109,19 @@
     clearMovieProgressButton: document.getElementById("clearMovieProgressButton"),
     ratingBox: document.getElementById("ratingBox"),
     seasonTabs: document.getElementById("seasonTabs"),
+    seasonCount: document.getElementById("seasonCount"),
+    seasonQuickWrap: document.getElementById("seasonQuickWrap"),
+    seasonQuickSelect: document.getElementById("seasonQuickSelect"),
+    seasonSelectedInfo: document.getElementById("seasonSelectedInfo"),
+    episodeSectionTitle: document.getElementById("episodeSectionTitle"),
+    episodeJumpForm: document.getElementById("episodeJumpForm"),
+    episodeJumpInput: document.getElementById("episodeJumpInput"),
     episodeGrid: document.getElementById("episodeGrid"),
+    detailEpisodePages: document.getElementById("detailEpisodePages"),
     detailPagePrev: document.getElementById("detailPagePrev"),
     detailPageNext: document.getElementById("detailPageNext"),
     detailEpisodeRange: document.getElementById("detailEpisodeRange"),
+    detailPageSelect: document.getElementById("detailPageSelect"),
     commentForm: document.getElementById("commentForm"),
     commentInput: document.getElementById("commentInput"),
     commentList: document.getElementById("commentList"),
@@ -133,9 +142,11 @@
     playerEpisodeCount: document.getElementById("playerEpisodeCount"),
     playerEpisodeList: document.getElementById("playerEpisodeList"),
     playerSeasonSelect: document.getElementById("playerSeasonSelect"),
+    playerEpisodePages: document.getElementById("playerEpisodePages"),
     playerPagePrev: document.getElementById("playerPagePrev"),
     playerPageNext: document.getElementById("playerPageNext"),
     playerEpisodeRange: document.getElementById("playerEpisodeRange"),
+    playerPageSelect: document.getElementById("playerPageSelect"),
     assistantPanel: document.getElementById("assistantPanel"),
     closeAssistantButton: document.getElementById("closeAssistantButton"),
     groqKeyInput: document.getElementById("groqKeyInput"),
@@ -297,15 +308,10 @@
 
     els.seasonTabs.addEventListener("click", function (event) {
       var button = event.target.closest("[data-season-index]");
-      if (!button) {
-        return;
-      }
-      state.activeSeasonIndex = Number(button.dataset.seasonIndex);
-      state.activeEpisodeIndex = getLastEpisodeIndex(getActiveMovie(), state.activeSeasonIndex);
-      state.detailPage = Math.floor(state.activeEpisodeIndex / EPISODE_PAGE_SIZE);
-      renderDetailEpisodes();
-      updateRouteForCurrent(false, false);
-      focusElement(els.episodeGrid.querySelector("[data-focusable]"));
+      if (button) { selectDetailSeason(Number(button.dataset.seasonIndex)); }
+    });
+    els.seasonQuickSelect.addEventListener("change", function () {
+      selectDetailSeason(Number(els.seasonQuickSelect.value));
     });
 
     els.detailPagePrev.addEventListener("click", function () {
@@ -318,6 +324,37 @@
       renderDetailEpisodes();
       focusElement(els.detailPageNext);
     });
+    els.detailPageSelect.addEventListener("change", function () {
+      state.detailPage = Number(els.detailPageSelect.value) || 0;
+      renderDetailEpisodes();
+      focusElement(els.episodeGrid.querySelector("[data-focusable]"));
+    });
+    els.episodeJumpForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var movie = getActiveMovie();
+      var season = movie && movie.seasons[state.activeSeasonIndex];
+      var wanted = Number(els.episodeJumpInput.value);
+      if (!season || !Number.isInteger(wanted) || wanted < 1) {
+        showToast("Hãy nhập số tập hợp lệ."); return;
+      }
+      var index = (season.episodes || []).findIndex(function (ep, position) {
+        var value = String(ep.title || "").trim();
+        var match = value.match(/^(?:Tập\s*)?(\d+)$/i);
+        return match ? Number(match[1]) === wanted : position + 1 === wanted;
+      });
+      if (index < 0) {
+        showToast("Phần này chưa có tập " + wanted + "."); return;
+      }
+      state.activeEpisodeIndex = index;
+      state.detailPage = Math.floor(index / EPISODE_PAGE_SIZE);
+      renderDetailEpisodes();
+      var target = els.episodeGrid.querySelector('[data-episode-index="' + index + '"]');
+      focusElement(target);
+      if (target) {
+        try { target.scrollIntoView({block:"center",behavior:"auto"}); }
+        catch (error) { target.scrollIntoView(false); }
+      }
+    });
     els.episodeGrid.addEventListener("click", function (event) {
       var button = event.target.closest("[data-season-index][data-episode-index]");
       if (!button) {
@@ -325,6 +362,7 @@
       }
       state.activeSeasonIndex = Number(button.dataset.seasonIndex);
       state.activeEpisodeIndex = Number(button.dataset.episodeIndex);
+      state.detailPage = Math.floor(state.activeEpisodeIndex / EPISODE_PAGE_SIZE);
       renderDetailEpisodes();
       playCurrentSelection();
     });
@@ -401,6 +439,11 @@
       renderPlayerView();
       focusElement(els.playerPageNext);
     });
+    els.playerPageSelect.addEventListener("change", function () {
+      state.playerPage = Number(els.playerPageSelect.value) || 0;
+      renderPlayerView();
+      focusElement(els.playerEpisodeList.querySelector("[data-focusable]"));
+    });
     els.playerEpisodeList.addEventListener("click", function (event) {
       var button = event.target.closest("[data-player-season][data-player-episode]");
       if (!button) {
@@ -408,6 +451,7 @@
       }
       state.activeSeasonIndex = Number(button.dataset.playerSeason);
       state.activeEpisodeIndex = Number(button.dataset.playerEpisode);
+      state.detailPage = Math.floor(state.activeEpisodeIndex / EPISODE_PAGE_SIZE);
       renderDetailEpisodes();
       playCurrentSelection();
     });
@@ -776,7 +820,7 @@
     return [
       '<button class="continue-card" type="button" data-movie-id="' + escapeAttr(movie.id) + '" data-focusable>',
       '<span class="continue-thumb-wrap">',
-      '<img class="continue-thumb" src="' + escapeAttr(movie.banner || movie.thumbnail) + '" alt="' + escapeAttr(movie.title) + '" loading="lazy">',
+      '<img class="continue-thumb" src="' + escapeAttr(movie.banner || movie.thumbnail) + '" alt="' + escapeAttr(movie.title) + '" loading="lazy" decoding="async">',
       '<span class="continue-progress" style="width:' + progressWidth + '%"></span>',
       '</span>',
       '<span class="continue-info">',
@@ -910,22 +954,99 @@
     ].join("");
   }
 
+  function getSeasonPresentation(name) {
+    var full = String(name || "Phần phim");
+    var parts = full.split(/\s*•\s*/);
+    var main = parts[0].trim();
+    var yearMatch = main.match(/\((19|20)\d{2}\)/);
+    var year = yearMatch ? yearMatch[0].slice(1, -1) : "";
+    main = main.replace(/\s*\((?:19|20)\d{2}\)/g, "").trim();
+    var kind = /^movie\b|phim điện ảnh|phim lẻ/i.test(main) ? "Phim điện ảnh" :
+      /ngoại truyện/i.test(main) ? "Ngoại truyện" : "Phần phim";
+    return { title: main || "Phần phim", language: parts.slice(1).join(" • ") || "Bản tiêu chuẩn", year: year, kind: kind };
+  }
+
+  function readableEpisodeTitle(episode, index) {
+    var title = String(episode && (episode.title || episode.name) || "").trim();
+    if (!title) { return "Tập " + (index + 1); }
+    if (/^\d+$/.test(title)) { return "Tập " + title; }
+    if (/^full$/i.test(title)) { return "Bản đầy đủ"; }
+    return title;
+  }
+
+  function selectDetailSeason(index) {
+    var movie = getActiveMovie();
+    if (!movie || !movie.seasons[index]) { return; }
+    state.activeSeasonIndex = index;
+    state.activeEpisodeIndex = getLastEpisodeIndex(movie, index);
+    state.detailPage = Math.floor(state.activeEpisodeIndex / EPISODE_PAGE_SIZE);
+    els.episodeJumpInput.value = "";
+    renderDetailEpisodes();
+    updateRouteForCurrent(false, false);
+    var firstEpisode = els.episodeGrid.querySelector("[data-focusable]");
+    focusElement(firstEpisode || els.seasonQuickSelect);
+    if (firstEpisode) {
+      try { firstEpisode.scrollIntoView({block:"nearest",behavior:"auto"}); }
+      catch (error) { firstEpisode.scrollIntoView(false); }
+    }
+  }
+
   function renderDetailEpisodes() {
     var movie = getActiveMovie();
     if (!movie) { return; }
-    els.seasonTabs.innerHTML = movie.seasons.map(function (season, index) {
-      var active = index === state.activeSeasonIndex ? " active" : "";
-      return '<button class="season-button' + active + '" type="button" data-season-index="' + index + '" data-focusable>' + escapeHtml(season.name) + '</button>';
+    var multiple = movie.seasons.length > 1;
+    els.seasonQuickWrap.hidden = !multiple;
+    els.seasonTabs.hidden = !multiple;
+    els.seasonCount.textContent = multiple ? movie.seasons.length + " phần / bản phát" : "1 phiên bản";
+    els.seasonQuickSelect.innerHTML = movie.seasons.map(function (season, index) {
+      return '<option value="' + index + '">' + escapeHtml(season.name) +
+        ' (' + (season.episodes || []).length + ' tập)</option>';
     }).join("");
+    els.seasonQuickSelect.value = String(state.activeSeasonIndex);
+    els.seasonTabs.innerHTML = multiple ? movie.seasons.map(function (season, index) {
+      var info = getSeasonPresentation(season.name);
+      var isActive = index === state.activeSeasonIndex;
+      var current = isActive ? " active" : "";
+      return [
+        '<button class="season-button season-card' + current + '" type="button" data-season-index="' + index +
+          '" data-focusable aria-pressed="' + String(isActive) + '" title="' + escapeAttr(season.name) + '">',
+        '<span class="season-card-top">',
+        '<span class="season-index">Phần ' + ((index + 1) < 10 ? "0" : "") + (index + 1) + '</span>',
+        '<span class="season-kind">' + escapeHtml((season.episodes || []).length === 1 ? "Phim điện ảnh" : info.kind) + '</span>',
+        '</span>',
+        '<strong class="season-card-title">' + escapeHtml(info.title) + '</strong>',
+        '<span class="season-card-bottom">',
+        '<span>' + escapeHtml((info.year ? info.year + " · " : "") + info.language) + '</span>',
+        '<strong>' + ((season.episodes || []).length === 1 ? "1 phim" : (season.episodes || []).length + " tập") + '</strong>',
+        '</span>',
+        '</button>'
+      ].join("");
+    }).join("") : "";
 
-    var season = movie.seasons[state.activeSeasonIndex] || { episodes: [] };
+    var season = movie.seasons[state.activeSeasonIndex] || {name:"",episodes:[]};
     var episodes = season.episodes || [];
+    var info = getSeasonPresentation(season.name);
+    els.seasonSelectedInfo.textContent = "Đang chọn: " + season.name + " · " + episodes.length + " tập/video";
+    els.episodeSectionTitle.textContent = episodes.length === 1 ? "Xem phim · " + info.title : (multiple ? "Danh sách tập · " + info.title : "Danh sách tập");
+    els.episodeJumpForm.hidden = episodes.length <= 1;
+    els.episodeJumpInput.max = String(episodes.reduce(function (max, ep, index) {
+      var label = String(ep.title || "").match(/^(?:Tập\s*)?(\d+)$/i);
+      return Math.max(max, label ? Number(label[1]) : index + 1);
+    }, 1));
+
     var totalPages = Math.max(1, Math.ceil(episodes.length / EPISODE_PAGE_SIZE));
     state.detailPage = Math.max(0, Math.min(totalPages - 1, state.detailPage));
+    els.detailEpisodePages.hidden = totalPages <= 1;
     var first = state.detailPage * EPISODE_PAGE_SIZE;
     var last = Math.min(episodes.length, first + EPISODE_PAGE_SIZE);
     els.detailPagePrev.disabled = state.detailPage === 0;
     els.detailPageNext.disabled = state.detailPage >= totalPages - 1;
+    els.detailPageSelect.innerHTML = Array.from({length:totalPages}, function (_, pageIndex) {
+      var from = pageIndex * EPISODE_PAGE_SIZE + 1;
+      var to = Math.min(episodes.length, from + EPISODE_PAGE_SIZE - 1);
+      return '<option value="' + pageIndex + '">Tập ' + from + '–' + to + '</option>';
+    }).join("");
+    els.detailPageSelect.value = String(state.detailPage);
     els.detailEpisodeRange.textContent = episodes.length ? (first + 1) + "–" + last + " / " + episodes.length : "0 tập";
     els.episodeGrid.innerHTML = episodes.slice(first, last).map(function (episode, localIndex) {
       var index = first + localIndex;
@@ -934,8 +1055,9 @@
       var watched = status === "Đã xem" ? " watched" : "";
       var progress = getEpisodeProgress(movie.id, state.activeSeasonIndex, index);
       return [
-        '<button class="episode-button' + current + watched + '" type="button" data-season-index="' + state.activeSeasonIndex + '" data-episode-index="' + index + '" data-focusable>',
-        '<strong>' + escapeHtml(episode.title || "Tập " + (index + 1)) + '</strong>',
+        '<button class="episode-button' + current + watched + '" type="button" data-season-index="' + state.activeSeasonIndex +
+           '" data-episode-index="' + index + '" data-focusable>',
+        '<strong>' + escapeHtml(readableEpisodeTitle(episode, index)) + '</strong>',
         '<small>' + escapeHtml(status) + '</small>',
         progress ? '<span class="episode-progress"><i style="width:' + progress + '%"></i></span>' : '',
         '</button>'
@@ -945,6 +1067,7 @@
     scrollActiveEpisodeIntoView();
     if (!els.playerView.hidden) { renderPlayerView(); }
   }
+
   function renderComments() {
     var movie = getActiveMovie();
     if (!movie) {
@@ -1102,7 +1225,7 @@
     var episode = getActiveEpisode();
     if (!movie || !episode) { return; }
     var season = movie.seasons[state.activeSeasonIndex] || {};
-    var metaParts = [episode.title || "Đang xem", season.name || "Mùa 1", movie.year || "", getMovieCategoryText(movie)].filter(Boolean);
+    var metaParts = [readableEpisodeTitle(episode, state.activeEpisodeIndex), season.name || "Mùa 1", movie.year || "", getMovieCategoryText(movie)].filter(Boolean);
     els.playerKicker.textContent = (movie.genres || [])[0] || "Đang xem";
     els.playerTitle.textContent = movie.title;
     els.playerMeta.textContent = metaParts.join(" · ");
@@ -1119,10 +1242,17 @@
     var list = browseSeason.episodes || [];
     var pages = Math.max(1, Math.ceil(list.length / EPISODE_PAGE_SIZE));
     state.playerPage = Math.max(0, Math.min(pages - 1, state.playerPage));
+    els.playerEpisodePages.hidden = pages <= 1;
     var first = state.playerPage * EPISODE_PAGE_SIZE;
     var last = Math.min(list.length, first + EPISODE_PAGE_SIZE);
     els.playerPagePrev.disabled = state.playerPage === 0;
     els.playerPageNext.disabled = state.playerPage >= pages - 1;
+    els.playerPageSelect.innerHTML = Array.from({length:pages}, function (_, pageIndex) {
+      var from = pageIndex * EPISODE_PAGE_SIZE + 1;
+      var to = Math.min(list.length, from + EPISODE_PAGE_SIZE - 1);
+      return '<option value="' + pageIndex + '">' + from + '–' + to + '</option>';
+    }).join("");
+    els.playerPageSelect.value = String(state.playerPage);
     els.playerEpisodeRange.textContent = list.length ? (first + 1) + "–" + last + " / " + list.length : "0 tập";
     els.playerEpisodeList.innerHTML = list.slice(first, last).map(function (item, localIndex) {
       var index = first + localIndex;
@@ -1134,7 +1264,7 @@
         '<button class="' + classes + '" type="button" data-player-season="' + state.playerBrowseSeasonIndex + '" data-player-episode="' + index + '" data-focusable>',
         '<span class="watch-episode-thumb">' + (index + 1) + '</span>',
         '<span class="watch-episode-copy">',
-        '<strong>' + escapeHtml(item.title || "Tập " + (index + 1)) + '</strong>',
+        '<strong>' + escapeHtml(readableEpisodeTitle(item, index)) + '</strong>',
         '<span>' + escapeHtml(browseSeason.name + " · " + status) + '</span>',
         progress ? '<span class="episode-progress"><i style="width:' + progress + '%"></i></span>' : '',
         '</span></button>'
@@ -1837,7 +1967,7 @@
         }
         return [
           '<article class="history-item">',
-          '<img src="' + escapeAttr(movie.thumbnail) + '" alt="' + escapeAttr(movie.title) + '" loading="lazy">',
+          '<img src="' + escapeAttr(movie.thumbnail) + '" alt="' + escapeAttr(movie.title) + '" loading="lazy" decoding="async">',
           '<div>',
           '<strong>' + escapeHtml(movie.title) + '</strong>',
           '<span>' + escapeHtml(entry.episodeTitle || "Đang xem") + ' · ' + escapeHtml(formatDate(entry.updatedAt || entry.watchedAt)) + '</span>',
@@ -2762,16 +2892,40 @@ function isEmbedUrl(url) {
   }
 
   function createPosterPlaceholder(title, isWide) {
+    // Local SVG data URL: no extra network request when a third-party poster is unavailable.
     var width = isWide ? 960 : 640;
     var height = isWide ? 540 : 960;
-    var safeTitle = escapeHtml(title).slice(0, 80);
+    var maxCharacters = isWide ? 24 : 15;
+    var words = String(title || "V Hub Cinema").trim().split(/\s+/);
+    var lines = [];
+    var line = "";
+    words.forEach(function (word) {
+      var maybe = line ? line + " " + word : word;
+      if (maybe.length > maxCharacters && line && lines.length < 2) {
+        lines.push(line);
+        line = word;
+      } else {
+        line = maybe;
+      }
+    });
+    if (line) { lines.push(line); }
+    lines = lines.slice(0, 3);
+    var size = isWide ? 43 : 39;
+    var mid = height * (isWide ? 0.67 : 0.68);
+    var texts = lines.map(function (value, index) {
+      return '<text x="50%" y="' + (mid + (index - (lines.length - 1) / 2) * (size * 1.35)) +
+        '" fill="#f7f8fa" font-family="Arial,sans-serif" font-weight="700" font-size="' + size +
+        '" text-anchor="middle">' + escapeHtml(value) + '</text>';
+    }).join("");
     var svg = [
-      '<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + " " + height + '">',
-      '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101e2e"/><stop offset="1" stop-color="#183b46"/></linearGradient></defs>',
+      '<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '">',
+      '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#173344"/><stop offset="1" stop-color="#070d19"/></linearGradient></defs>',
       '<rect width="100%" height="100%" fill="url(#g)"/>',
-      '<circle cx="' + width * 0.78 + '" cy="' + height * 0.18 + '" r="' + width * 0.22 + '" fill="#65dec9" opacity="0.18"/>',
-      '<text x="50%" y="46%" fill="#f5f7f9" font-family="Arial, sans-serif" font-size="' + (isWide ? 64 : 58) + '" font-weight="700" text-anchor="middle">V HUB</text>',
-      '<text x="50%" y="56%" fill="#f6ddaa" font-family="Arial, sans-serif" font-size="' + (isWide ? 28 : 30) + '" text-anchor="middle">' + safeTitle + '</text>',
+      '<circle cx="' + width * 0.76 + '" cy="' + height * 0.2 + '" r="' + width * 0.38 + '" fill="#65dec9" opacity=".09"/>',
+      '<rect x="' + width * 0.36 + '" y="' + height * 0.25 + '" width="' + width * 0.28 + '" height="' + width * 0.28 + '" rx="22" fill="none" stroke="#65dec9" stroke-width="6"/>',
+      '<path d="M ' + width * 0.466 + ' ' + (height * 0.25 + width * 0.07) + ' L ' + width * 0.466 + ' ' + (height * 0.25 + width * 0.21) + ' L ' + width * 0.58 + ' ' + (height * 0.25 + width * 0.14) + ' Z" fill="#f4c887"/>',
+      texts,
+      '<text x="50%" y="' + (height * 0.91) + '" fill="#65dec9" font-family="Arial,sans-serif" font-size="' + (isWide ? 22 : 28) + '" text-anchor="middle" letter-spacing="3">V HUB CINEMA</text>',
       '</svg>'
     ].join("");
     return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
