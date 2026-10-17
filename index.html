@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="V Hub Cinema — thư viện phim gọn nhẹ, tối ưu Smart TV, chọn từng phần và tiếp tục xem dễ dàng.">
-  <meta name="theme-color" content="#080e16">
+  <meta name="theme-color" content="#101010">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta property="og:type" content="website">
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="styles.css?v=tv2">
   <link rel="stylesheet" href="tv.css?v=tv2">
   <link rel="stylesheet" href="responsive.css?v=multi3">
+  <link rel="stylesheet" href="streaming.css?v=cinema5">
 </head>
 <body>
   <div class="app-shell" id="appShell">
@@ -27,20 +28,23 @@
         <img class="brand-symbol" src="logo.svg" alt="" width="55" height="55">
         <span>
           <strong>V HUB</strong>
-          <small>CINEMA · TV</small>
+          <small>XEM PHIM MỌI LÚC</small>
         </span>
       </button>
 
       <nav class="nav-list" id="navList" aria-label="Danh mục phim"></nav>
 
       <div class="rail-actions">
-        <p class="rail-caption">Tiện ích</p>
-        <button class="rail-button" id="randomButton" type="button" data-focusable>↻ Phim ngẫu nhiên</button>
-        <button class="rail-button" id="assistantButton" type="button" data-focusable>✧ Gợi ý phim AI</button>
-        <button class="rail-button" id="adminButton" type="button" data-focusable>＋ Thêm phim</button>
-        <button class="rail-button" id="historyButton" type="button" data-focusable>◷ Lịch sử xem</button>
-        <button class="rail-button" id="themeButton" type="button" data-focusable>Nền AMOLED</button>
-        <p class="remote-guide">TV: ↑ ↓ ← → di chuyển · OK để chọn · Back để quay lại.</p>
+        <button class="rail-button assistant-shortcut" id="assistantButton" type="button" data-focusable>✧ Gợi ý AI</button>
+        <details class="header-menu" id="headerMenu">
+          <summary class="header-menu-button" data-focusable aria-label="Mở menu tiện ích">☰ <span>Tiện ích</span></summary>
+          <div class="header-menu-panel" role="group" aria-label="Các tiện ích khác">
+            <button class="rail-button" id="historyButton" type="button" data-focusable>◷ Lịch sử xem</button>
+            <button class="rail-button" id="randomButton" type="button" data-focusable>↻ Chọn phim ngẫu nhiên</button>
+            <button class="rail-button" id="adminButton" type="button" data-focusable>＋ Thêm phim</button>
+            <button class="rail-button" id="themeButton" type="button" data-focusable>Nền AMOLED</button>
+          </div>
+        </details>
       </div>
     </aside>
 
@@ -59,6 +63,7 @@
       </header>
 
       <section class="hero" id="heroSection" aria-label="Phim nổi bật"></section>
+      <p class="hero-hint">Chọn phim yêu thích · Xem tiếp trên mọi thiết bị sử dụng cùng trình duyệt</p>
 
       <details class="filters-shell" id="filtersShell"><summary class="filters-toggle" data-focusable>Bộ lọc nâng cao <span>Thể loại · Năm · Sắp xếp</span></summary>
       <section class="filter-bar" aria-label="Bộ lọc nâng cao">
@@ -107,7 +112,7 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">Xem tiếp</p>
-            <h2>Đang xem dở</h2>
+            <h2>Tiếp tục xem</h2>
           </div>
           <button class="ghost-button" id="clearHistoryButton" type="button" data-focusable>Xóa lịch sử</button>
         </div>
@@ -118,13 +123,35 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">Dành cho bạn</p>
-            <h2>Gợi ý từ thư viện</h2>
+            <h2>Dành riêng cho bạn</h2>
           </div>
         </div>
         <div class="movie-row" id="recommendedRow"></div>
       </section>
 
-      <section class="shelf">
+      <section class="shelf collection-shelf" id="seriesShelf" hidden>
+        <div class="section-heading">
+          <div><p class="eyebrow">KHÁM PHÁ</p><h2>Phim bộ nổi bật</h2></div>
+          <button class="shelf-more" type="button" data-show-category="series" data-focusable>Xem tất cả <span aria-hidden="true">›</span></button>
+        </div>
+        <div class="movie-row" id="seriesRow"></div>
+      </section>
+      <section class="shelf collection-shelf" id="animationShelf" hidden>
+        <div class="section-heading">
+          <div><p class="eyebrow">CHỌN LỌC</p><h2>Hoạt hình & Anime</h2></div>
+          <button class="shelf-more" type="button" data-show-category="animation" data-focusable>Xem tất cả <span aria-hidden="true">›</span></button>
+        </div>
+        <div class="movie-row" id="animationRow"></div>
+      </section>
+      <section class="shelf collection-shelf" id="movieShelf" hidden>
+        <div class="section-heading">
+          <div><p class="eyebrow">PHIM HAY</p><h2>Phim lẻ & Điện ảnh</h2></div>
+          <button class="shelf-more" type="button" data-show-category="movie" data-focusable>Xem tất cả <span aria-hidden="true">›</span></button>
+        </div>
+        <div class="movie-row" id="movieRow"></div>
+      </section>
+
+      <section class="shelf library-shelf">
         <div class="section-heading">
           <div>
             <p class="eyebrow" id="gridEyebrow">Thư viện</p>
@@ -135,6 +162,12 @@
         <div class="movie-grid" id="movieGrid" aria-live="polite"></div>
       </section>
     </main>
+    <nav class="mobile-tabbar" id="mobileTabbar" aria-label="Điều hướng nhanh">
+      <button type="button" id="mobileHomeButton" data-focusable aria-label="Trang chủ"><span aria-hidden="true">⌂</span><small>Trang chủ</small></button>
+      <button type="button" id="mobileSeriesButton" data-focusable aria-label="Phim bộ"><span aria-hidden="true">▣</span><small>Phim bộ</small></button>
+      <button type="button" id="mobileContinueButton" data-focusable aria-label="Đang xem"><span aria-hidden="true">▶</span><small>Đang xem</small></button>
+      <button type="button" id="mobileFavoritesButton" data-focusable aria-label="Yêu thích"><span aria-hidden="true">♡</span><small>Yêu thích</small></button>
+    </nav>
   </div>
 
   <section class="detail-view" id="detailView" hidden aria-modal="true" role="dialog" aria-labelledby="detailTitle">
@@ -228,19 +261,31 @@
           </div>
         </div>
         <section class="watch-info" aria-label="Thông tin phim đang xem">
-          <p class="eyebrow" id="playerKicker">Đang xem</p>
+          <p class="eyebrow" id="playerKicker">V HUB · ĐANG PHÁT</p>
           <h2 id="playerTitle"></h2>
           <p class="watch-meta" id="playerMeta"></p>
+          <div class="watch-channel">
+            <img class="watch-channel-avatar" id="playerChannelPoster" src="logo.svg" alt="" width="52" height="52" loading="lazy">
+            <div class="watch-channel-copy">
+              <strong>V Hub Cinema</strong>
+              <span id="playerChannelSubtitle">Chọn phần và tập trong danh sách bên cạnh</span>
+            </div>
+            <div class="watch-channel-actions">
+              <button class="watch-pill" id="playerFavoriteButton" type="button" data-focusable aria-pressed="false">♡ Lưu phim</button>
+              <button class="watch-pill" id="playerShareButton" type="button" data-focusable>↗ Chia sẻ</button>
+            </div>
+          </div>
           <div class="watch-actions">
-            <button class="secondary-button compact" id="playerPrevButton" type="button" data-focusable>Tập trước</button>
-            <button class="secondary-button compact" id="playerNextButton" type="button" data-focusable>Tập sau</button>
+            <button class="secondary-button compact" id="playerPrevButton" type="button" data-focusable>← Tập trước</button>
+            <button class="secondary-button compact" id="playerNextButton" type="button" data-focusable>Tập tiếp →</button>
             <button class="ghost-button compact" id="playerDetailButton" type="button" data-focusable>Chi tiết phim</button>
+            <button class="ghost-button compact episode-toggle" id="playerEpisodeToggle" type="button" aria-controls="watchSidebar" aria-expanded="false" data-focusable>☷ Danh sách tập</button>
           </div>
         </section>
       </main>
-      <aside class="watch-sidebar" aria-label="Danh sách tập">
+      <aside class="watch-sidebar" id="watchSidebar" aria-label="Danh sách tập">
         <div class="section-heading compact-heading">
-          <h3>Danh sách tập</h3>
+          <h3>Các tập phim</h3>
           <span id="playerEpisodeCount"></span>
         </div>
         <label class="player-season-label">Chọn phần
@@ -346,6 +391,6 @@
   <script src="movies.js?v=posters4"></script>
   <script src="groqService.js?v=tv2"></script>
   <script src="ai.js?v=tv2"></script>
-  <script src="app.js?v=multi3"></script>
+  <script src="app.js?v=cinema5"></script>
 </body>
 </html>
