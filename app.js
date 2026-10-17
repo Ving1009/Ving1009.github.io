@@ -1408,7 +1408,7 @@
     }
 
     state.playerControlsTimer = window.setTimeout(function () {
-      if (shouldAutoHidePlayerControls()) {
+      if (shouldAutoHidePlayerControls() && !els.playerFrame.querySelector(".player-controls").contains(document.activeElement)) {
         els.playerView.classList.add("controls-hidden");
       }
     }, 2600);
@@ -1995,7 +1995,7 @@
   }
 
   function updateSeo(movie) {
-    var title = movie ? movie.title + " - V Hub" : "V Hub - Rạp phim tại nhà";
+    var title = movie ? movie.title + " - V Hub Cinema" : "V Hub Cinema - Rạp phim tại nhà";
     var description = movie ? String(movie.description || "").slice(0, 155) : "Web xem phim tĩnh tối ưu cho TV, AI gợi ý phim, lịch sử xem, yêu thích và import phim.";
     var image = movie ? movie.banner || movie.thumbnail : "https://dummyimage.com/1200x630/050505/f5f1e8&text=V+Hub";
 
@@ -2019,7 +2019,7 @@
     } : {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "V Hub",
+      "name": "V Hub Cinema",
       "url": window.location.origin + window.location.pathname,
       "potentialAction": {
         "@type": "SearchAction",
@@ -2770,7 +2770,7 @@ function isEmbedUrl(url) {
       '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101e2e"/><stop offset="1" stop-color="#183b46"/></linearGradient></defs>',
       '<rect width="100%" height="100%" fill="url(#g)"/>',
       '<circle cx="' + width * 0.78 + '" cy="' + height * 0.18 + '" r="' + width * 0.22 + '" fill="#65dec9" opacity="0.18"/>',
-      '<text x="50%" y="46%" fill="#fff8ec" font-family="Arial, sans-serif" font-size="' + (isWide ? 64 : 58) + '" font-weight="700" text-anchor="middle">V Hub</text>',
+      '<text x="50%" y="46%" fill="#f5f7f9" font-family="Arial, sans-serif" font-size="' + (isWide ? 64 : 58) + '" font-weight="700" text-anchor="middle">V HUB</text>',
       '<text x="50%" y="56%" fill="#f6ddaa" font-family="Arial, sans-serif" font-size="' + (isWide ? 28 : 30) + '" text-anchor="middle">' + safeTitle + '</text>',
       '</svg>'
     ].join("");
