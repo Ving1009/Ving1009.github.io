@@ -1,13 +1,13 @@
 {
-  "name": "V Hub - Rạp phim tại nhà",
+  "name": "V Hub Cinema - Rạp phim tại nhà",
   "short_name": "V Hub",
   "description": "Web xem phim tối ưu TV với AI gợi ý, lịch sử xem, yêu thích và import phim.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#050505",
-  "theme_color": "#d9472f",
+  "background_color": "#080e16",
+  "theme_color": "#65dec9",
   "icons": [
     {
       "src": "icon-192.svg",

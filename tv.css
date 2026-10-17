@@ -1,0 +1,228 @@
+/* V HUB — Cinema UI, ưu tiên TV / remote / trình duyệt yếu. Không tải font bên ngoài. */
+:root {
+  --bg: #080e16; --bg-2: #0a121c;
+  --panel: #101b29; --panel-solid: #101b29; --panel-2: #172638;
+  --line: #293747; --text: #f5f7f9; --muted: #b4c1cf; --soft: #92a4b4;
+  --accent: #65dec9; --accent-2: #f4c887; --good: #6de0a5;
+  --focus: #fff0c2; --shadow: 0 8px 22px #0006;
+  --rail-width: 255px; --radius: 16px;
+}
+:root[data-theme="amoled"] {
+  --bg: #000; --bg-2: #060606; --panel: #101010; --panel-solid: #0c0c0c;
+  --panel-2: #171717; --line: #313131; --text: #fff; --muted: #cacaca;
+  --soft: #aaa; --accent: #7aead6; --accent-2: #f6d598; --focus: #fff;
+}
+html { scroll-behavior: auto; background: var(--bg); }
+body {
+  background: var(--bg);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(16px, 1vw, 20px);
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+}
+h1, h2, h3, .brand strong { font-family: inherit; letter-spacing: -0.025em; }
+h1 { font-size: clamp(30px, 3vw, 54px); line-height: 1.12; max-width: none; }
+h2 { font-size: clamp(25px, 2vw, 36px); line-height: 1.17; }
+h3 { font-size: clamp(19px, 1.4vw, 26px); }
+.eyebrow { color: var(--accent-2); font-size: .73em; letter-spacing: .13em; }
+.app-shell { grid-template-columns: var(--rail-width) minmax(0, 1fr); }
+.side-rail {
+  gap: 17px; padding: 24px 15px; background: #0d1723;
+  border-right: 1px solid var(--line); backdrop-filter: none;
+  overflow-y: auto; scrollbar-width: thin;
+}
+.brand { gap: 12px; min-height: 76px; padding: 10px; border-radius: 16px; }
+.brand-symbol { width: 55px; height: 55px; flex: none; object-fit: contain; }
+.brand strong { font-size: 1.33em; font-weight: 850; letter-spacing: -.04em; }
+.brand small { font-size: .63em; color: var(--accent); letter-spacing: .16em; }
+.nav-list { display: block; }
+.nav-button-list { display: grid; gap: 4px; }
+.nav-caption, .rail-caption {
+  margin: 12px 10px 8px; color: var(--soft); font-size: .69em;
+  font-weight: 800; letter-spacing: .15em; text-transform: uppercase;
+}
+.nav-button, .rail-button { min-height: 46px; padding: 8px 13px; border-radius: 11px; font-size: .88em; font-weight: 650; }
+.nav-button { display: flex; width: 100%; justify-content: space-between; }
+.nav-button.active { color: #06181a; background: var(--accent); border-color: transparent; }
+.nav-button.active .nav-count { color: #06181a; }
+.nav-button:hover:not(.active), .rail-button:hover { background: #203042; color: #fff; }
+.nav-count {
+  min-width: 25px; padding: 2px 6px; border-radius: 7px; background: #ffffff12;
+  color: var(--soft); text-align: center; font-size: .8em; font-variant-numeric: tabular-nums;
+}
+.rail-actions { gap: 5px; border-top: 1px solid var(--line); padding-top: 12px; }
+.rail-button { justify-content: flex-start; color: var(--muted); }
+.remote-guide { margin: 8px 10px 0; font-size: .69em; line-height: 1.7; color: var(--soft); }
+.main-stage { padding: 30px clamp(22px, 2.8vw, 58px) 72px; }
+.topbar {
+  grid-template-columns: minmax(220px, .82fr) minmax(300px, 1fr);
+  gap: 25px; align-items: center; margin-bottom: 25px;
+}
+.topbar h1 { margin-top: 5px; }
+.search-console { border-radius: 13px; background: var(--panel); box-shadow: none; padding: 6px; }
+.search-console input { min-height: 48px; background: transparent; border: 0; }
+input, select, textarea { background: var(--panel); border-color: var(--line); border-radius: 10px; color: var(--text); }
+input::placeholder, textarea::placeholder { color: var(--soft); }
+.primary-button, .secondary-button, .ghost-button, .player-control-button {
+  min-height: 48px; border-radius: 10px; font-weight: 750;
+}
+.primary-button { background: var(--accent); color: #061a20; border-color: transparent; }
+.primary-button:hover { background: #92f0e0; color: #061a20; }
+.secondary-button { background: #1a2a38; border: 1px solid #34495a; color: var(--text); }
+.ghost-button { background: transparent; border: 1px solid var(--line); color: var(--muted); }
+.hero {
+  min-height: clamp(325px, 30vw, 510px); margin-bottom: 28px;
+  border-radius: 18px; border: 1px solid #304052; box-shadow: none;
+  background: linear-gradient(90deg,#07111ff5 0%,#07111fe8 38%,#07111f55 100%), var(--hero-image) center 30% / cover;
+}
+.hero::before { display: none; }
+.hero-copy { width: min(730px, 65%); min-height: inherit; gap: 12px; padding: clamp(27px, 4vw, 64px); }
+.hero-copy h2 { max-width: 18ch; font-size: clamp(37px, 4.1vw, 72px); line-height: 1.1; }
+.hero-copy p:not(.eyebrow) { max-width: 62ch; color: #d0dce7; font-size: clamp(15px, 1vw, 19px); line-height: 1.56; }
+.hero-actions { margin-top: 8px; }
+.badge { border-radius: 7px; background: #162638e8; color: #cfdae3; }
+.filters-shell { margin: 0 0 27px; }
+.filters-toggle {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  min-height: 48px; width: 100%; padding: 8px 15px;
+  border: 1px solid var(--line); border-radius: 11px; background: var(--panel);
+  cursor: pointer; color: var(--text); font-size: .83em; font-weight: 750;
+}
+.filters-toggle::marker { color: var(--accent); }
+.filters-toggle span { color: var(--soft); font-weight: 500; font-size: .9em; }
+.filters-shell[open] .filters-toggle { border-color: var(--accent); border-radius: 11px 11px 0 0; }
+.filter-bar {
+  grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin: 0;
+  padding: 16px; border: 1px solid var(--line); border-top: 0;
+  background: var(--panel); border-radius: 0 0 11px 11px;
+}
+.filter-bar label { min-width: 0; }
+.filter-bar select { min-height: 46px; font-size: .86em; }
+.section-heading { align-items: end; margin-bottom: 15px; gap: 12px; }
+.shelf { margin-bottom: 32px; }
+.movie-grid { grid-template-columns: repeat(auto-fill, minmax(185px,1fr)); gap: 16px; }
+.movie-row { grid-auto-columns: minmax(190px,230px); gap: 16px; padding: 5px 4px 16px; }
+.movie-row, .season-tabs, .watch-episode-list { scrollbar-width: thin; scrollbar-color: #34495a transparent; }
+.movie-card {
+  border-radius: 12px; background: var(--panel); border-color: #29384a;
+  box-shadow: none; transition: border-color .12s ease, background .12s ease;
+  transform: none;
+}
+.movie-card:hover, .movie-card:focus, .movie-card.focus-visible {
+  transform: none; box-shadow: 0 0 0 2px var(--focus); border-color: var(--focus);
+}
+.poster-wrap { background: #172332; }
+.poster { transform: none; transition: none; }
+.movie-card:hover .poster, .movie-card:focus .poster { transform: none; filter: none; }
+.poster-glow { display: none; }
+.movie-body { padding: 13px; gap: 6px; }
+.movie-title { font-size: 1em; line-height: 1.36; font-weight: 750; }
+.movie-desc { color: var(--muted); line-height: 1.45; }
+.movie-stat { color: var(--soft); }
+.hover-cta { color: var(--accent); font-weight: 800; }
+.continue-card { border-radius: 12px; box-shadow: none; background: var(--panel); }
+.detail-view { background: #08111beF; }
+.detail-backdrop { filter: none; transform: none; opacity: .09; }
+.detail-panel { gap: clamp(24px,3vw,52px); padding: clamp(24px,3vw,60px); }
+.detail-poster { border-radius: 15px; box-shadow: none; }
+.detail-info h2 { font-size: clamp(32px,3vw,56px); }
+.watch-hint {
+  border-radius: 10px; background: #142334; border: 1px solid var(--line);
+  color: var(--muted); padding: 12px 15px; font-size: .78em;
+}
+.season-tabs { flex-wrap: nowrap; gap: 9px; }
+.season-button, .episode-button { border-radius: 10px; background: #142434; border-color: var(--line); }
+.season-button { font-weight: 750; min-height: 51px; }
+.season-button.active { color: #071b20; background: var(--accent); border-color: var(--accent); }
+.episode-grid { grid-template-columns: repeat(auto-fill,minmax(155px,1fr)); gap: 9px; }
+.episode-button { min-height: 70px; }
+.episode-button.current { background: #223e47; border-color: var(--accent); }
+.player-view { background: #050a10; }
+.player-page { width: 100%; grid-template-columns: minmax(0,1fr) minmax(255px,330px); gap: 18px; }
+.clean-player-frame { border-radius: 12px; box-shadow: none; }
+.player-control-button { background: #06101dcc; border: 1px solid #b3cad0; color: #fff; backdrop-filter: none; }
+.player-view.controls-hidden .player-controls:focus-within { opacity: 1; pointer-events: auto; transform: none; }
+.watch-info { border-bottom: 1px solid var(--line); }
+.watch-sidebar { border-radius: 12px; background: var(--panel); border-color: var(--line); }
+.watch-episode-button { min-height: 70px; border-radius: 9px; }
+.watch-episode-thumb { background: #203449; }
+.assistant-panel, .admin-panel, .history-panel { background: #0d1927; box-shadow: -10px 0 35px #0008; backdrop-filter: none; animation: none; }
+.modal-card { background: var(--panel); border-color: var(--line); box-shadow: none; }
+.toast { border-radius: 12px; box-shadow: none; }
+/* Remote/keyboard: visible focus on every actionable surface, not hover-dependent. */
+:where(button, input, select, textarea, summary, a):focus-visible,
+button:focus, .filters-toggle:focus {
+  outline: 3px solid var(--focus) !important; outline-offset: 3px;
+}
+.movie-card:focus, .nav-button:focus, .season-button:focus, .episode-button:focus {
+  outline: 3px solid var(--focus) !important; outline-offset: 2px;
+}
+button:disabled { opacity: .5; cursor: not-allowed; }
+body.tv-remote-mode .remote-guide { color: #cfdded; }
+body.tv-remote-mode :where(button, summary, input, select):focus {
+  outline: 4px solid var(--focus) !important; outline-offset: 3px;
+}
+@media (min-width: 1500px) {
+  .movie-grid { grid-template-columns: repeat(auto-fill,minmax(215px,1fr)); gap: 19px; }
+  .movie-row { grid-auto-columns: minmax(215px,252px); }
+  .nav-button, .rail-button { min-height: 53px; font-size: .9em; }
+  .hero { min-height: min(45vh,540px); }
+  .episode-button { min-height: 84px; }
+}
+@media (max-width: 1180px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .side-rail { position: static; display: flex; flex-direction: column; gap: 11px; height: auto; padding: 12px 18px; overflow: visible; border-right: 0; border-bottom: 1px solid var(--line); }
+  .brand { width: auto; min-height: 57px; align-self: flex-start; }
+  .brand-symbol { height: 44px; width: 44px; }
+  .nav-list { display: block; width: 100%; overflow-x: auto; scrollbar-width: thin; }
+  .nav-button-list { display: flex; gap: 8px; width: max-content; padding: 3px; }
+  .nav-button { width: auto; min-width: max-content; gap: 10px; min-height: 45px; }
+  .nav-caption { display: none; }
+  .rail-actions { display: flex; flex-wrap: wrap; gap: 5px; border: 0; padding: 0; }
+  .rail-button { min-height: 42px; width: auto; font-size: .8em; padding: 6px 11px; }
+  .remote-guide { display: none; }
+  .topbar { grid-template-columns: minmax(0,1fr) minmax(240px,1.1fr); }
+  .main-stage { padding: 25px 20px 50px; }
+  .player-page { grid-template-columns: minmax(0,1fr) minmax(220px,290px); }
+}
+@media (max-width: 820px) {
+  body { font-size: 15px; }
+  .topbar { grid-template-columns: 1fr; gap: 14px; margin-bottom: 19px; }
+  .search-console { grid-template-columns: minmax(0,1fr) auto; }
+  .hero { min-height: 400px; border-radius: 14px; background: linear-gradient(180deg,#06101c22 2%,#07111fe9 64%),var(--hero-image) center / cover; }
+  .hero-copy { width: 100%; gap: 10px; padding: 23px; }
+  .hero-copy h2 { font-size: clamp(31px,8vw,49px); }
+  .hero-copy p:not(.eyebrow) { font-size: 14px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .filter-bar { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+  .movie-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 11px; }
+  .movie-row { grid-auto-columns: minmax(155px,195px); }
+  .movie-body { padding: 10px; }
+  .movie-desc { display: none; }
+  .detail-panel { grid-template-columns: 1fr; padding: 18px; }
+  .detail-poster-wrap { position: static; }
+  .detail-poster { width: min(45vw,180px); border-radius: 12px; }
+  .episode-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .player-page { grid-template-columns: 1fr; padding: 0 0 24px; }
+  .clean-player-frame { border-radius: 0; top: 0; }
+  .watch-sidebar { position: static; max-height: none; margin-inline: 12px; }
+  .watch-info { margin-inline: 12px; }
+}
+@media (max-width: 420px) {
+  .filter-bar { grid-template-columns: 1fr; }
+  .hero { min-height: 430px; }
+  .hero-actions { gap: 8px; }
+  .hero-actions button { flex: 1 1 45%; }
+}
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+}
+
+/* Render mỗi lượt tối đa 48 tập: nhanh trên TV cũ, có nút lật trang và chọn phần. */
+.episode-pages { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 0 15px; }
+.episode-pages span { color: var(--muted); font-size: .84em; font-variant-numeric: tabular-nums; text-align: center; }
+.episode-pages button { flex: 0 0 auto; min-height: 42px; font-size: .82em; }
+.player-season-label { display: grid; gap: 7px; margin: 12px 0 8px; color: var(--muted); font-size: .82em; }
+.player-season-label select { min-height: 44px; font-size: 1em; font-weight: 750; color: var(--text); }
+.player-episode-pages { gap: 5px; }
+.player-episode-pages button { padding: 6px 10px; }
+@media (max-width: 420px) { .episode-pages button { font-size: .75em; padding: 8px 9px; } }

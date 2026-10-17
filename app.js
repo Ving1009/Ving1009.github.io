@@ -34,7 +34,11 @@
     animation: "Hoạt hình"
   };
 
+  var EPISODE_PAGE_SIZE = 48;
   var state = {
+    detailPage: 0,
+    playerPage: 0,
+    playerBrowseSeasonIndex: 0,
     baseMovies: [],
     importedMovies: loadJson(STORAGE_KEYS.imported, []),
     movies: [],
@@ -56,7 +60,7 @@
     settings: Object.assign({
       autoplay: true,
       theme: "netflix",
-      embedAutoNext: true
+      embedAutoNext: false
     }, loadJsonWithLegacy(STORAGE_KEYS.settings, LEGACY_KEYS.settings, {})),
     ratings: loadJson(STORAGE_KEYS.ratings, {}),
     comments: loadJson(STORAGE_KEYS.comments, {})
@@ -106,6 +110,9 @@
     ratingBox: document.getElementById("ratingBox"),
     seasonTabs: document.getElementById("seasonTabs"),
     episodeGrid: document.getElementById("episodeGrid"),
+    detailPagePrev: document.getElementById("detailPagePrev"),
+    detailPageNext: document.getElementById("detailPageNext"),
+    detailEpisodeRange: document.getElementById("detailEpisodeRange"),
     commentForm: document.getElementById("commentForm"),
     commentInput: document.getElementById("commentInput"),
     commentList: document.getElementById("commentList"),
@@ -113,6 +120,7 @@
     playerView: document.getElementById("playerView"),
     playerCloseButton: document.getElementById("playerCloseButton"),
     playerFullscreenButton: document.getElementById("playerFullscreenButton"),
+    playerEmbedButton: document.getElementById("playerEmbedButton"),
     playerFrame: document.getElementById("playerFrame"),
     videoPlayer: document.getElementById("videoPlayer"),
     iframePlayer: document.getElementById("iframePlayer"),
@@ -124,6 +132,10 @@
     playerDetailButton: document.getElementById("playerDetailButton"),
     playerEpisodeCount: document.getElementById("playerEpisodeCount"),
     playerEpisodeList: document.getElementById("playerEpisodeList"),
+    playerSeasonSelect: document.getElementById("playerSeasonSelect"),
+    playerPagePrev: document.getElementById("playerPagePrev"),
+    playerPageNext: document.getElementById("playerPageNext"),
+    playerEpisodeRange: document.getElementById("playerEpisodeRange"),
     assistantPanel: document.getElementById("assistantPanel"),
     closeAssistantButton: document.getElementById("closeAssistantButton"),
     groqKeyInput: document.getElementById("groqKeyInput"),
@@ -167,7 +179,7 @@
     renderQuickPrompts();
     renderAll();
     applyRouteFromUrl(false);
-    registerServiceWorker();
+    // Không bật Service Worker; tránh TV giữ bản player/phim cũ.
     focusElement(els.homeButton);
   }
 
@@ -211,7 +223,7 @@
       state.activeSmartResult = null;
       renderAll();
       replaceRoute();
-      focusElement(els.movieGrid.querySelector("[data-focusable]") || els.searchInput);
+      focusElement(els.navList.querySelector('[data-category-id="' + state.activeCategory + '"]'));
     });
 
     els.navList.addEventListener("change", function (event) {
@@ -290,11 +302,22 @@
       }
       state.activeSeasonIndex = Number(button.dataset.seasonIndex);
       state.activeEpisodeIndex = getLastEpisodeIndex(getActiveMovie(), state.activeSeasonIndex);
+      state.detailPage = Math.floor(state.activeEpisodeIndex / EPISODE_PAGE_SIZE);
       renderDetailEpisodes();
       updateRouteForCurrent(false, false);
       focusElement(els.episodeGrid.querySelector("[data-focusable]"));
     });
 
+    els.detailPagePrev.addEventListener("click", function () {
+      state.detailPage = Math.max(0, state.detailPage - 1);
+      renderDetailEpisodes();
+      focusElement(els.detailPagePrev);
+    });
+    els.detailPageNext.addEventListener("click", function () {
+      state.detailPage += 1;
+      renderDetailEpisodes();
+      focusElement(els.detailPageNext);
+    });
     els.episodeGrid.addEventListener("click", function (event) {
       var button = event.target.closest("[data-season-index][data-episode-index]");
       if (!button) {
@@ -338,6 +361,10 @@
       }
       focusElement(els.videoPlayer.hidden ? els.iframePlayer : els.videoPlayer);
     });
+    els.playerEmbedButton.addEventListener("click", function (event) {
+      event.stopPropagation();
+      focusElement(els.iframePlayer);
+    });
     els.playerCloseButton.addEventListener("click", function (event) {
       event.stopPropagation();
       closePlayer();
@@ -357,6 +384,22 @@
     els.playerDetailButton.addEventListener("click", function (event) {
       event.stopPropagation();
       closePlayer();
+    });
+    els.playerSeasonSelect.addEventListener("change", function () {
+      state.playerBrowseSeasonIndex = Number(els.playerSeasonSelect.value) || 0;
+      state.playerPage = 0;
+      renderPlayerView();
+      focusElement(els.playerSeasonSelect);
+    });
+    els.playerPagePrev.addEventListener("click", function () {
+      state.playerPage = Math.max(0, state.playerPage - 1);
+      renderPlayerView();
+      focusElement(els.playerPagePrev);
+    });
+    els.playerPageNext.addEventListener("click", function () {
+      state.playerPage += 1;
+      renderPlayerView();
+      focusElement(els.playerPageNext);
     });
     els.playerEpisodeList.addEventListener("click", function (event) {
       var button = event.target.closest("[data-player-season][data-player-episode]");
@@ -445,16 +488,15 @@
 
   function renderNavigation() {
     els.navList.innerHTML = [
-      '<label class="category-picker">',
-      '<span>Danh mục</span>',
-      '<select aria-label="Chọn danh mục phim" data-category-select data-focusable>',
+      '<p class="nav-caption">Khám phá</p>',
+      '<div class="nav-button-list">',
       NAV_ITEMS.map(function (item) {
         var count = getCategoryMovies(item.id).length;
-        var selected = state.activeCategory === item.id ? " selected" : "";
-        return '<option value="' + escapeAttr(item.id) + '"' + selected + '>' + escapeHtml(item.label) + ' (' + count + ')</option>';
+        var active = state.activeCategory === item.id;
+        return '<button class="nav-button' + (active ? ' active' : '') + '" type="button" data-category-id="' + escapeAttr(item.id) + '" data-focusable aria-pressed="' + active + '">' +
+          '<span>' + escapeHtml(item.label) + '</span><span class="nav-count">' + count + '</span></button>';
       }).join(""),
-      '</select>',
-      '</label>'
+      '</div>'
     ].join("");
   }
 
@@ -541,7 +583,7 @@
     els.heroSection.style.setProperty("--hero-image", "url('" + escapeCssUrl(heroImage) + "')");
     els.heroSection.innerHTML = [
       '<div class="hero-copy">',
-      '<p class="eyebrow">Featured now</p>',
+      '<p class="eyebrow">Lựa chọn nổi bật</p>',
       '<h2>' + escapeHtml(movie.title) + '</h2>',
       '<p>' + escapeHtml(movie.description || "Một lựa chọn nổi bật trong thư viện.") + '</p>',
       '<div class="badge-line">' + meta + '</div>',
@@ -712,7 +754,7 @@
     return [
       '<button class="' + classes + '" type="button" data-movie-id="' + escapeAttr(movie.id) + '" data-focusable>',
       '<span class="poster-wrap">',
-      '<img class="poster" src="' + escapeAttr(movie.thumbnail) + '" alt="' + escapeAttr(movie.title) + '" loading="lazy">',
+      '<img class="poster" src="' + escapeAttr(movie.thumbnail) + '" alt="' + escapeAttr(movie.title) + '" loading="lazy" decoding="async">',
       '<span class="poster-glow"></span>',
       '</span>',
       '<span class="movie-body">',
@@ -782,6 +824,7 @@
     var selection = getSavedSelection(movie, saved);
     state.activeSeasonIndex = typeof options.seasonIndex === "number" ? options.seasonIndex : selection.seasonIndex;
     state.activeEpisodeIndex = typeof options.episodeIndex === "number" ? options.episodeIndex : selection.episodeIndex;
+    state.detailPage = Math.floor(state.activeEpisodeIndex / EPISODE_PAGE_SIZE);
 
     hydrateDetail(movie);
     els.detailView.hidden = false;
@@ -869,17 +912,23 @@
 
   function renderDetailEpisodes() {
     var movie = getActiveMovie();
-    if (!movie) {
-      return;
-    }
-
+    if (!movie) { return; }
     els.seasonTabs.innerHTML = movie.seasons.map(function (season, index) {
       var active = index === state.activeSeasonIndex ? " active" : "";
       return '<button class="season-button' + active + '" type="button" data-season-index="' + index + '" data-focusable>' + escapeHtml(season.name) + '</button>';
     }).join("");
 
-    var season = movie.seasons[state.activeSeasonIndex];
-    els.episodeGrid.innerHTML = (season && season.episodes || []).map(function (episode, index) {
+    var season = movie.seasons[state.activeSeasonIndex] || { episodes: [] };
+    var episodes = season.episodes || [];
+    var totalPages = Math.max(1, Math.ceil(episodes.length / EPISODE_PAGE_SIZE));
+    state.detailPage = Math.max(0, Math.min(totalPages - 1, state.detailPage));
+    var first = state.detailPage * EPISODE_PAGE_SIZE;
+    var last = Math.min(episodes.length, first + EPISODE_PAGE_SIZE);
+    els.detailPagePrev.disabled = state.detailPage === 0;
+    els.detailPageNext.disabled = state.detailPage >= totalPages - 1;
+    els.detailEpisodeRange.textContent = episodes.length ? (first + 1) + "–" + last + " / " + episodes.length : "0 tập";
+    els.episodeGrid.innerHTML = episodes.slice(first, last).map(function (episode, localIndex) {
+      var index = first + localIndex;
       var current = index === state.activeEpisodeIndex ? " current" : "";
       var status = getEpisodeStatus(movie.id, state.activeSeasonIndex, index);
       var watched = status === "Đã xem" ? " watched" : "";
@@ -892,14 +941,10 @@
         '</button>'
       ].join("");
     }).join("");
-
     renderPlayButton();
     scrollActiveEpisodeIntoView();
-    if (!els.playerView.hidden) {
-      renderPlayerView();
-    }
+    if (!els.playerView.hidden) { renderPlayerView(); }
   }
-
   function renderComments() {
     var movie = getActiveMovie();
     if (!movie) {
@@ -1040,6 +1085,8 @@
       duration: inferEpisodeDuration(movie, episode)
     };
 
+    state.playerBrowseSeasonIndex = state.activeSeasonIndex;
+    state.playerPage = Math.floor(state.activeEpisodeIndex / EPISODE_PAGE_SIZE);
     renderPlayerView();
     loadEpisodeSource(episode.videoUrl || episode.embedUrl || episode.url || "");
     markCurrentEpisodeProgress(false);
@@ -1047,56 +1094,57 @@
     updateRouteForCurrent(true, true);
     startProgressTimer();
     showPlayerControls(false);
-    focusElement(els.videoPlayer.hidden ? els.iframePlayer : els.videoPlayer);
+    focusElement(els.playerCloseButton);
   }
 
   function renderPlayerView() {
     var movie = getActiveMovie();
     var episode = getActiveEpisode();
-    if (!movie || !episode) {
-      return;
-    }
-
-    var flat = flattenEpisodes(movie);
-    var episodeCount = flat.length;
+    if (!movie || !episode) { return; }
     var season = movie.seasons[state.activeSeasonIndex] || {};
-    var metaParts = [
-      episode.title || "Đang xem",
-      season.name || "Mùa 1",
-      movie.year || "",
-      getMovieCategoryText(movie)
-    ].filter(Boolean);
-
+    var metaParts = [episode.title || "Đang xem", season.name || "Mùa 1", movie.year || "", getMovieCategoryText(movie)].filter(Boolean);
     els.playerKicker.textContent = (movie.genres || [])[0] || "Đang xem";
     els.playerTitle.textContent = movie.title;
     els.playerMeta.textContent = metaParts.join(" · ");
-    els.playerEpisodeCount.textContent = episodeCount + " tập";
+    els.playerEpisodeCount.textContent = countEpisodes(movie) + " tập";
     els.playerPrevButton.disabled = !getRelativeEpisode(-1);
     els.playerNextButton.disabled = !getRelativeEpisode(1);
 
-    els.playerEpisodeList.innerHTML = flat.map(function (item, index) {
-      var isCurrent = item.seasonIndex === state.activeSeasonIndex && item.episodeIndex === state.activeEpisodeIndex;
-      var status = getEpisodeStatus(movie.id, item.seasonIndex, item.episodeIndex);
-      var progress = getEpisodeProgress(movie.id, item.seasonIndex, item.episodeIndex);
+    state.playerBrowseSeasonIndex = clampIndex(state.playerBrowseSeasonIndex, movie.seasons.length);
+    var browseSeason = movie.seasons[state.playerBrowseSeasonIndex] || { episodes: [] };
+    els.playerSeasonSelect.innerHTML = movie.seasons.map(function (item, index) {
+      return '<option value="' + index + '">' + escapeHtml(item.name) + ' (' + (item.episodes || []).length + ')</option>';
+    }).join("");
+    els.playerSeasonSelect.value = String(state.playerBrowseSeasonIndex);
+    var list = browseSeason.episodes || [];
+    var pages = Math.max(1, Math.ceil(list.length / EPISODE_PAGE_SIZE));
+    state.playerPage = Math.max(0, Math.min(pages - 1, state.playerPage));
+    var first = state.playerPage * EPISODE_PAGE_SIZE;
+    var last = Math.min(list.length, first + EPISODE_PAGE_SIZE);
+    els.playerPagePrev.disabled = state.playerPage === 0;
+    els.playerPageNext.disabled = state.playerPage >= pages - 1;
+    els.playerEpisodeRange.textContent = list.length ? (first + 1) + "–" + last + " / " + list.length : "0 tập";
+    els.playerEpisodeList.innerHTML = list.slice(first, last).map(function (item, localIndex) {
+      var index = first + localIndex;
+      var isCurrent = state.playerBrowseSeasonIndex === state.activeSeasonIndex && index === state.activeEpisodeIndex;
+      var status = getEpisodeStatus(movie.id, state.playerBrowseSeasonIndex, index);
+      var progress = getEpisodeProgress(movie.id, state.playerBrowseSeasonIndex, index);
       var classes = "watch-episode-button" + (isCurrent ? " current" : "");
-      var label = item.episode.title || "Tập " + (item.episodeIndex + 1);
-      var thumbText = item.episodeIndex + 1;
       return [
-        '<button class="' + classes + '" type="button" data-player-season="' + item.seasonIndex + '" data-player-episode="' + item.episodeIndex + '" data-focusable>',
-        '<span class="watch-episode-thumb">' + escapeHtml(thumbText) + '</span>',
+        '<button class="' + classes + '" type="button" data-player-season="' + state.playerBrowseSeasonIndex + '" data-player-episode="' + index + '" data-focusable>',
+        '<span class="watch-episode-thumb">' + (index + 1) + '</span>',
         '<span class="watch-episode-copy">',
-        '<strong>' + escapeHtml(label) + '</strong>',
-        '<span>' + escapeHtml((item.season.name || "Mùa " + (item.seasonIndex + 1)) + " · " + status) + '</span>',
+        '<strong>' + escapeHtml(item.title || "Tập " + (index + 1)) + '</strong>',
+        '<span>' + escapeHtml(browseSeason.name + " · " + status) + '</span>',
         progress ? '<span class="episode-progress"><i style="width:' + progress + '%"></i></span>' : '',
-        '</span>',
-        '</button>'
+        '</span></button>'
       ].join("");
     }).join("");
-
     window.requestAnimationFrame(function () {
       var current = els.playerEpisodeList.querySelector(".watch-episode-button.current");
       if (current) {
-        current.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+        try { current.scrollIntoView({block:"nearest",inline:"nearest",behavior:"auto"}); }
+        catch (error) { current.scrollIntoView(false); }
       }
     });
   }
@@ -1114,6 +1162,7 @@
     els.videoPlayer.load();
     els.iframePlayer.hidden = true;
     els.iframePlayer.src = "about:blank";
+    els.playerEmbedButton.hidden = true;
 
     if (!sourceUrl) {
       showToast("Tập này chưa có link video.");
@@ -1123,7 +1172,8 @@
     if (isEmbedUrl(sourceUrl)) {
       els.iframePlayer.hidden = false;
       els.iframePlayer.src = sourceUrl;
-      setupEmbedAutoNext(movie, episode);
+      els.playerEmbedButton.hidden = false;
+      // Iframe không báo kết thúc đáng tin cậy; không tự chuyển sau thời gian ước lượng.
       return;
     }
 
@@ -1136,7 +1186,22 @@
         state.hls.loadSource(sourceUrl);
         state.hls.attachMedia(els.videoPlayer);
       } else {
-        showToast("Trình duyệt này chưa hỗ trợ HLS.");
+        loadHlsLibrary().then(function () {
+          if (els.playerView.hidden || getActiveEpisode() !== episode) { return; }
+          if (!window.Hls || !window.Hls.isSupported()) {
+            showToast("Trình duyệt TV này chưa hỗ trợ HLS."); return;
+          }
+          teardownHls();
+          state.hls = new window.Hls({ maxBufferLength: 20 });
+          state.hls.loadSource(sourceUrl);
+          state.hls.attachMedia(els.videoPlayer);
+          var promise = els.videoPlayer.play();
+          if (promise && promise.catch) {
+            promise.catch(function () { showPlayerControls(true); });
+          }
+        }).catch(function () {
+          showToast("Không tải được HLS. Hãy kiểm tra kết nối mạng.");
+        });
         return;
       }
     } else {
@@ -1272,6 +1337,7 @@
     }
     state.activeSeasonIndex = next.seasonIndex;
     state.activeEpisodeIndex = next.episodeIndex;
+    state.detailPage = Math.floor(state.activeEpisodeIndex / EPISODE_PAGE_SIZE);
     renderDetailEpisodes();
     playCurrentSelection();
   }
@@ -1284,6 +1350,7 @@
     }
     state.activeSeasonIndex = previous.seasonIndex;
     state.activeEpisodeIndex = previous.episodeIndex;
+    state.detailPage = Math.floor(state.activeEpisodeIndex / EPISODE_PAGE_SIZE);
     renderDetailEpisodes();
     playCurrentSelection();
   }
@@ -1336,7 +1403,7 @@
     window.clearTimeout(state.playerControlsTimer);
     state.playerControlsTimer = null;
 
-    if (keepVisible || !shouldAutoHidePlayerControls()) {
+    if (keepVisible || els.playerFrame.querySelector(".player-controls").contains(document.activeElement) || !shouldAutoHidePlayerControls()) {
       return;
     }
 
@@ -1435,6 +1502,24 @@
         }
       } catch (error) {}
     }
+  }
+
+  var hlsLibraryPromise = null;
+  function loadHlsLibrary() {
+    if (window.Hls) { return Promise.resolve(); }
+    if (hlsLibraryPromise) { return hlsLibraryPromise; }
+    hlsLibraryPromise = new Promise(function (resolve, reject) {
+      var script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js";
+      script.async = true;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    }).catch(function (error) {
+      hlsLibraryPromise = null;
+      throw error;
+    });
+    return hlsLibraryPromise;
   }
 
   function teardownHls() {
@@ -2021,6 +2106,9 @@
     if (!shouldHandleKeyEvent(event, key)) {
       return;
     }
+    if (key === "ArrowUp" || key === "ArrowDown" || key === "ArrowLeft" || key === "ArrowRight") {
+      document.body.classList.add("tv-remote-mode");
+    }
 
     if (!els.finishedModal.hidden && (key === "Escape" || key === "Backspace")) {
       event.preventDefault();
@@ -2042,6 +2130,7 @@
     }
 
     if (key === "Escape" || key === "Backspace") {
+      event.preventDefault();
       if (!els.assistantPanel.hidden) {
         closeAssistant();
       } else if (!els.adminPanel.hidden) {
@@ -2060,9 +2149,8 @@
     }
 
     if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(key) !== -1) {
-      if (!isTypingTarget(active)) {
-        moveFocus(event);
-      }
+      if (active && active.tagName === "SELECT") { return; }
+      if (!isTypingTarget(active)) { moveFocus(event); }
       return;
     }
 
@@ -2075,6 +2163,18 @@
   function handlePlayerKeys(event) {
     var key = normalizeRemoteKey(event);
     showPlayerControls(false);
+    if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(key) !== -1) {
+      if (document.activeElement && document.activeElement.tagName === "SELECT") { return; }
+      if (document.activeElement !== els.iframePlayer) { moveFocus(event); }
+      return;
+    }
+    if (key === "Enter" && document.activeElement &&
+        document.activeElement.matches("button, [data-focusable]") &&
+        document.activeElement !== els.videoPlayer && document.activeElement !== els.iframePlayer) {
+      event.preventDefault();
+      document.activeElement.click();
+      return;
+    }
     if (key === "Escape" || key === "Backspace") {
       event.preventDefault();
       closePlayer();
@@ -2109,8 +2209,8 @@
     var active = document.activeElement;
     var root = getFocusRoot();
     var key = normalizeRemoteKey(event);
-    var candidates = Array.prototype.slice.call(root.querySelectorAll("[data-focusable], button, input, select, textarea, video, iframe")).filter(function (element) {
-      return isVisible(element) && !element.disabled;
+    var candidates = Array.prototype.slice.call(root.querySelectorAll("[data-focusable], button, input, select, textarea, video, iframe, summary")).filter(function (element) {
+      return element !== els.iframePlayer && isVisible(element) && !element.disabled;
     });
 
     if (!active || candidates.indexOf(active) === -1) {
@@ -2145,6 +2245,9 @@
     if (next) {
       event.preventDefault();
       focusElement(next.element);
+      try {
+        next.element.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "auto" });
+      } catch (error) { next.element.scrollIntoView(false); }
     }
   }
 
@@ -2639,7 +2742,7 @@ function isEmbedUrl(url) {
 
   function applyTheme() {
     document.documentElement.dataset.theme = state.settings.theme === "amoled" ? "amoled" : "netflix";
-    els.themeButton.textContent = state.settings.theme === "amoled" ? "Netflix Dark" : "AMOLED";
+    els.themeButton.textContent = state.settings.theme === "amoled" ? "Màu mặc định" : "Nền AMOLED";
   }
 
   function registerServiceWorker() {
@@ -2664,11 +2767,11 @@ function isEmbedUrl(url) {
     var safeTitle = escapeHtml(title).slice(0, 80);
     var svg = [
       '<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + " " + height + '">',
-      '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101820"/><stop offset="1" stop-color="#d9472f"/></linearGradient></defs>',
+      '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101e2e"/><stop offset="1" stop-color="#183b46"/></linearGradient></defs>',
       '<rect width="100%" height="100%" fill="url(#g)"/>',
-      '<circle cx="' + width * 0.78 + '" cy="' + height * 0.18 + '" r="' + width * 0.22 + '" fill="#f5c16c" opacity="0.18"/>',
-      '<text x="50%" y="46%" fill="#fff8ec" font-family="Space Grotesk, sans-serif" font-size="' + (isWide ? 64 : 58) + '" font-weight="700" text-anchor="middle">V Hub</text>',
-      '<text x="50%" y="56%" fill="#f6ddaa" font-family="Be Vietnam Pro, sans-serif" font-size="' + (isWide ? 28 : 30) + '" text-anchor="middle">' + safeTitle + '</text>',
+      '<circle cx="' + width * 0.78 + '" cy="' + height * 0.18 + '" r="' + width * 0.22 + '" fill="#65dec9" opacity="0.18"/>',
+      '<text x="50%" y="46%" fill="#fff8ec" font-family="Arial, sans-serif" font-size="' + (isWide ? 64 : 58) + '" font-weight="700" text-anchor="middle">V Hub</text>',
+      '<text x="50%" y="56%" fill="#f6ddaa" font-family="Arial, sans-serif" font-size="' + (isWide ? 28 : 30) + '" text-anchor="middle">' + safeTitle + '</text>',
       '</svg>'
     ].join("");
     return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
