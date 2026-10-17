@@ -4,7 +4,7 @@ window.MOVIE_DATA = [
   {
     id: "dragon-ball",
     title: "Dragon Ball",
-    thumbnail: "https://img.nguonc.com/images/img-3ba8af71457d3054f1108938f7ce1044915d59244688c1abc862c9c89a9ed53a.jpg",
+    thumbnail: "https://static.tvmaze.com/uploads/images/original_untouched/436/1091415.jpg",
     description: "Câu chuyện bắt đầu với SonGoku, một cậu bé có đuôi sống với ông nội trong một ngôi nhà nhỏ trong rừng. Ở đây cậu bé gặp Bulma. Bulma được chứng kiến sức mạnh của SonGoku và muốn cùng cô lên đường tìm 7 viên ngọc rồng.",
     category: ["Phim bộ","Phim lẻ"],
     genres: ["Hoạt Hình","Hành động","Phiêu lưu","Hoạt hình","Hài","Giả tưởng","Khoa học viễn tưởng"],
@@ -1137,7 +1137,7 @@ window.MOVIE_DATA = [
   {
     id: "chu-thuat-hoi-chien",
     title: "Chú Thuật Hồi Chiến",
-    thumbnail: "https://image.tmdb.org/t/p/w500/eNWo1SAzHVnXNBYagafAm9yjMgJ.jpg",
+    thumbnail: "https://japanesegallery.com/pub/media/catalog/product/cache/62fdc856f4b346257a9a813c8ff0bb18/j/g/jgkp1177_s.jpg",
     description: "Mải mê tham gia các hoạt động huyền bí vô căn cứ với Câu lạc bộ Huyền bí, cậu học sinh trung học Yuuji Itadori dành cả ngày ở phòng câu lạc bộ hoặc bệnh viện, nơi cậu đến thăm người ông đang nằm liệt giường của mình.",
     category: ["Phim bộ"],
     genres: ["Hành Động","Hoạt Hình"],
@@ -1214,7 +1214,7 @@ window.MOVIE_DATA = [
   {
     id: "dai-chien-nguoi-khong-lo",
     title: "Đại Chiến Người Khổng Lồ",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/177.jpg",
+    thumbnail: "https://image.tmdb.org/t/p/w500/AgaD7s1vgIf4Soi3flAKN6Bte6u.jpg",
     description: "Nhiều thế kỷ trước, nhân loại đã bị tàn sát gần như tuyệt chủng bởi những sinh vật hình người quái dị được gọi là Titans, buộc loài người phải trốn trong sợ hãi đằng sau những bức tường đồng tâm khổng lồ. Điều khiến những người khổng lồ này thực sự đáng sợ là sở thích ăn thịt người của chúng không phải do đói mà do khoái cảm.",
     category: ["Phim bộ","Phim lẻ"],
     genres: ["Hành Động","Phiêu Lưu","Hoạt Hình","Giả Tưởng","Kinh Dị","Lịch Sử","Chính Kịch"],
@@ -1377,7 +1377,7 @@ window.MOVIE_DATA = [
   {
     id: "pokemonxyz",
     title: "POKEMON XYZ",
-    thumbnail: "https://m.media-amazon.com/images/M/MV5BOWU5MDI0NjMtMWRjMy00NjNmLWI1MjctYzRmMDQ2MDFmZTM1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    thumbnail: "https://image.tmdb.org/t/p/w500/cx06NhIZHD3naq3bpXpqKZx2J1A.jpg",
     description: "Satoshi đã có bảy huy hiệu trong tay, chỉ còn một huy hiệu nữa là có thể tham gia giải đấu Liên đoàn Kalos. Vì vậy, cậu ấy cùng những người bạn tiếp tục hành trình giành huy hiệu nhà thi đấu thứ tám. Nhóm bạn không hay biết rằng, họ sẽ bị cuốn vào một cuộc khủng hoảng chưa từng có, một ngọn lửa xanh lá khủng khiếp sẽ nhấn chìm toàn bộ Pokémon và con người đang sinh sống ở vùng Kalos.",
     category: ["Phim bộ","Hoạt hình"],
     genres: ["Hoạt hình","Phiêu lưu","Hành động"],
@@ -1442,7 +1442,7 @@ window.MOVIE_DATA = [
   {
     id: "conan",
     title: "Thám Tử Lừng Danh Conan Movie",
-    thumbnail: "https://image.tmdb.org/t/p/w500/atFAo8rJNQQwyhKSXGrYrbgslsx.jpg",
+    thumbnail: "https://image.tmdb.org/t/p/w500/5p6taLutGWiq2QhCswPWgBDcx9w.jpg",
     description: "Conan",
     category: ["Phim lẻ","Hoạt hình"],
     genres: ["Trinh thám","Hành động","Giật gân"],
@@ -1487,7 +1487,7 @@ window.MOVIE_DATA = [
   {
     id: "one-piece-live-action",
     title: "One Piece Live Action",
-    thumbnail: "https://image.tmdb.org/t/p/w500/uf3015BV7eHsjRhEWeRySHB6y5L.jpg",
+    thumbnail: "https://tvguru.ru/uploads/posts/2025-10/1761561654_68ff4c36c8850.jpg",
     description: "Với chiếc mũ rơm và nhóm bạn đủ thành phần, hải tặc trẻ Monkey D. Luffy có hành trình săn kho báu hoành tráng trong bản chuyển thể người đóng này của bộ manga nổi tiếng.",
     category: ["Phim bộ"],
     genres: ["Hành Động","Phiêu Lưu","Chính Kịch","Giả Tưởng"],
@@ -1531,7 +1531,7 @@ window.MOVIE_DATA = [
   {
     id: "tho-oi",
     title: "Thỏ Ơi",
-    thumbnail: "https://upload.wikimedia.org/wikipedia/vi/b/b3/Tho_oi_poster.jpg?_=20260206043045",
+    thumbnail: "https://photo-baomoi.bmcdn.me/w700_r1/2026_02_17_329_54505770/0686778605ceec90b5df.jpg",
     description: "Hải Linh là một nữ người dẫn chương trình nổi tiếng của talk show về tình yêu Chị bờ vai, gây thiện cảm với công chúng nhờ hình ảnh dịu dàng và những lời khuyên tỉnh táo dành cho các tâm hồn lạc lối. Trong chương trình, cô là biểu tượng của sự thấu hiểu và cân bằng trong các mối quan hệ, còn ngoài đời thì cô có một cuộc hôn nhân viên mãn với Thế Phong – một doanh nhân thành đạt, luôn thể hiện tình yêu và sự ủng hộ dành cho cô. Thế nhưng, biến cố bắt đầu ập đến khi Nhật Hạ xuất hiện với tư cách khách mời trong chương trình. Câu chuyện tình yêu đầy uẩn khúc, rối ren của Hạ với Trần Trung Kim không chỉ gây chấn động trường quay mà còn vô tình chạm đến những bí mật trong chính cuộc sống của Hải Linh. Từ một người quen đứng ở vị trí tư vấn, Hải Linh dần bị kéo vào vòng xoáy của sự thật, từ đây cô buộc phải đối diện với những sự thật ngỡ ngàng có thể làm lung lay mọi niềm tin mà cô từng nắm giữ.",
     category: ["Phim lẻ","Thành Cry"],
     genres: ["Drama","Giật gân","Lãng mạn"],
@@ -1549,7 +1549,7 @@ window.MOVIE_DATA = [
   {
     id: "your-name",
     title: "Your Name",
-    thumbnail: "https://m.media-amazon.com/images/M/MV5BMTIyNzFjNzItZmQ1MC00NzhjLThmMzYtZjRhN2Y3MmM2OGQyXkEyXkFqcGc@._V1_.jpg",
+    thumbnail: "https://p2.bahamut.com.tw/B/2KU/68/0001295068.JPG",
     description: "Nguyễn Văn Mười",
     category: ["Phim lẻ"],
     genres: ["Drama","Lãng mạn"],
@@ -1567,7 +1567,7 @@ window.MOVIE_DATA = [
   {
     id: "thanh-guom-diet-quy",
     title: "Thanh Gươm Diệt Quỷ",
-    thumbnail: "https://i0.wp.com/bloganchoi.com/wp-content/uploads/2023/08/review-thanh-guom-diet-quy-anime-full-1-2-3-3.jpg",
+    thumbnail: "https://image.tmdb.org/t/p/w500/b8KnKg4ozEeFTFolvAz1cePXfMO.jpg",
     description: "Cứu Em Gái",
     category: ["Phim bộ","Hoạt hình","Phim lẻ"],
     genres: ["Hành Động","Phiêu Lưu","Hoạt Hình","Giả Tưởng","Drama","chan bố mày đi"],
@@ -1679,7 +1679,7 @@ window.MOVIE_DATA = [
   {
     id: "gio-noi",
     title: "Gió Nổi",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/RyosyYVvQL2fYBPl7hCLL6XyMC.jpg",
+    thumbnail: "https://m.media-amazon.com/images/M/MV5BMTU4NDg0MzkzNV5BMl5BanBnXkFtZTgwODA3Mzc1MDE%40._V1_QL75_UX1620_.jpg",
     description: "Nhà làm phim hoạt hình Miyazaki Hayao dệt lên câu chuyện kéo dài nhiều thập kỉ lấy cảm hứng từ cuộc đời Horikoshi Jirô – cha đẻ của máy bay chiến đấu Zero ở Thế chiến II.",
     category: ["Phim lẻ"],
     genres: ["Hoạt Hình","Chính Kịch","Lịch Sử","Lãng Mạn","Chiến Tranh"],
@@ -1697,7 +1697,7 @@ window.MOVIE_DATA = [
   {
     id: "vung-dat-linh-hon",
     title: "Vùng Đất Linh Hồn",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/aXhGpSh9dLalC6OZtgPjJMm8QSR.jpg",
+    thumbnail: "https://7ganj.ir/img/2021/01/MV5BMjlmZmI5MDctNDE2YS00YWE0LWE5ZWItZDBhYWQ0NTcxNWRhXkEyXkFqcGdeQXVyMTMxODk2OTU%40._V1_-1320x1957.jpg",
     description: "Câu chuyện kể về cô bé bướng bỉnh Chihiro. Gia đình của Chihiro chuyển từ thành phố về quê sinh sống, và Chihiro chẳng thích thú tí nào với sự thay đổi này. Bố của Chihiro là một tay lái xe tệ hại và có một trí nhớ \"quá tồi\", ông đã lái xe lạc đường đến một thành phố bị bỏ hoang, không bóng người. Bị cuốn hút bởi mùi vị thơm ngon của thức ăn, bố mẹ của Chihiro bắt đầu \"thưởng thức\", nhưng kết quả họ bị biến thành những con heo mập. Còn thành phố không người kia, sau khi trời tối, tất cả sống dậy, những bóng ma bắt đầu xuất hiện và hoạt động. Cô bé bướng bỉnh phải làm gì để cứu bố mẹ mình và thoát khỏi đây?",
     category: ["Phim lẻ"],
     genres: ["Hoạt Hình","Gia Đình"],
@@ -1715,7 +1715,7 @@ window.MOVIE_DATA = [
   {
     id: "hang-xom-cua-toi-la-totoro",
     title: "Hàng Xóm Của Tôi Là Totoro",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/ykeaF3Ldz1Kf6sfnOJJH4dW56F4.jpg",
+    thumbnail: "https://image.tmdb.org/t/p/w500/sHKb1IKjbKibkAYXGUgwmE2eTYu.jpg",
     description: "Những ngày cùng cha nghỉ hè tại miền quê thuộc đất nước Nhật Bản, hai chị em bé nhỏ đã kết bạn với những sinh vật huyền bí sống trong khu rừng gần đó.",
     category: ["Phim lẻ"],
     genres: ["Hoạt Hình","Gia Đình","Giả Tưởng"],
@@ -1733,7 +1733,7 @@ window.MOVIE_DATA = [
   {
     id: "song-dai-duong",
     title: "Sóng Đại Dương",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/90cJV1vLKtjXZyhtBwx3VnwaOcd.jpg",
+    thumbnail: "https://image.tmdb.org/t/p/w500/o24y4jJVA10iugecOnXG2AFNsIn.jpg",
     description: "Là một phim nói về tình cảm lứa tuổi học trò, 72 phút của Ocean Waves trôi qua một cách lặng lẽ, để lại nhiều cảm xúc, làm cho người xem hồi tưởng lại một thời cắp sách đến trường, một tình yêu chớm nở nhưng lại giữ kín trong tim, để rồi bất giác một lúc nào đó, ta lại nhớ đến một bóng hình...",
     category: ["Phim lẻ"],
     genres: ["Hoạt Hình","Chính Kịch","Lãng Mạn"],
@@ -1751,7 +1751,7 @@ window.MOVIE_DATA = [
   {
     id: "the-gioi-bi-mat-cua-arrietty",
     title: "Thế Giới Bí Mật Của Arrietty",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/lSbCP68azahDzcfl8sm1VBxZqX.jpg",
+    thumbnail: "https://m.media-amazon.com/images/M/MV5BZjJhZTYyNWMtZjExNy00ZmRiLWJiNGMtNTM4MjQ5MDkzNDc4XkEyXkFqcGc%40._V1_FMjpg_UX1000_.jpg",
     description: "Khi \"người vay mượn\" nhỏ bé tên Arrietty kết bạn với cậu nhóc to lớn hơn cô gấp nhiều lần, cô cũng phải bảo vệ gia đình mình trước những người khổng lồ cao chót vót.",
     category: ["Phim lẻ"],
     genres: ["Hoạt Hình","Gia Đình"],
@@ -1769,7 +1769,7 @@ window.MOVIE_DATA = [
   {
     id: "loai-meo-tra-on",
     title: "Loài Mèo Trả Ơn",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/9ripXZmaPueob1qVgqJz4HWIGlm.jpg",
+    thumbnail: "https://m.media-amazon.com/images/M/MV5BYThhZDdiMjItYzRkNy00OTE3LTk5ZDEtMzUwNzE1ZmJkMTYzXkEyXkFqcGdeQXVyMTMxODk2OTU%40._V1_.jpg",
     description: "Haru, một nữ sinh buồn chán với thói quen bình thường của mình, đã cứu mạng một con mèo khác thường và đột nhiên thế giới của cô bị biến đổi ngoài những gì cô từng tưởng tượng. Vua Mèo thưởng cho hành động tốt của cô bằng một loạt quà, trong đó có một màn cầu hôn vô cùng sốc với con trai mình! Haru bắt đầu một cuộc hành trình bất ngờ đến Vương quốc Mèo, nơi đôi mắt của cô được mở ra với một thế giới hoàn toàn khác.",
     category: ["Phim lẻ"],
     genres: ["Phiêu Lưu","Hoạt Hình","Chính Kịch","Gia Đình"],
@@ -1787,7 +1787,7 @@ window.MOVIE_DATA = [
   {
     id: "loi-thi-tham-cua-trai-tim",
     title: "Lời Thì Thầm Của Trái Tim",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/eN2Re2uBcBk815WnJFIvCbIqDtY.jpg",
+    thumbnail: "https://cdn.posteritati.com/posters/000/000/054/134/whisper-of-the-heart-md-web.jpg",
     description: "Phát hiện mọi cuốn sách cô mượn từ thư viện đều được mượn bởi cùng một người trước đó, nữ sinh Shizuku tìm cách gặp cậu bạn ấy và theo đuổi giấc mơ của mình.",
     category: ["Phim lẻ"],
     genres: ["Hoạt Hình","Chính Kịch","Gia Đình"],
@@ -1805,7 +1805,7 @@ window.MOVIE_DATA = [
   {
     id: "marnie-trong-ky-uc",
     title: "Marnie Trong Ký Ức",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/vRk9U3z9JjjvBRk08VGoOgtGhnR.jpg",
+    thumbnail: "https://www.cinemacafe.net/imgs/ogp_f/343954.jpg",
     description: "Phải nghỉ hè tại thị trấn ven biển buồn tẻ, cô bé ốm yếu Anna kết bạn với bé gái tò mò sống trong căn biệt thự hiu quạnh. Nhưng tình bạn ấy có phải là thật?",
     category: ["Phim lẻ"],
     genres: ["Hoạt Hình","Chính Kịch","Gia Đình","Bí Ẩn"],
@@ -1823,7 +1823,7 @@ window.MOVIE_DATA = [
   {
     id: "huyen-thoai-dat-lien-va-dai-duong",
     title: "Huyền Thoại Đất Liền Và Đại Dương",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/ggqKQeBX4N2p67KA4XxqaswSFrV.jpg",
+    thumbnail: "https://m.media-amazon.com/images/M/MV5BMTExODA0NzkxOTZeQTJeQWpwZ15BbWU3MDM0NDEyNzM%40._V1_QL75_UX1640_.jpg",
     description: "Thế giới dần suy tàn, Đại pháp sư đưa vị hoàng tử mang trong lòng nhiều trăn trở và cả ác tâm lên đường tìm kiếm ngọn nguồn cái ác, cứu lấy những người con gái họ yêu.",
     category: ["Phim lẻ"],
     genres: ["Phiêu Lưu","Hoạt Hình"],
@@ -1841,7 +1841,7 @@ window.MOVIE_DATA = [
   {
     id: "lau-dai-di-dong-cua-howl",
     title: "Lâu Đài Di Động Của Howl",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/xNIz1UpNUywSjecaPsJHJG6Ilb3.jpg",
+    thumbnail: "https://contents.oricon.co.jp/upimg/news/2344000/2343811/20240907_090605_p_o_65138829.jpg",
     description: "Sophie vốn dĩ làm việc tại cửa hàng mũ do người cha quá cố để lại. Cuộc sống nơi thị trấn buồn tẻ cứ thế trôi qua trong lặng lẽ... cho đến ngày cô bỗng biến thành bà lão.",
     category: ["Phim lẻ"],
     genres: ["Phiêu Lưu","Hoạt Hình","Giả Tưởng"],
@@ -1859,7 +1859,7 @@ window.MOVIE_DATA = [
   {
     id: "co-be-nguoi-ca-ponyo",
     title: "Cô Bé Người Cá Ponyo",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/9Qn1PNKl23gc8XMdJD0sVjGvf9H.jpg",
+    thumbnail: "https://ogre.natalie.mu/media/news/eiga/2018/1213/ponyo_20181213_01.jpg?imwidth=750",
     description: "Cậu bé năm tuổi Sosuke làm bạn với Ponyo – cô công chúa cá vàng tha thiết muốn trở thành con người.",
     category: ["Phim lẻ"],
     genres: ["Hoạt Hình","Gia Đình"],
@@ -1877,7 +1877,7 @@ window.MOVIE_DATA = [
   {
     id: "dich-vu-giao-hang-kiki",
     title: "Dịch Vụ Giao Hàng Kiki",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/rlNKTz07MtYlIJY6zKaQedRN8HF.jpg",
+    thumbnail: "https://gfx.videobuster.de/archive/v/ciMxjdU7gxFegE7jrwCmoYwcz0lMkawqiUyRjA3JTJGaW1hmSUyRmpwZWclMkb0MGNkr-PRY-piOGZm82U1YmNiYjGVx2IuanBnJnI9aKYwMA/kikis-kleiner-lieferservice-poster.jpg",
     description: "Bộ phim bắt đầu ngay thời điểm Kiki - một cô bé phù thuỷ thực tập - đủ tuổi để rời gia đình và đến một nơi khác, nơi cô phải sống một mình trong vòng một năm để cô có thể trở thành một phù thủy thực thụ. Kiki khởi hành vào buổi tối cùng với sự cổ vũ của mọi người, sử dụng chiếc chổi của mẹ cô, và mang theo chú mèo Jiji cùng một số thứ cần thiết. Kiki chọn thành phố Koriko, một nơi mà cô có thể nhìn thấy biển, một thành phố có chiếc tháp đồng hồ cổ kính. Nhưng với một cô bé 13 tuổi cùng với chiếc chổi bay khắp thành phố thì khó mà có thể tìm được một chỗ để trú thân. Nhờ một lần vô tình giúp đỡ bà chủ tiệm bánh, Kiki đã bắt đầu công việc chuyển phát bằng chiếc chổi bay của mình.",
     category: ["Phim lẻ"],
     genres: ["Hoạt Hình","Gia Đình"],
@@ -1895,7 +1895,7 @@ window.MOVIE_DATA = [
   {
     id: "chi-con-ngay-hom-qua",
     title: "Chỉ Còn Ngày Hôm Qua",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/8L1QJ4iBORbyrb5fOQerhRdQyC8.jpg",
+    thumbnail: "https://image.tmdb.org/t/p/w500/z6YArsrNOlzM1SKnN8oYzECUqiJ.jpg",
     description: "Từ trái dứa đến tình đầu: đó chính là câu chuyện ngày ấy bây giờ của cô gái 27 tuổi tại Tokyo. Khi cô rời thành phố cũng là lúc cô bước vào miền ký ức xa xôi.",
     category: ["Phim lẻ"],
     genres: ["Hoạt Hình","Chính Kịch","Lãng Mạn"],
@@ -1913,7 +1913,7 @@ window.MOVIE_DATA = [
   {
     id: "nausicaa-cong-chua-cua-thung-lung-gio",
     title: "Nausicaa - Công Chúa Của Thung Lũng Gió",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/207G6eTblcmvQBcfnoNkZffjqtR.jpg",
+    thumbnail: "https://m.media-amazon.com/images/M/MV5BZTI3NmJmYTQtNDg4NS00M2VlLTgzZDAtZWIwZDcyOWY5YzIzXkEyXkFqcGdeQXVyMTMxODk2OTU%40._V1_FMjpg_UX1000_.jpg",
     description: "Khi tài nguyên thiên nhiên của hành tinh bị hủy hoại, công chúa chiến binh Nausicaa tập hợp thần dân của mình chống lại đội quân hung tàn của nữ hoàng độc ác.",
     category: ["Phim lẻ"],
     genres: ["Phiêu Lưu","Hoạt Hình","Giả Tưởng"],
@@ -1931,7 +1931,7 @@ window.MOVIE_DATA = [
   {
     id: "cong-chua-mononoke",
     title: "Công Chúa Mononoke",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/cDuKyP0SqubYo7hTVMN5wihjjJG.jpg",
+    thumbnail: "https://playhousecinema.ca/files/princesscinemas/imagecache/u7-movie-poster3/movie-posters/princess_mononoke__alternative_movie_poster_by_marioredsigns-d9xm2lk.jpg",
     description: "Bị trúng lời nguyền chết chóc, vị hoàng tử lên đường tìm cách hóa giải, để rồi rơi vào cuộc chiến giữa một thị trấn khai thác mỏ và các loài động vật trong rừng.",
     category: ["Phim lẻ"],
     genres: ["Phiêu Lưu","Hoạt Hình","Giả Tưởng"],
@@ -1949,7 +1949,7 @@ window.MOVIE_DATA = [
   {
     id: "ngon-doi-hoa-hong-anh",
     title: "Ngọn Đồi Hoa Hồng Anh",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/7GMpBtYUJhRTye6rKBNVyffm6L5.jpg",
+    thumbnail: "https://image.tmdb.org/t/p/w500/pLPvpMwD4fkLs3mki87NxTP1Yjc.jpg",
     description: "Bộ phim lấy bối cảnh Nhật Bản những năm 1960, nói về một cô gái tên Matsuzaki Umi sống cùng với gia đình trên đỉnh một ngọn đồi ở sát biển, cây Ngu Mỹ Nhân mọc rất nhiều trên ngọn đồi này và hằng ngày cô thường kéo cờ hiệu trong sân nhà vốn là đỉnh của ngọn đồi đó, cha của cô đã mất tích trong chiến tranh và những lá cờ hiệu cô kéo lên hằng ngày là dấu hiệu để nếu cha cô trở về từ biển có thể nhận ra nhà của mình. Cô đã gặp một nam sinh cùng học trong ngôi trường trung học với mình người muốn giữ và sửa chữa lại ngôi trường cũ thay vì phá bỏ và xây ngôi trường mới. Cô cũng có tình cảm với anh ta nhưng sau đó họ đã phát hiện ra 2 người có chung huyết thống..",
     category: ["Phim lẻ"],
     genres: ["Hoạt Hình","Chính Kịch"],
@@ -1967,7 +1967,7 @@ window.MOVIE_DATA = [
   {
     id: "laputa-lau-dai-tren-khong",
     title: "Laputa: Lâu Đài Trên Không",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/xDse6WI1npXK9XUn3gOHSu4SFp3.jpg",
+    thumbnail: "https://m.media-amazon.com/images/M/MV5BNDFhZmY2NTgtMzljYy00MTlhLTgyMjItNTEwZWJkYThhYzkyXkEyXkFqcGdeQXVyNTgyNTA4MjM%40._V1_FMjpg_UX1000_.jpg",
     description: "Bộ phim hoạt hình phiêu lưu cho trẻ em kể về cậu bé thợ mỏ và cô bé bí ẩn. Hai em khao khát tìm kiếm hòn đảo mất tích đã lâu mà mọi người đồn rằng có rất nhiều của cải.",
     category: ["Phim lẻ"],
     genres: ["Hành Động","Phiêu Lưu","Hoạt Hình","Gia Đình"],
@@ -1985,7 +1985,7 @@ window.MOVIE_DATA = [
   {
     id: "gia-dinh-diep-vien",
     title: "Gia Đình Điệp Viên",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/3489.jpg",
+    thumbnail: "https://animeuknews.net/app/uploads/2022/04/Spy-x-family-anime-scaled.jpg",
     description: "Các chính trị gia tham nhũng, những người theo chủ nghĩa dân tộc điên cuồng và các thế lực hiếu chiến khác liên tục gây nguy hiểm cho lớp vỏ hòa bình mỏng manh giữa các quốc gia láng giềng Ostania và Westalis.",
     category: ["Phim bộ","Phim lẻ"],
     genres: ["Hoạt Hình","Phim Hài","Gia Đình","Hành Động"],
@@ -2055,7 +2055,7 @@ window.MOVIE_DATA = [
   {
     id: "bo-gia-2021",
     title: "Bố Già (2021)",
-    thumbnail: "https://phim.nguonc.com/public/images/Film/WoFe2UXDzLAZAk6aFxcOkBXyfT.jpg",
+    thumbnail: "https://media.vov.vn/sites/default/files/styles/large/public/2020-12/bo_gia_teaser_1_.jpg",
     description: "Trong phim, Trấn Thành vào vai ông Tư – một tài xế xe ôm quần quật làm việc qua ngày để chăm lo cho gia đình của mình. Mặc dù khá bảo thủ, nóng nảy, thường xuyên quát tháo nhưng thực chất ông Tư lại là một người rất giàu lòng yêu thương – không chỉ với người thân mà còn có hàng xóm, bạn bè xung quanh và thậm chí là cả những người xa lạ.",
     category: ["Phim lẻ"],
     genres: ["Phim Hài","Chính Kịch","Gia Đình"],
@@ -2073,7 +2073,7 @@ window.MOVIE_DATA = [
   {
     id: "doraemon-movie",
     title: "Doraemon Movie",
-    thumbnail: "https://m.media-amazon.com/images/M/MV5BNTRjMDA5ZTQtNWVkMy00OTAwLWI2NmMtYjQxYWM4MTIxYWFhXkEyXkFqcGc@._V1_.jpg",
+    thumbnail: "https://vignette.wikia.nocookie.net/doraemon/images/3/3d/1980.jpg/revision/latest?cb=20170901062806&path-prefix=en",
     description: "Doraemon",
     category: ["Phim lẻ","Hoạt hình"],
     genres: ["Khoa học viễn tưởng giả tưởng","Phiêu lưu","Hài hước"],
